@@ -1,5 +1,8 @@
-<!-- <link href="style/cart.css" rel="stylesheet" /> -->
 @extends('front.layouts.default')
+
+@section('custom-head')
+<link href="{{ URL::asset('css/front/cart.css'); }}" rel="stylesheet" />
+@stop
 
 @section('content')
 
@@ -18,27 +21,27 @@
                     <div class="col-2">
                         <!-- Image -->
                         <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                            <asp:LinkButton CssClass="w-100" runat="server"
-                                PostBackUrl="~/view/front/product_details.aspx"><img src="res/featprod3.png">
-                            </asp:LinkButton>
+                            <a class="w-100" href="{{ url('front/product/') }}">
+                                <img src="{{ URL::asset('img/featprod3.png'); }}">
+                            </a>
                         </div>
                     </div>
 
                     <div class="col-3">
                         <!-- Data -->
                         <p>
-                            <asp:LinkButton CssClass="link-secondary text-decoration-none" runat="server"
-                                PostBackUrl="~/view/front/product_details.aspx"><strong>Razor Keyboard</strong>
-                            </asp:LinkButton>
+                            <a class="link-secondary text-decoration-none" href="{{ url('front/product/') }}">
+                                <strong>Razor Keyboard</strong>
+                            </a>
                         </p>
                     </div>
 
                     <div class="col-3">
                         <!-- Quantity -->
-                        <div class="d-flex mb-4" style="max-width: 300px">
-                            <div class="form-outline d-flex justify-content-center">
-                                <asp:TextBox TextMode="Number" min="0" max="50" Text="1"
-                                    CssClass="form-control w-50 text-center" runat="server"></asp:TextBox>
+                        <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
+                            <div class="form-outline d-flex ">
+                                <input type="number" size="50" min="1" max="50" value="1"
+                                    class="form-control w-100 text-center">
                             </div>
                         </div>
                     </div>
@@ -48,10 +51,12 @@
                         <p class="text-end pe-3 w-75">
                             <strong>RM 17.90</strong>
                         </p>
-                        <asp:LinkButton runat="server" CssClass="btn h-25" title="Remove item" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
-                  <path
-                    d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z' />
-                </svg>"></asp:LinkButton>
+                        <a class="btn h-25" title="Remove item">
+                            <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
+                                <path
+                                    d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z' />
+                            </svg>
+                        </a>
                     </div>
                 </div>
 
@@ -133,9 +138,7 @@
                     </li>
                 </ul>
 
-                <asp:LinkButton runat="server" Text="Checkout" CssClass="btn shadow w-100 btn-primary btn-block"
-                    PostBackUrl="~/view/front/checkout.aspx">
-                </asp:LinkButton>
+                <input type="button" class="btn shadow w-100 btn-primary btn-block" value="Checkout" id="checkout">
 
             </div>
         </div>

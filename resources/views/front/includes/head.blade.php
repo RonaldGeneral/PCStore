@@ -10,6 +10,5 @@
     rel="stylesheet" type="text/css" media="all">
 
 <link href="{{ URL::asset('css/front/front-theme.css'); }}" rel="stylesheet" />
-<link href="{{ URL::asset('css/front/cart.css'); }}" rel="stylesheet" />
 <script src="{{ URL::asset('external/popper.min.css'); }}"></script>
 <script src="{{ URL::asset('external/bootstrap.min.js'); }}" type="text/javascript"></script>
