@@ -1,0 +1,21 @@
+.filter {
+    background-color: #c3ddf8 !important;
+    font-size: 0.8rem;
+}
+
+.sort{
+    background-color: rgb(221, 221, 221);
+}
+
+.productbutton{
+    background-color: #efe346;
+}
+
+.productbutton:hover{
+    background-color: rgb(222 192 42);
+    color: #706c6c;
+}
+
+a{
+    text-decoration: none;
+}

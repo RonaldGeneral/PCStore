@@ -1,0 +1,76 @@
+#paymentBox{
+    background-color: rgba(46, 161, 255, 0.436);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    height: 750px;
+}
+.placeholder {
+    position: absolute;
+    top: 50%;
+    left: 15px; 
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+    z-index: 1; 
+}
+.contactInfo, .addressInfo{
+    padding: 10px;  
+    background-color: #fff; 
+    float: left;
+    width: 350px;
+    height: 450px;
+    margin-top: 10px;
+}
+.paymentOption {
+    width: 350px;
+    height: 70px;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+}
+.paymentOption img {
+    width: 50px;
+    height: 40px;
+    border: 2px solid transparent;
+}
+.paymentOption label {
+    margin-right: auto; 
+}
+.paymentOption input[type="checkbox"] {
+    order: 1; 
+    margin-left: 10px; 
+    width: 16px;
+    height: 16px;;
+}
+.paymentOption label {
+    margin-left: 10px;
+}
+.inputBoxPayment {
+    position: relative;
+    display: flex;
+}
+.orderSummary{
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+}
+table {
+    margin: 20px;
+    border-collapse: collapse;
+    width: 300px;
+}
+th, td {
+    padding: 8px; 
+    text-align: left;
+}
+.black-line {
+    border-bottom: 2px solid black; 
+}

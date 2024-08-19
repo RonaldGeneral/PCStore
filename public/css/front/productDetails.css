@@ -1,0 +1,26 @@
+.buybutton{
+    background-color: #efe346;
+}
+
+.buybutton:hover{
+    background-color: rgb(222 192 42);
+    color: #706c6c;
+}
+
+.addtocartbutton{
+    background-color: #efe346;
+}
+
+.addtocartbutton:hover{
+    background-color: rgb(222 192 42);
+    color: #706c6c;
+}
+
+.addquantity{
+    background-color: #c3ddf8 !important;
+}
+
+.font{
+    font-size: 14px;
+}
+

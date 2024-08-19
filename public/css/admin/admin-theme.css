@@ -1,0 +1,299 @@
+
+:root {
+    --yellow: #f0ce16;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: rgb(73, 80, 87);
+    font-size: 12px;
+    line-height: 20px;
+    width: 100%;
+    margin: 0;
+    background-color: #f3f3f3;
+}
+
+
+.app-header { background-color: white; height: 60px; display: flex; align-items: center; align-content: center; position: relative; z-index: 10; transition: all 0.2s ease 0s; }
+.app-header.header-shadow { z-index: 10; box-shadow: rgba(4, 9, 20, 0.03) 0px 0.46875rem 2.1875rem, rgba(4, 9, 20, 0.03) 0px 0.9375rem 1.40625rem, rgba(4, 9, 20, 0.05) 0px 0.25rem 0.53125rem, rgba(4, 9, 20, 0.03) 0px 0.125rem 0.1875rem; }
+
+.app-header .person-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.icon {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.toggle-menu {
+    margin-left: 15px;
+}
+
+.header-account {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.account-text {
+    margin-left: 2cqmin;
+}
+
+.account-name {
+    opacity: 0.8;
+    font-weight: 700;
+}
+
+.account-pos {
+    opacity: 0.5;
+    font-size: 0.8rem;
+}
+
+.logout {
+    margin: 0 30px;
+}
+
+/* The side navigation menu */
+
+.sidenav {
+    background-color: #292d32;
+    opacity: 80%;
+    margin-top: 60px;
+    height: 100%; /* 100% Full-height */
+    width: 80px; 
+    position: fixed; /* Stay in place */
+    top: 0; /* Stay at the top */
+    left: 0;
+    z-index: 1;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    transition: 0.5s;
+    white-space: nowrap;
+    transition: margin-top .2s;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: 0.3s;
+    color: #8391a2;
+  }
+
+  svg, .sidenav svg {
+    fill: #8391a2;
+  }
+
+  .sidenav svg:hover {
+    fill: var(--yellow);
+  }
+
+  .sidenav a:hover svg {
+    fill: var(--yellow);
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: var(--yellow);
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+.menu-label {
+    visibility: hidden;
+    display: block;
+    float: right;
+    text-align: left;
+    padding-top: 10px;
+    font-size: 0px;
+    transition: font-size .5s;
+}
+  
+.content-block {
+    background-color: white;
+    padding: 20px;
+}
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    margin-left: 80px;
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .show-nav {
+    width: 13%;
+  }
+  .show-nav .menu-label { visibility: visible; font-size: 14px;}
+  .nav-content {
+    margin-left: 15% !important; 
+  }
+  
+
+/* Generic */
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #5a5a5a;
+    line-height: 1;
+}
+
+.fa {
+    font-size: 14px;
+}
+
+table {
+    font-size: 13px;
+}
+
+a {
+    color: #7b7b7b;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.fs-09 {
+    font-size: 0.9rem !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--yellow);
+}
+
+.svg-white, .svg-white svg {
+    fill: white;
+}
+
+.svg-yellow, .svg-yellow svg{
+    fill: rgb(255, 195, 90);
+}
+
+.svg-red, .svg-red svg{
+    fill: #dc3545 !important;
+}
+
+.text-white {
+    fill:white;
+}
+
+.page-path {
+    font-size: 18px;
+    margin: 0;
+    line-height: 75px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.card-header:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.card-header, .card-footer {
+    border-color: #d9dee3;
+}
+.card-header {
+    padding: 1.5rem 1.5rem;
+    margin-bottom: 0;
+    background-color: transparent;
+    border-bottom: 0 solid #d9dee3;
+}
+
+.person-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.text-primary tr td{
+    color: rgb(108, 117, 125);
+}
+
+.font-16 {
+    font-size: 16px;
+}
+
+.d-flex-gap{
+    gap:20px;
+  }
+
+/*Horizontal steps*/
+.steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.step-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: lightgray;
+    transition: .4s;
+}
+.step-button[aria-expanded="true"] {
+    width: 60px;
+    height: 60px;
+    background-color: #5122d1;
+    color: #fff;
+}
+.done {
+    background-color: #5122d1;
+    color: #fff;
+}
+.step-item {
+    z-index: 10;
+    text-align: center;
+}
+#progress {
+  -webkit-appearance:none;
+    position: absolute;
+    width: 95%;
+    z-index: 5;
+    height: 10px;
+    margin-left: 18px;
+    margin-bottom: 18px;
+}
+/* to customize progress bar */
+#progress::-webkit-progress-value {
+    background-color: #5122d1;
+    transition: .5s ease;
+}
+#progress::-webkit-progress-bar {
+    background-color: gray;
+
+}
+
