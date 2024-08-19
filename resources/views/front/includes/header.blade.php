@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-sms-12">
-                <a href="home.php">
+                <a href="{{ url("/front/");}}">
 
                     <div id="logo">
-                        <img src="res/terrabyte.png" alt="TerraByte" itemprop="logo" class="img-responsive" />
+                        <img src="{{ URL::asset('img/terrabyte.png'); }}" alt="TerraByte" itemprop="logo" class="img-responsive" />
                     </div>
                 </a>
 
@@ -14,17 +14,14 @@
                 <!--Search Form-->
                 <div id="search-by-category" class="ms-3">
                     <div class="search-container d-flex">
-                        <asp:TextBox ID="textSearch" CssClass="col form-control border-0 p-2 ps-3 br-50"
-                            placeholder="Search entire store here ..." runat="server"></asp:TextBox>
+                        <input id="textSearch" class="col form-control border-0 p-2 ps-3 br-50" placeholder="Search entire store here ..." />
                         <div id="sp-btn-search" class="col-1">
-                            <asp:LinkButton runat="server" ID="btnSearch"
-                                CssClass="btn btn-primary btn-lg br-50"
-                                PostBackUrl="~/view/front/productcatalog.aspx"></asp:LinkButton>
+                            <button id="btnSearch" class="btn btn-primary btn-lg br-50"></button>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex d-flex-gap justify-content-end">
-                    <a href="cart.aspx">
+                    <a href="{{ url("/front/cart");}}">
                         <div id="cart" class="my-3">
                             <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
                                 width="30">
@@ -34,7 +31,7 @@
                         </div>
                     </a>
 
-                    <a href="profile.aspx">
+                    <a href="{{ url("/front/profile");}}">
                         <div id="account" class="my-3">
                             <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960"
                                 width="30">
@@ -55,13 +52,13 @@
             <div class="col-12">
                 <ul class="nav d-flex justify-content-between">
                     <li class="nav-item col text-center"><a runat="server"
-                            href="~/view/front/home.aspx">Home</a></li>
+                            href="{{ url("/front/");}}">Home</a></li>
                     <li class="nav-item col text-center"><a runat="server"
-                            href="~/view/front/productcatalog.aspx">Shop</a></li>
+                            href="{{ url("/front/shop");}}">Shop</a></li>
                     <li class="nav-item col text-center"><a runat="server"
-                            href="~/view/front/supportPage.aspx">Support</a></li>
+                            href="{{ url("/front/support");}}">Support</a></li>
                     <li class="nav-item col text-center"><a runat="server"
-                            href="~/view/front/contactUs.aspx">Contact us</a></li>
+                            href="{{ url("/front/contact");}}">Contact us</a></li>
                 </ul>
             </div>
         </div>
