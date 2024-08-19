@@ -3,7 +3,6 @@
     padding: 20px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    height: 750px;
 }
 .placeholder {
     position: absolute;
@@ -20,7 +19,6 @@
     background-color: #fff; 
     float: left;
     width: 350px;
-    height: 450px;
     margin-top: 10px;
 }
 .paymentOption {
