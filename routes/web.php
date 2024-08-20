@@ -11,3 +11,4 @@ Route::view('/front', 'front/pages/cart');
 Route::view('/front/cart', 'front/pages/cart');
 Route::view('/front/checkout', 'front/pages/checkout');
 Route::view('/front/contact', 'front/pages/contact');
+Route::view('/front/product-details', 'front/pages/product-details');
