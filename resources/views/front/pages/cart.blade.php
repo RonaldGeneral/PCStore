@@ -1,7 +1,7 @@
 @extends('front.layouts.default')
 
 @section('custom-head')
-<link href="{{ URL::asset('css/front/cart.css'); }}" rel="stylesheet" />
+<link href="{{ URL::asset('css/front/cart.css') }}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
                         <!-- Image -->
                         <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
                             <a class="w-100" href="{{ url('front/product/') }}">
-                                <img src="{{ URL::asset('img/featprod3.png'); }}">
+                                <img src="{{ URL::asset('img/featprod3.png') }}">
                             </a>
                         </div>
                     </div>
