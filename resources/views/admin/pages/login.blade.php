@@ -38,7 +38,7 @@
               
             </div>
   
-              <a id="ButtonLogin" Text="Login" class="btn btn-primary btn-lg px-5 shadow-sm" href="~/view/admin/customer-page.blade.php" /> 
+              <a id="ButtonLogin" Text="Login" class="btn btn-primary btn-lg px-5 shadow-sm" href="~/view/admin/customer-page.blade.php"></a> 
   
           </div> 
         </div>

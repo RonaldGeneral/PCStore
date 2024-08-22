@@ -8,8 +8,11 @@
             <div class="page-path">
 
 
-            <a class="btn btn-primary me-2" href="~/views/admin/customer-page.blade.php" text="<svg class='mb-2 me-2' xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z'/></svg>
-Customer Details">
+            <a class="btn btn-primary me-2" href="~/views/admin/customer-page.blade.php">
+                <svg class="mb-2 me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                </svg>
+                Customer Details
+            </a>
             
             
         
@@ -193,7 +196,7 @@ stop
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
                         changes</button>
-                    <button runat="server" Text="Save" class="btn btn-primary fs-09"></button>
+                    <button type="button" Text="Save" class="btn btn-primary fs-09"></button>
                 </div>
             </div>
         </div>
@@ -232,7 +235,7 @@ stop
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
                         changes</button>
-                    <button runat="server" Text="Save" CssClass="btn btn-primary fs-09"></button>
+                    <button type="button" Text="Save" CssClass="btn btn-primary fs-09"></button>
                 </div>
             </div>
         </div>
