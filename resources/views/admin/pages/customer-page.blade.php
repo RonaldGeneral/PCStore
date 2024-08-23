@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="text-sm-end">
-                        <input type="text" placeholder="Search..." class="form-control dropdown-toggle fs-09" runat="server">
+                        <input type="text" placeholder="Search..." class="form-control dropdown-toggle fs-09">
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <select runat="server" id="ddlStatus" class="form-select fs-09">
+                                <select id="ddlStatus" class="form-select fs-09">
                                     <option Selected="True" Value="1">Active</option>
                                     <option Value="2">Blocked</option>
                                 </select>
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                     <div class="mb-3 form-floating">
-                        <select runat="server" id="ddlGender" CssClass="form-select fs-09">
+                        <select id="ddlGender" CssClass="form-select fs-09">
                             <option Selected="True" Value="m">Male</option>
                             <option Value="f">Female</option>
                         </select>
@@ -280,7 +280,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
                         changes</button>
-                    <asp:Button runat="server" Text="Save" CssClass="btn btn-primary fs-09"></asp:Button>
+                    <button type="button" Text="Save" CssClass="btn btn-primary fs-09"></button>
                 </div>
             </div>
         </div>
