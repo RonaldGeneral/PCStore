@@ -16,3 +16,7 @@ Route::view('/front/home', 'front/pages/home');
 Route::view('/front/login', 'front/pages/login');
 Route::view('/front/profile', 'front/pages/profile');
 Route::view('/front/signup', 'front/pages/signup');
+Route::view('/front/deliveryStatus', 'front/pages/deliveryStatus');
+Route::view('/front/forgotPassword', 'front/pages/forgotPassword');
+Route::view('/front/newPassword', 'front/pages/newPassword');
+Route::view('/front/orderHistory', 'front/pages/orderHistory');

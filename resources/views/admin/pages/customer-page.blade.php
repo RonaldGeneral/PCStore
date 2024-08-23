@@ -1,7 +1,7 @@
 @extends('admin.layouts.default')
 
 @section('custom-admin-head')
-<link href="{{ URL::asset('css/admin/admin-theme.css'); }}" rel="stylesheet" />
+<link href="{{ URL::asset('css/admin/admin-theme.css') }}" rel="stylesheet" />
 @stop
 
 @section('content')
