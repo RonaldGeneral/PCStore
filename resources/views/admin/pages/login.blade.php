@@ -38,7 +38,7 @@
               
             </div>
   
-              <a id="ButtonLogin" Text="Login" class="btn btn-primary btn-lg px-5 shadow-sm" href="{{ URL::asset('~/view/admin/customer-page.blade.php') }}"></a> 
+              <a id="ButtonLogin" class="btn btn-primary btn-lg px-5 shadow-sm" href="{{ URL::asset('~/view/admin/customer-page.blade.php') }}">Login</a> 
   
           </div> 
         </div>
