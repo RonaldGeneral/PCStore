@@ -26,7 +26,7 @@
          <div class="card-body p-3">
 
              <div class="d-flex">
-                 <img alt="profile-image" src="res/man1.jpg" class="m-2 person-icon shadow-xl">
+                 <img alt="profile-image" src="{{ URL::asset('res/man1.jpg') }}" class="m-2 person-icon shadow-xl">
                  <div class="py-3 mx-3">
                      <p class="h4 text-dark">Alex Thompson</p>
                      <p class="my-1 h6 text-secondary">CEO / Founder</p>

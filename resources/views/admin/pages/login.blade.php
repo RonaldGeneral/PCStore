@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title> Admin Store </title>
-    <link href="external/bootstrap.min.css" rel="stylesheet" />
-    <script src="external/popper.min.js"></script>
-    <script src="external/bootstrap.min.js" type="text/javascript"></script>
-    <link href="style/login.css" rel="stylesheet" />
+    <link href="{{ URL::asset('external/bootstrap.min.css') }}" rel="stylesheet" />
+    <script src="{{ URL::asset('external/popper.min.js') }}"></script>
+    <script src="{{ URL::asset('external/bootstrap.min.js') }}" type="text/javascript"></script>
+    <link href="{{ URL::asset('style/login.css') }}" rel="stylesheet" />
 </head>
 <body>
     <form id="form1">
@@ -21,7 +21,7 @@
   
             <div id="logo" class="mb-3">
               <a href="/" itemprop="url">
-                <img src="res/terrabyte.png" itemprop="logo" class="w-100" />
+                <img src="{{ URL::asset('res/terrabyte.png') }}" itemprop="logo" class="w-100" />
               </a>
             </div>
 
@@ -38,7 +38,7 @@
               
             </div>
   
-              <a id="ButtonLogin" Text="Login" class="btn btn-primary btn-lg px-5 shadow-sm" href="~/view/admin/customer-page.blade.php"></a> 
+              <a id="ButtonLogin" Text="Login" class="btn btn-primary btn-lg px-5 shadow-sm" href="{{ URL::asset('~/view/admin/customer-page.blade.php') }}"></a> 
   
           </div> 
         </div>

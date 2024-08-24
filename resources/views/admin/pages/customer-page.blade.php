@@ -10,7 +10,7 @@
 
             <div class="row m-4">
                 <div class="col-sm-9">
-                    <a href="javascript:void(0);" class="btn btn-primary mb-2 text-white fs-09" data-bs-toggle="modal" data-bs-target="#add-customer-modal">
+                    <a href="{{ URL::asset('javascript:void(0);') }}" class="btn btn-primary mb-2 text-white fs-09" data-bs-toggle="modal" data-bs-target="#add-customer-modal">
                         <svg class="mb-1 svg-white" xmlns="http://www.w3.org/2000/svg" height="20"
                             viewBox="0 -960 960 960" width="24">
                             <path
@@ -60,7 +60,7 @@
                                 <span class="badge bg-success">Active</span>
                             </td>
                             <td>
-                                <a id="lbView" href="~/views/admin/customer-details.blade.php" class="me-2">
+                                <a id="lbView" href="{{ URL::asset('~/views/admin/customer-details.blade.php') }}" class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>
                                 </a>
                                 <button type="button" class="btn p-0" data-bs-toggle="modal"
@@ -94,10 +94,10 @@
                                 <span class="badge bg-success">Active</span>
                             </td>
                             <td>
-                                <a id="LinkButton1" href="~/views/admin/customer-details.blade.php" class="me-2">
+                                <a id="LinkButton1" href="{{ URL::asset('~/views/admin/customer-details.blade.php') }}" class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>
                                 </a>
-                                <a href="javascript:void(0);">
+                                <a href="{{ URL::asset('javascript:void(0);') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                                         width="24">
                                         <path
@@ -126,10 +126,10 @@
                                 <span class="badge bg-success">Active</span>
                             </td>
                             <td>
-                                <a id="LinkButton2" href="~/views/admin/customer-details.blade.php" class="me-2">
+                                <a id="LinkButton2" href="{{ URL::asset('~/views/admin/customer-details.blade.php') }}" class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>
                                 </a>
-                                <a href="javascript:void(0);">
+                                <a href="{{ URL::asset('javascript:void(0);') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                                         width="24">
                                         <path
@@ -158,10 +158,10 @@
                                 <span class="badge bg-danger">Blocked</span>
                             </td>
                             <td>
-                                <a id="LinkButton3" href="~/views/admin/customer-details.blade.php" class="me-2">
+                                <a id="LinkButton3" href="{{ URL::asset('~/views/admin/customer-details.blade.php') }}" class="me-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>
                                 </a>
-                                <a href="javascript:void(0);">
+                                <a href="{{ URL::asset('javascript:void(0);') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
                                         width="24">
                                         <path

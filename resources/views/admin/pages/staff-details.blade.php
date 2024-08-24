@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="page-path">
-    <a class="btn btn-primary me-2" href="~/view/admin/staff-page.blade.php">
+    <a class="btn btn-primary me-2" href="{{ URL::asset('~/view/admin/staff-page.blade.php') }}">
         <svg class="mb-2 me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
     
          Staff Details </a>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="card-body p-3">
                     <div class="d-flex">
-                        <img alt="profile-image" src="res/man2.jpg" class="m-2 person-icon shadow-xl">
+                        <img alt="profile-image" src="{{ URL::asset('res/man2.jpg') }}" class="m-2 person-icon shadow-xl">
                         <div class="py-3 mx-3">
                             <p class="h4 text-dark">John Wick</p>
                             <p class="my-1 h6 text-secondary">CEO</p>
