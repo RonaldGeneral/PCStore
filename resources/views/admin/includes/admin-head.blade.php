@@ -4,5 +4,5 @@
     <script src="{{ URL::asset('external/popper.min.js') }}"></script>
     <script src="{{ URL::asset('external/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('external/admin-header.js') }}" type="text/javascript" defer></script>
-    <link href="{{ URL::asset('style/admin-theme.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('css/admin/admin-theme.css') }}" rel="stylesheet" />
     
