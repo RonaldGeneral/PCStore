@@ -12,8 +12,8 @@
         <select id="ddlCategory" class="btn btn-lg btn-outline-light dropdown-toggle border text-dark">
             <option selected value="">Price, Ascending</option>
             <option value="">Price, Descending</option>
-            <option value="">Date added, Latest</option>
-            <option value="">Date added, Earliest</option>
+            <option value="">Alphabet, Ascending</option>
+            <option value="">Alphabet, Descending</option>
         </select>
 
     </div>
@@ -29,9 +29,10 @@
     <!--Accordion 1-->
     <div class="col-3 me-5">
 
-        <div class="card px-3 my-5 filter pb-4 me-1">
-            <h2 class="mt-5 text-center">Filter</h2>
-            <div class="accordion mt-5" id="accordioncat">
+        <div class="card px-3 my-3 filter pb-4 me-1">
+            <h2 class="mt-5 text-center">Filter<button class="btn btn-outline-dark ms-5">Apply Filter</button></h2>
+            
+            <div class="accordion mt-3" id="accordioncat">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="accordioncathead">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -44,12 +45,6 @@
                         <div class="accordion-body">
                             <div class="d-flex row ps-3">
                                 <!--accordion content 1-->
-                                <!-- <asp:CheckBoxList runat="server">
-                                    <option Value="prebuilt">Prebuilt Desktop</option>
-                                    <option Value="laptop">Laptop</option>
-                                    <option Value="accessories">PC Accessories</option>
-
-                                </asp:CheckBoxList> -->
                                 <label class="w-100 d-flex d-flex-gap py-2">
                                     <input type="checkbox" checked="" class="" >
                                     <div class="fs-6">Prebuilt Desktop</div>
@@ -62,8 +57,6 @@
                                     <input type="checkbox" checked="" class="" >
                                     <div class="fs-6">PC Accessories</div>
                                 </label>
-                                  
-
                             </div>
                         </div>
                     </div>
@@ -82,49 +75,32 @@
                             Brand</button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#brand">
+                        data-bs-parent="#price">
                         <div class="accordion-body">
-                            <div class="d-flex col">
+                            <div class="d-flex row ps-3">
                                 <!--accordion content 2-->
-                                <asp:CheckBoxList runat="server">
-                                    <option Value="">Asus</option>
-                                    <option Value="">Lenovo</option>
-                                    <option Value="">Acer</option>
-                                    <option Value="">MSI</option>
-                                    <option Value="">HP</option>
-                                </asp:CheckBoxList>
 
-                            </div>
-                        </div>
-                    </div>
+                                <label class="w-100 d-flex d-flex-gap py-2">
+                                    <input type="checkbox" checked="" class="" >
+                                    <div class="fs-6">Under RM 1000</div>
+                                </label>
+                                <label class="w-100 d-flex d-flex-gap py-2">
+                                    <input type="checkbox" checked="" class="" >
+                                    <div class="fs-6">RM 1000 - RM 2999</div>
+                                </label>
+                                <label class="w-100 d-flex d-flex-gap py-2">
+                                    <input type="checkbox" checked="" class="" >
+                                    <div class="fs-6">RM 3000 - RM 4999</div>
+                                </label>
+                                <label class="w-100 d-flex d-flex-gap py-2">
+                                    <input type="checkbox" checked="" class="" >
+                                    <div class="fs-6">RM 5000 - RM 6999</div>
+                                </label>
+                                <label class="w-100 d-flex d-flex-gap py-2">
+                                    <input type="checkbox" checked="" class="" >
+                                    <div class="fs-6">Above RM 7000</div>
+                                </label>
 
-                </div>
-
-
-                <!--Accordion 3-->
-
-                <div class="accordion mt-5" id="accordionprice">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="accordionpricehead">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                Price
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#price">
-                            <div class="accordion-body">
-                                <div class="d-flex col">
-                                    <!--accordion content 1-->
-                                    <asp:RadioButtonList runat="server">
-                                        <option Value="">Under RM 1,000.00</option>
-                                        <option Value="">RM 1,000.00 - RM 2,999.00</option>
-                                        <option Value="">RM 3,000.00 - RM 4,999.00</option>
-                                        <option Value="">RM 5,000.00 - RM 6,999.00</option>
-                                        <option Value=""> Above RM 7,000.00</option>
-                                    </asp:RadioButtonList>
-
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,10 +112,7 @@
     </div>
 
 
-
-
-
-    <!--Row 1 products-->
+    <!--Row products-->
     <div class="col-7">
 
         <div class="d-flex d-flex-gap justify-content-center mt-5">
@@ -148,12 +121,14 @@
             <div class="col-4">
 
                 <div class="card m-auto" style="width: 18rem;">
-                    <asp:ImageButton ID="prodcatimgbtn1" runat="server" Height="250px" Width="250px"
-                        ImageUrl="res/product1.png" PostBackUrl="~/view/front/product_details.aspx"
-                        CssClass="m-auto my-2" />
+                    <a href="{{ url('/front/product-details') }}" class="m-auto">
+                        <img id="prod1" style="height: 250px; width: 250px;" src="{{ URL::asset('img/product1.png') }}" class="m-auto my-2" />
+                    </a>
                     <div class="card-body text-start">
-                        <h4 class="card-title text-primary">Prebuilt A</h4>
-                        <h4>RM 5999</h4>
+                        <a href="{{ url('/front/product-details') }}" class="card-title link-primary fs-6">
+                            Prebuilt A
+                        </a>
+                        <h4 class="fs-5">RM 5,999</h4>
                         <div class="d-flex m-auto text-start">
 
                             <span class="svg-yellow d-flex justify-content-center me-2">
@@ -169,22 +144,21 @@
                                     <path
                                         d="m263.002-161.542 57.307-246.766L128.85-574.23l252.613-21.922L480-828.842l98.537 232.69L831.15-574.23 639.691-408.308l57.307 246.766L480-292.463 263.002-161.542Z" />
                                 </svg>
+                                <!-- half star -->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="m606-286-33-144 111-96-146-13-58-136v312l126 77ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z"/></svg>
+                                <!-- empty star -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                                     <path
-                                        d="m263.002-161.542 57.307-246.766L128.85-574.23l252.613-21.922L480-828.842l98.537 232.69L831.15-574.23 639.691-408.308l57.307 246.766L480-292.463 263.002-161.542Z" />
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                                    <path
-                                        d="m263.002-161.542 57.307-246.766L128.85-574.23l252.613-21.922L480-828.842l98.537 232.69L831.15-574.23 639.691-408.308l57.307 246.766L480-292.463 263.002-161.542Z" />
+                                        d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-90.998 125.458 57.307-246.766L128.85-574.23l252.613-21.922L480-828.842l98.537 232.69L831.15-574.23 639.691-408.308l57.307 246.766L480-292.463 263.002-161.542ZM480-470Z" />
                                 </svg>
                             </span>
-                            <h4>5.0</h4>
+                            <h4 class="my-auto">5.0</h4>
                         </div>
 
                     </div>
-                    <asp:LinkButton ID="prodcatbuybtn1" runat="server" CssClass="btn productbutton shadow-sm"
-                        Text="View Product" PostBackUrl="~/view/front/product_details.aspx">View Product
-                    </asp:LinkButton>
+                    <a id="buy-btn" class="btn productbutton shadow-sm" href="{{ url('/front/product-details') }}">
+                        View Product
+                    </a>
                 </div>
 
             </div>

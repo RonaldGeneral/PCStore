@@ -51,11 +51,11 @@
             <div>
                 <div class="col-3"></div>
                 <div class="d-flex justify-content-center">
-                    <img src="res/product2.png" width="300" height="300">
+                    <img src="{{ URL::asset('img/product2.png') }}" width="300" height="300">
                 </div>
                 <div class="d-flex d-flex-gap justify-content-center">
                     <div class="card">
-                        <img src="res/product2.png" width="150" height="150">
+                        <img src="{{ URL::asset('img/product2.png') }}" width="150" height="150">
                     </div>
                     <div class="card">
                         <img src="res/product2.png" width="150" height="150">
@@ -78,48 +78,11 @@
 
         <div class="card border-0 bg-light p-3">
             <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
+                <div class="d-flex px-4 py-3">
                     <div class="col-4">Price</div>
-                    <div class="col-8">RM 2,999.00</div>
+                    <div class="col-8 fs-6">RM 2,999.00</div>
                 </div>
             </div>
-
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
-                    <div class="col-4">Brand</div>
-                    <div class="col-8">Lenovo</div>
-                </div>
-            </div>
-
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
-                    <div class="col-4">Dimensions</div>
-                    <div class="col-8">(L x W x H): 25 cm x 35 cm x 2cm</div>
-                </div>
-            </div>
-
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
-                    <div class="col-4">Number of stock</div>
-                    <div class="col-8">40</div>
-                </div>
-            </div>
-
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
-                    <div class="col-4">
-                        <div class="mt-2">Color</div>
-                    </div>
-                    <div class="col-8 d-flex d-flex-gap">
-                        <button class="btn btn-outline-dark">Black</button>
-                        <button class="btn btn-outline-warning">Yellow</button>
-                    </div>
-
-
-
-                </div>
-            </div>
-
             <div class="card mt-3 p-2">
                 <div class="d-flex px-4">
 
@@ -144,14 +107,10 @@
 
             <div class="card mt-3 p-2">
                 <div class="d-flex px-4">
-                    <div class="col-4">
+                    <div class="col-12 d-flex d-flex-gap justify-content-around">
+                        <button id="btnBuy" class="btn btn-primary d-flex">Buy Now</button>
 
-                    </div>
-                    <div class="col-8 d-flex d-flex-gap">
-                        <button id="btnBuy" class="btn btn-primary">Buy Now</button>
-
-                        <button class="btn btn-outline-info" id="btnCart">Add to Cart</button>
-
+                        <button class="btn btn-outline-info d-flex" id="btnCart">Add to Cart</button>
 
                     </div>
 

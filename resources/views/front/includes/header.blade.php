@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-sms-12">
-                <a href="{{ url("/front/");}}">
+                <a href="{{ url('/front/') }}">
 
                     <div id="logo">
                         <img src="{{ URL::asset('img/terrabyte.png'); }}" alt="TerraByte" itemprop="logo" class="img-responsive" />
