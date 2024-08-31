@@ -33,4 +33,9 @@ Route::view('/admin/profile', 'admin/pages/profile');
 Route::view('/admin/staff-details', 'admin/pages/staff-details');
 Route::view('/admin/staff-page', 'admin/pages/staff-page');
 
+Route::view('/admin/order-details', 'admin/pages/order-details');
+Route::view('/admin/order-page', 'admin/pages/order-page');
+Route::view('/admin/product-page', 'admin/pages/product-page');
+Route::view('/admin/product-details', 'admin/pages/product-details');
+
 
