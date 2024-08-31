@@ -1,7 +1,7 @@
 @extends('front.layouts.default')
 
 @section('custom-head')
-<link href="{{ URL::asset('css/front/checkout.css'); }}" rel="stylesheet" />
+<link href="{{ URL::asset('css/front/checkout.css') }}" rel="stylesheet" />
 @stop
 
 @section('content')
