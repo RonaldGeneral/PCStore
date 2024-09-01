@@ -14,8 +14,21 @@
         @include('admin.includes.admin-header')
     </div>
     <div id="main">
-        
-            @yield('content')
+
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close btn fs-4 p-0" data-dismiss="alert" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul class="fs-6">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        @yield('content')
         
     </div>
 

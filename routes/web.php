@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,7 +36,9 @@ Route::view('/admin/staff-page', 'admin/pages/staff-page');
 
 Route::view('/admin/order-details', 'admin/pages/order-details');
 Route::view('/admin/order-page', 'admin/pages/order-page');
-Route::view('/admin/product-page', 'admin/pages/product-page');
+// Route::view('/admin/product-page', 'admin/pages/product-page');
 Route::view('/admin/product-details', 'admin/pages/product-details');
 
+Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
+Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
 
