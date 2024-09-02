@@ -28,6 +28,15 @@
         </div>
         @endif
 
+        @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close btn fs-4 p-0" data-dismiss="alert" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ session()->get('success') }}
+            </div>
+        @endif
+
         @yield('content')
         
     </div>

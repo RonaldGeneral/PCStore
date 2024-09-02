@@ -40,7 +40,9 @@ Route::view('/admin/product-details', 'admin/pages/product-details');
 
 Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
 Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');
-Route::get('/admin/product-details/{post}', [ProductController::class, 'view'])->name('products.view');
+Route::get('/admin/product-details/{product}', [ProductController::class, 'view'])->name('products.view');
 Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
+Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
+Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
 Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 

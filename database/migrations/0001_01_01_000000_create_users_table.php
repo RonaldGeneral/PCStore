@@ -35,7 +35,6 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('attribute_id');
             $table->string('value');
-            $table->text('description');
 
             $table->foreign('product_id')->references('id')->on('product');
             $table->foreign('attribute_id')->references('id')->on('category_attribute');

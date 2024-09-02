@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\CategoryAttribute;
+use App\Models\ProductAttribute;
+use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::select('id','title', 'category', 'status', 'img_src1', 'price', 'total_rating')->get();
         return view('admin.pages.product-page', compact('products'));
     }
 
@@ -36,7 +39,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->title = strip_tags($request->title);
-        $product->price = $request->price;
+        $product->price = strip_tags($request->price);
         $product->description = strip_tags($request->description);
         $product->category = strip_tags($request->category);
         $product->status = 2;
@@ -66,7 +69,83 @@ class ProductController extends Controller
     public function view($id)
     {
         $product = Product::find($id);
-        return view('admin.pages.product-details', compact('product'));
+        $attrs = CategoryAttribute::where('category', $product->category)
+            ->pluck("name","id");
+        $product_attrs = ProductAttribute::where('product_id', $product->id)
+            ->pluck("value","attribute_id");
+
+        return view('admin.pages.product-details', compact('product', 'attrs', 'product_attrs'));
+    }
+
+    public function edit_details($id, Request $request)
+    {
+        $product = Product::find($id);
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required|max:65530',
+            'price' => 'required|decimal:0,2|min:1|max:999999999',
+            'img_src1' => 'nullable|file|image',
+            'img_src2' => 'nullable|file|image',
+            'img_src3' => 'nullable|file|image',
+            'category' => 'required',
+            'status' => 'required',
+        ]);
+
+        $product->title = strip_tags($request->title);
+        $product->price = strip_tags($request->price);
+        $product->description = strip_tags($request->description);
+        $product->category = strip_tags($request->category);
+        $product->status = strip_tags($request->status);
+        $product->save();
+
+        if ($request->hasFile('img_src1')) { 
+            $extension = $request->file('img_src1')->extension();
+            $img1 = $request->file('img_src1')->storePubliclyAs(path: '', name: $product->id . '_1.'. $extension, options: 'products');
+            $product->img_src1 = $img1;
+            $product->save();
+        } 
+
+        if ($request->hasFile('img_src2')) { 
+            $extension = $request->file('img_src2')->extension();
+            $img2 = $request->file('img_src2')->storePubliclyAs(path: '', name: $product->id . '_2.'. $extension, options: 'products');
+            $product->img_src2 = $img2;
+            $product->save();
+        } 
+
+        if ($request->hasFile('img_src3')) { 
+            $extension = $request->file('img_src3')->extension();
+            $img3 = $request->file('img_src3')->storePubliclyAs(path: '', name: $product->id . '_3.'. $extension, options: 'products');
+            $product->img_src3 = $img3;
+            $product->save();
+        } 
+        
+        return redirect()->route('products.view', $id)
+            ->with('success', 'Product edited successfully');
+    }
+
+    public function edit_attrs($product_id, Request $request)
+    {
+        $request->validate([
+            'attribute_value' => 'required|max:255',
+        ]);
+
+        $attr = ProductAttribute::where('product_id', $product_id)
+            ->where('attribute_id', $request->attr_id)
+            ->first();
+        
+        if($attr)
+            $attr->value = strip_tags($request->attribute_value);
+        else {
+            $attr = new ProductAttribute();
+            $attr->product_id = $product_id;
+            $attr->attribute_id = $request->attr_id;
+            $attr->value = strip_tags($request->attribute_value);
+        } 
+
+        $attr->save();
+        
+        return redirect()->route('products.view', $product_id)
+            ->with('success', 'Product edited successfully');
     }
 
 }

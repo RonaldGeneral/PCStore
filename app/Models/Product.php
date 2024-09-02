@@ -33,4 +33,13 @@ class Product extends Model
 
         return implode(",",$ratings);
     }
+
+    // public function attributes()
+    // {
+    //     return $this->hasMany('App\Models\ProductAttribute');
+    // }
 }
+
+
+
+
