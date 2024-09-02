@@ -36,9 +36,11 @@ Route::view('/admin/staff-page', 'admin/pages/staff-page');
 
 Route::view('/admin/order-details', 'admin/pages/order-details');
 Route::view('/admin/order-page', 'admin/pages/order-page');
-// Route::view('/admin/product-page', 'admin/pages/product-page');
 Route::view('/admin/product-details', 'admin/pages/product-details');
 
 Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
+Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/admin/product-details/{post}', [ProductController::class, 'view'])->name('products.view');
 Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
+Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 

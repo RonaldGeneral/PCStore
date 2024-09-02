@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('status');
             $table->decimal('total_rating', total: 2, places: 1)->default(0);
-            $table->string('img_src1');
+            $table->string('img_src1')->nullable();
             $table->string('img_src2')->nullable();
             $table->string('img_src3')->nullable();
             $table->string('category');
