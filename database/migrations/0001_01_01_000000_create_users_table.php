@@ -61,7 +61,7 @@ return new class extends Migration
             $table->string('username');
             $table->binary('password', length: 64);
             $table->tinyInteger('status');
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
         });
 
         Schema::create('payment', function (Blueprint $table) {
@@ -72,7 +72,7 @@ return new class extends Migration
             $table->string('tng_number')->nullable();
             $table->string('token')->nullable();
             $table->tinyInteger('status');
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
         });
 
         Schema::create('order', function (Blueprint $table) {
@@ -81,7 +81,7 @@ return new class extends Migration
             $table->decimal('total', total: 10, places: 2);
             $table->decimal('delivery_fee', total: 4, places: 2);
             $table->tinyInteger('status');
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('payment_id');
  
@@ -96,7 +96,6 @@ return new class extends Migration
             $table->decimal('price', total: 10, places: 2);
             $table->decimal('subtotal', total: 10, places: 2);
             $table->decimal('rating', total: 2, places: 1)->nullable();
-            $table->tinyInteger('status');
  
             $table->foreign('order_id')->references('id')->on('order');
             $table->foreign('product_id')->references('id')->on('product');
@@ -109,7 +108,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity');
             $table->decimal('price', total: 10, places: 2);
             $table->decimal('subtotal', total: 10, places: 2);
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
  
             $table->foreign('customer_id')->references('id')->on('order');
             $table->foreign('product_id')->references('id')->on('product');
@@ -126,7 +125,7 @@ return new class extends Migration
             $table->string('username');
             $table->binary('password', length: 64);
             $table->tinyInteger('status');
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
             $table->unsignedBigInteger('position_id');
  
             $table->foreign('position_id')->references('id')->on('position');
@@ -137,7 +136,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('page');
-            $table->timestamp('created_on')->nullable();
+            $table->timestamp('created_on')->nullable()->useCurrent();
             $table->unsignedBigInteger('admin_id');
  
             $table->foreign('admin_id')->references('id')->on('admin');
