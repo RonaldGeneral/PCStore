@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustLoginController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,16 +17,19 @@ Route::view('/front/contact', 'front/pages/contact');
 Route::view('/front/shop', 'front/pages/product-catalog');
 Route::view('/front/product', 'front/pages/product-details');
 Route::view('/front/product-details', 'front/pages/product-details');
-Route::view('/front/home', 'front/pages/home');
-Route::view('/front/login', 'front/pages/login');
-Route::view('/front/profile', 'front/pages/profile');
-Route::view('/front/signup', 'front/pages/signup');
-Route::view('/front/deliveryStatus', 'front/pages/deliveryStatus');
-Route::view('/front/forgotPassword', 'front/pages/forgotPassword');
-Route::view('/front/newPassword', 'front/pages/newPassword');
-Route::view('/front/orderHistory', 'front/pages/orderHistory');
 
 
+Route::get('/front/home', [CustomerController::class,'index'])->name('front.home');
+Route::get('/front/login', [CustLoginController::class,'index'])->name('front.login');
+Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
+Route::get('/front/forgot-password', [CustLoginController::class,'forgot-password'])->name('front.forgot_pw');
+Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
+Route::get('/front/delivery-status', [CustomerController::class,'delivery-status'])->name('front.delivery_stat');
+Route::get('/front/new-password', [CustomerController::class,'new-password'])->name('front.new_pw');
+Route::get('/front/order-history', [CustomerController::class,'order-history'])->name('front.order_hist');
+
+Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
+Route::post('/front/login', [CustLoginController::class,'login'])->name('login');
 
 Route::view('/admin/customer-details', 'admin/pages/customer-details');
 Route::view('/admin/customer-page', 'admin/pages/customer-page');

@@ -707,3 +707,43 @@ a:hover {
 .svg-yellow, .svg-yellow svg{
     fill:rgb(255, 187, 0);
 }
+
+/* Feedback Messages */
+.SuccessBox {
+    width: 100%;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    background-color: #29E275;
+    color: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: block;
+    align-items: center;
+    font-size: 16px;
+}
+
+.DivClose {
+    position: relative;
+    cursor: pointer;
+    float: right;
+    padding: 0px;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.FailedBox {
+    width: 100%;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+    background-color: #FF1E1E;
+    color: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: block;
+    align-items: center;
+    font-size: 16px;
+}

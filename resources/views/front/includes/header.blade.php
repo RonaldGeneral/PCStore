@@ -5,7 +5,7 @@
                 <a href="{{ url('/front/') }}">
 
                     <div id="logo">
-                        <img src="{{ URL::asset('img/terrabyte.png'); }}" alt="TerraByte" itemprop="logo" class="img-responsive" />
+                        <img src="{{ URL::asset('img/terrabyte.png') }}" alt="TerraByte" itemprop="logo" class="img-responsive" />
                     </div>
                 </a>
 

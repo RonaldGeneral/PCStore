@@ -203,7 +203,6 @@
           <br>
 
           <div class="card-body backgroundBlue">
-
             <div class="row my-1">
 
               <div class="col-md-4 offset-md-9">
@@ -222,11 +221,45 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
 
     <br>
+
+    <!-- modal -->
+    <div class="modal modal-lg fade" id="review-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3 form-floating">
+              <input type="text" class="form-control fs-09" id="txtName" placeholder="John"></>
+              <label for="txtName" class="col-form-label">Title</label>
+            </div>
+            <div class="mb-3 form-floating">
+              <input type="text" class="form-control fs-09" id="txtDesc" placeholder="John"></input>
+              <label for="txtDesc">Description</label>
+            </div>
+            <div class="mb-3 form-floating">
+              <input type="number" min=1 max=5 step=1 class="form-control fs-09" ID="rating" placeholder="John"></asp:TextBox>
+              <label for="rating" class="col-form-label">Ratings</label>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
+              changes</button>
+            <button type="button" class="btn btn-primary fs-09">Save</button>
+          </div>
+        </div>
+           
+      </div>
+    </div>
   </div>
 </div>
 <!-- End Content -->
