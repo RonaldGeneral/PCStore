@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    /*
+    
+        Status: 
+            -1 = Deleted
+            1 = Order created
+            2 = Driver assigned
+            3 = Ongoing
+            4 = Completed
+    
+    */
+
     use HasFactory;
 
     protected $table = 'order';
@@ -19,4 +30,19 @@ class Order extends Model
         'status',
         'customer_id'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustLoginController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,7 +32,10 @@ Route::get('/front/order-history', [CustomerController::class,'order-history'])-
 Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
 Route::post('/front/login', [CustLoginController::class,'login'])->name('login');
 
-Route::view('/admin/customer-details', 'admin/pages/customer-details');
+
+Route::view('/admin/', 'admin/pages/profile');
+
+Route::view('/admin/customer-details', 'admin/pages/customer-details')->name('customers.view');
 Route::view('/admin/customer-page', 'admin/pages/customer-page');
 Route::view('/admin/log-record', 'admin/pages/log-record');
 Route::view('/admin/login', 'admin/pages/login');
@@ -39,9 +43,10 @@ Route::view('/admin/profile', 'admin/pages/profile');
 Route::view('/admin/staff-details', 'admin/pages/staff-details');
 Route::view('/admin/staff-page', 'admin/pages/staff-page');
 
-Route::view('/admin/order-details', 'admin/pages/order-details');
-Route::view('/admin/order-page', 'admin/pages/order-page');
-Route::view('/admin/product-details', 'admin/pages/product-details');
+Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
+Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');
+Route::get('/admin/order-page/search', [OrderController::class, 'search'])->name('orders.search');
+Route::delete('/admin/order-page', [OrderController::class, 'destroy'])->name('orders.destroy');
 
 Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
 Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');

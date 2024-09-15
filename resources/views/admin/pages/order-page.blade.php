@@ -5,22 +5,28 @@
 <div class="card ">
 
     <div class="row m-4">
-        <div class="col-sm-2">
-            <div class="text-sm-end">
-                <input placeholder="Search..." class="form-control dropdown-toggle fs-09" >
+        <form action="{{ route('orders.search') }}" method="GET" class="d-flex row">
+            <div class="col-sm-2">
+                <div class="text-sm-end">
+                    <input name="query" placeholder="Search..." class="form-control dropdown-toggle fs-09" value="{{$query??''}}">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="d-flex align-items-center">
-                <label for="ddlStatus" class="me-2">Status</label>
-                <select id="ddlStatus" class="form-select fs-0 text-muted9">
-                    <option selected="true" value="">All</option>
-                    <option value="1">To Ship</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Cancelled</option>
-                </select>
+            <div class="col-sm-2">
+                <div class="d-flex align-items-center">
+                    <label for="ddlStatus" class="me-2">Status</label>
+                    <select name="status" id="ddlStatus" class="form-select fs-0 text-muted9">
+                        <option {{(isset($status) && !$status)? 'selected':''}} value="">All</option>
+                        <option {{(isset($status) && $status=='1')? 'selected':''}} value="1">Order Created</option>
+                        <option {{(isset($status) && $status=='2')? 'selected':''}} value="2">Driver assigned</option>
+                        <option {{(isset($status) && $status=='3')? 'selected':''}} value="3">Ongoing</option>
+                        <option {{(isset($status) && $status=='4')? 'selected':''}} value="4">Completed</option>
+                    </select>
+                </div>
             </div>
-        </div>
+            <div class="col-sm-2 d-flex">
+                <button class="btn btn-primary">Apply filter</button>
+            </div>
+        </form>
 
     </div>
 
@@ -30,6 +36,7 @@
                 <tr>
                     <th class="ps-3 py-3">ID</th>
                     <th class="py-3">Date</th>
+                    <th class="py-3">Customer name</th>
                     <th class="py-3">Order Status</th>
                     <th class="py-3">Total</th>
                     <th class="py-3">Payment Method</th>
@@ -37,28 +44,56 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0 text-primary">
+                @foreach ($orders as $order)
+                
                 <tr>
                     <td class="ps-3">
-                        0000001
+                        {{$order->id}}
                     </td>
                     <td>
-                        04 April 2024
-                        <small class="text-muted">09:40 PM</small>
+                        {{$order->created_on}}
                     </td>
                     <td>
-                        <span class="badge bg-success">Completed</span>
+                        <a href="{{route('customers.view')}}">{{$order->customer->name}}</a>
                     </td>
                     <td>
-                        RM 1,923.60
+                        @switch($order->status)
+                            @case(1)
+                                <span class="badge bg-warning">Order Placed</span>
+                                @break
+                            @case(2)
+                                <span class="badge bg-info">Driver Assigned</span>
+                                @break
+                            @case(3)
+                                <span class="badge bg-primary">Ongoing</span>
+                                @break
+                            @case(4)
+                                <span class="badge bg-success">Completed</span>
+                                @break
+                        @endswitch
                     </td>
                     <td>
-                        TNG eWallet
+                        RM {{number_format($order->total, 2, '.', ',')}}
                     </td>
                     <td>
-                        <a href="{{url('admin/order-details')}}" class="me-2">
+                        @if($order->payment->payment_method == 'tng')
+                            TnG Ewallet
+                        @elseif($order->payment->payment_method == 'fpx')
+                            FPX Transfer
+                        @elseif($order->payment->payment_method == 'card')
+                            Debit/Credit card
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{route('orders.view', $order->id)}}" class="me-2">
                             <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>
                         </a>
-                        <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{$order->id}}"
+                            onclick="( ()=>{
+                                    let id = this.getAttribute('data-id');
+                                    document.getElementById('delete_id').value = id;
+                                })()">
+
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                                 <path
                                     d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
@@ -66,145 +101,15 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="ps-3">
-                        0000002
-                    </td>
-                    <td>
-                        04 April 2024
-                        <small class="text-muted">09:40 PM</small>
-                    </td>
-                    <td>
-                        <span class="badge bg-success">Completed</span>
-                    </td>
-                    <td>
-                        RM 1,923.60
-                    </td>
-                    <td>
-                        TNG eWallet
-                    </td>
-                    <td>
-                        <asp:LinkButton runat="server" ID="LinkButton1" PostBackUrl="~/view/admin/order_details.aspx"
-                            CssClass="me-2"
-                            Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-                        </asp:LinkButton>
-                        <a href="javascript:void(0);">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                                <path
-                                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="ps-3">
-                        0000003
-                    </td>
-                    <td>
-                        04 April 2024
-                        <small class="text-muted">09:40 PM</small>
-                    </td>
-                    <td>
-                        <span class="badge bg-warning">To Ship</span>
-                    </td>
-                    <td>
-                        RM 783.50
-                    </td>
-                    <td>
-                        TNG eWallet
-                    </td>
-                    <td>
-                        <asp:LinkButton runat="server" ID="LinkButton2" PostBackUrl="~/view/admin/order_details.aspx"
-                            CssClass="me-2"
-                            Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-                        </asp:LinkButton>
-                        <a href="javascript:void(0);">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                                <path
-                                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="ps-3">
-                        0000004
-                    </td>
-                    <td>
-                        04 April 2024
-                        <small class="text-muted">09:40 PM</small>
-                    </td>
-                    <td>
-                        <span class="badge bg-success">Completed</span>
-                    </td>
-                    <td>
-                        RM 1,923.60
-                    </td>
-                    <td>
-                        TNG eWallet
-                    </td>
-                    <td>
-                        <asp:LinkButton runat="server" ID="LinkButton3" PostBackUrl="~/view/admin/order_details.aspx"
-                            CssClass="me-2"
-                            Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-                        </asp:LinkButton>
-                        <a href="javascript:void(0);">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                                <path
-                                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="ps-3">
-                        0000005
-                    </td>
-                    <td>
-                        04 April 2024
-                        <small class="text-muted">09:40 PM</small>
-                    </td>
-                    <td>
-                        <span class="badge bg-danger">Cancelled</span>
-                    </td>
-                    <td>
-                        RM 4,003.00
-                    </td>
-                    <td>
-                        FPX
-                    </td>
-                    <td>
-                        <asp:LinkButton runat="server" ID="LinkButton4" PostBackUrl="~/view/admin/order_details.aspx"
-                            CssClass="me-2"
-                            Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-                        </asp:LinkButton>
-                        <a href="javascript:void(0);">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                                <path
-                                    d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
+
+                @endforeach
+
+                
 
             </tbody>
         </table>
-
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link fs-09" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link fs-09" href="#">1</a></li>
-                <li class="page-item " aria-current="page">
-                    <a class="page-link fs-09" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link fs-09" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link fs-09" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="w-25">{{$orders->links()}}</div>
+        
     </div>
 </div>
 @stop
@@ -225,7 +130,12 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-light mx-4" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger mx-4">Delete</button>
+                <form action="{{ route('orders.destroy') }}" method="post">
+                    <input type="hidden" id="delete_id" name="delete_id">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger mx-4">Delete</button>
+                </form>
             </div>
         </div>
     </div>
