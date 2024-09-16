@@ -8,10 +8,10 @@
         <div class="card">
           <ul class="list-group list-group-flush">
             <li class="list-group-item text-decoration-none ">
-              <a id="profile2" href="~/view/front/profile.aspx" class="text-decoration-none profileLink">Profile</a>
+              <a id="profile2" href="{{ route('front.profile') }}" class="text-decoration-none profileLink">Profile</a>
             </li>
             <li class="list-group-item">
-              <a id="orderHistory2" href="~/view/front/orderHistory.aspx" class="text-decoration-none orderHistoryLink">Order history</a>
+              <a id="orderHistory2" href="{{ route('front.order_hist') }}" class="text-decoration-none orderHistoryLink">Order History</a>
             </li>
           </ul>
         </div>
@@ -19,13 +19,11 @@
 
       <div class="col-md-9">
         <div class="profile-border backgroundGrey p-5">
-
           <div class="row mb-5">
             <h3>User Profile</h3>
           </div>
 
           <div class="row mt-5">
-
             <div class="col-md-3">
               <p>Username</p>
             </div>
@@ -35,11 +33,9 @@
                 <input type="username" class="form-control form-control-lg fs-6" value="Bruce Wayne" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-3">
-
             <div class="col-md-3">
               <p>Name</p>
             </div>
@@ -49,11 +45,9 @@
                 <input type="name" class="form-control form-control-lg fs-6" placeholder="Name" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-3">
-
             <div class="col-md-3">
               <p>Email</p>
             </div>
@@ -63,11 +57,9 @@
                 <input type="email" class="form-control form-control-lg fs-6" placeholder="Email" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-3">
-
             <div class="col-md-3">
               <p>Phone</p>
             </div>
@@ -77,11 +69,9 @@
                 <input type="phone" class="form-control form-control-lg fs-6" placeholder="Phone" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-4">
-
             <div class="col-md-3">
               <p>Gender</p>
             </div>
@@ -95,15 +85,12 @@
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                 <label class="form-check-label" for="inlineRadio2">Male</label>
               </div>
-
             </div>
-
           </div>
 
           <div class="row mt-3">
-
             <div class="col-md-3">
-              <p>Date of birth</p>
+              <p>Date of Birth</p>
             </div>
 
             <div class="col-md-8">
@@ -111,21 +98,15 @@
                 <input type="date" class="form-control form-control-lg fs-6" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-3">
-            <a href="url" class="text-decoration-none profileLink">Change password</a>
+            <a href="{{ route('front.new_pw') }}" class="text-decoration-none profileLink">Change Password</a>
           </div>
-
-
-
         </div>
 
         <div class="profile-border backgroundGrey p-5 mt-3">
-
           <div class="row mb-3">
-
             <div class="col-md-3">
               <p>Address</p>
             </div>
@@ -135,11 +116,9 @@
                 <input type="username" class="form-control form-control-lg fs-6" value="69, jalan manalaksa 19b" />
               </div>
             </div>
-
           </div>
 
           <div class="row mb-3">
-
             <div class="col-md-3">
               <p>Postcode</p>
             </div>
@@ -149,11 +128,9 @@
                 <input type="username" class="form-control form-control-lg fs-6" value="53300" />
               </div>
             </div>
-
           </div>
 
           <div class="row mb-3">
-
             <div class="col-md-3">
               <p>City</p>
             </div>
@@ -163,11 +140,9 @@
                 <input type="username" class="form-control form-control-lg fs-6" value="Setapak" />
               </div>
             </div>
-
           </div>
 
           <div class="row mb-3">
-
             <div class="col-md-3">
               <p>State</p>
             </div>
@@ -177,7 +152,6 @@
                 <input type="username" class="form-control form-control-lg fs-6" value="Selangor" />
               </div>
             </div>
-
           </div>
 
           <div class="row mt-5">
@@ -189,8 +163,6 @@
       </div>
     </div>
   </div>
-</div>
-
 </div>
 <!-- End Content -->
 @stop

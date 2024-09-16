@@ -11,7 +11,7 @@ Route::get('/', function () {
     return redirect('/front');
 });
 
-Route::view('/front', 'front/pages/cart');
+//Route::view('/front', 'front/pages/cart');
 Route::view('/front/cart', 'front/pages/cart');
 Route::view('/front/checkout', 'front/pages/checkout');
 Route::view('/front/contact', 'front/pages/contact');
@@ -20,17 +20,22 @@ Route::view('/front/product', 'front/pages/product-details');
 Route::view('/front/product-details', 'front/pages/product-details');
 
 
-Route::get('/front/home', [CustomerController::class,'index'])->name('front.home');
+Route::get('/front', [CustomerController::class,'index'])->name('front.home');
 Route::get('/front/login', [CustLoginController::class,'index'])->name('front.login');
 Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
-Route::get('/front/forgot-password', [CustLoginController::class,'forgot-password'])->name('front.forgot_pw');
+Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
+Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
+
 Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
-Route::get('/front/delivery-status', [CustomerController::class,'delivery-status'])->name('front.delivery_stat');
-Route::get('/front/new-password', [CustomerController::class,'new-password'])->name('front.new_pw');
-Route::get('/front/order-history', [CustomerController::class,'order-history'])->name('front.order_hist');
+Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
+Route::get('/front/order-history', [CustomerController::class,'orderHistory'])->name('front.order_hist');
 
 Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
-Route::post('/front/login', [CustLoginController::class,'login'])->name('login');
+Route::post('/front/login', [CustLoginController::class,'login'])->name('customer.login');
+Route::post('/front/logout', [CustLoginController::class, 'logout'])->name('customer.logout');
+Route::post('/reset-password', [CustLoginController::class,'resetPassword']);
+Route::post('/verify-pin', [CustLoginController::class,'verifyPIN'])->name('verify-pin');
+Route::post('/change-password', [CustLoginController::class,'changePassword'])->name('change-pw');
 
 
 Route::view('/admin/', 'admin/pages/profile');
