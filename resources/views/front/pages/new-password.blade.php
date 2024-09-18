@@ -1,7 +1,7 @@
 @extends('front.layouts.default')
 
 @section('content')
-<form action="{{ route('change-pw') }}" method="POST">
+<form action="{{ route('change_pw') }}" method="POST">
   @csrf
   <div id="content">
     <div class="container py-5 w-50 h-100">

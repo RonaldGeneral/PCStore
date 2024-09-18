@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use App\Strategies\DatabaseLoginStrategy;
+use App\Strategies\ExternalLoginStrategy;
+use App\Strategies\LoginContext;
+
 
 class CustLoginController extends Controller
 {
@@ -44,17 +47,23 @@ class CustLoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required | email',
-            'password' => 'required | min:8',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
         ]);
 
-        if (Auth::guard('customer')->attempt($credentials)) {
-            return redirect()->route("front.home");
+        if($request->input('loginType') === 'external'){
+            $context = new LoginContext(new ExternalLoginStrategy());
+        } else {
+            $context = new LoginContext(new DatabaseLoginStrategy());
         }
 
-        return back()->withErrors([
-            'loginError' => 'Invalid username or password!'
-        ])->withInput();
+        return $context->executeLogin($credentials);
+
+        // if (Auth::guard('customer')->attempt($credentials)) {
+        //     return redirect()->route("front.home");
+        // }
+
+        // return back()->withErrors(['loginError' => 'Invalid username or password!'])->withInput();
     }
 
     public function logout()

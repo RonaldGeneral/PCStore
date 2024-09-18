@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "WLServices.Controllers.EmailServiceController",
+    "Method": "Index",
+    "RelativePath": "api/EmailService",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WLServices.Controllers.EmailServiceController",
+    "Method": "SendMessage",
+    "RelativePath": "api/EmailService/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WLServices.Models.SendMessageRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WLServices.Controllers.XMLToXSLTController",
+    "Method": "ImportXml",
+    "RelativePath": "api/XMLToXSLT/xml2xlsx",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filePath",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
