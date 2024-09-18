@@ -54,7 +54,7 @@
                         {{$order->created_on}}
                     </td>
                     <td>
-                        <a href="{{route('customers.view')}}">{{$order->customer->name}}</a>
+                        <a href="{{route('customers.view', $order->customer->id)}}">{{$order->customer->name}}</a>
                     </td>
                     <td>
                         @switch($order->status)

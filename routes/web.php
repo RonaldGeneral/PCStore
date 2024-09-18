@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\CustLoginController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\AdminStaffController;
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
