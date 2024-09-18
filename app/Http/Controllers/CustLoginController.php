@@ -37,9 +37,9 @@ class CustLoginController extends Controller
         if (!session('access_reset_password', false)) {
             return redirect()->route('front.forgot_pw')->withErrors(['error' => 'Unauthorized access.']);
         }
-    
+
         session()->forget('access_reset_password');
-        
+
         return view("front.pages.new-password");
     }
 
@@ -51,7 +51,7 @@ class CustLoginController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        if($request->input('loginType') === 'external'){
+        if ($request->input('loginType') === 'external') {
             $context = new LoginContext(new ExternalLoginStrategy());
         } else {
             $context = new LoginContext(new DatabaseLoginStrategy());
@@ -100,8 +100,15 @@ class CustLoginController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $user = Auth::guard('customer')->user();
-        $email = $user->email;
+        $request->validate([
+            'email' => 'required|email|exists:customer,email',
+        ]);
+
+        $email = $request->input('email');
+
+        if($email == null){
+            return response()->json(['success' => false, 'message' => 'This email address does not exist in our database.']);
+        }
 
         $pin = random_int(100000, 999999);
 
@@ -123,6 +130,7 @@ class CustLoginController extends Controller
         }
     }
 
+    //API calling
     public function sendEmailFromApi($email, $pin)
     {
         $data = [

@@ -4,7 +4,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
 
-
 @if ($errors->has('error'))
   <div class="row" style="padding: 0.5rem 1rem;">
     <div class="FailedBox">
@@ -19,7 +18,7 @@
 <form action="{{ route('verify_pin') }}" method="POST">
   @csrf
   <div id="content">
-    <div class="container py-5 w-50 h-100">
+    <div class="container py-5 h-100" style="65% !important;">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card text-black" style="border-radius: 1rem;">
@@ -31,7 +30,8 @@
                 <div class="form-outline form-white mb-4 mt-5">
                   <div class="row">
                     <div class="col-8">
-                      <input type="text" id="pinInput" name="pin" pattern="[0-9]{6}" maxlength="6" class="form-control form-control fs-6 shadow-sm" placeholder="Verification Code" autocomplete="off" disabled />
+                      <input type="text" id="emailInput" name="email" class="form-control fs-6 shadow-sm" placeholder="Enter your email address" />
+                      <input type="text" id="pinInput" name="pin" pattern="[0-9]{6}" maxlength="6" class="form-control fs-6 shadow-sm" placeholder="Verification Code" autocomplete="off" style="display: none;" disabled />
                     </div>
                     <div class="col-4">
                       <button class="btn btn-primary shadow-sm" type="button" id="sendPinBtn">Send PIN</button>
@@ -59,7 +59,17 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('sendPinBtn').addEventListener('click', function () {
+      const emailInputValue = document.getElementById('emailInput').value;
+
+      if (!emailInputValue) {
+          document.getElementById('rMessage').innerHTML = "Please enter an email.";
+          return; // Exit if the email is not provided
+      }
+
+      document.getElementById('emailInput').disabled = true;
+      document.getElementById('emailInput').style.display = "none";
       document.getElementById('pinInput').removeAttribute("disabled");
+      document.getElementById('pinInput').style.display = "block"
       document.getElementById("submitBtn").style.display = "block";
 
       fetch('/reset-password', {
@@ -68,6 +78,9 @@
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
           'Content-Type': 'application/json'
         },
+        body: JSON.stringify({
+            email: emailInputValue
+        })
       })
         .then(response => {
           if (!response.ok) {

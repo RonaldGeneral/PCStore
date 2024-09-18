@@ -4,7 +4,7 @@
 <form action="{{ route('change_pw') }}" method="POST">
   @csrf
   <div id="content">
-    <div class="container py-5 w-50 h-100">
+    <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card text-black" style="border-radius: 1rem;">
