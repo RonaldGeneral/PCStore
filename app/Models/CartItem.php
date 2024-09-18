@@ -19,4 +19,18 @@ class CartItem extends Model
         'price',	
         'subtotal'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    protected function setKeysForSaveQuery($query)
+    {
+        $query
+            ->where('customer_id', '=', $this->getAttribute('customer_id'))
+            ->where('product_id', '=', $this->getAttribute('product_id'));
+
+        return $query;
+    }
 }

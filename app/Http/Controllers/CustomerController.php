@@ -66,4 +66,22 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
+    public function updateProfileCheckout(Request $request) {
+        $cust = Auth::guard('customer')->user();
+
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'name' => 'required|string',
+            'phone' => 'required',
+            'address' => 'required|string',
+            'state' => 'required|string',
+            'postcode' => 'required|string',
+            'city' => 'required|string',
+        ]);
+
+        $customer = Auth::guard('customer')->user();
+        $customer->update($validatedData);
+
+        return redirect()->route('front.checkout');
+    }
 }

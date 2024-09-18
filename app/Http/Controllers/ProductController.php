@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\CategoryAttribute;
 use App\Models\ProductAttribute;
@@ -214,13 +215,15 @@ class ProductController extends Controller
     }
 
     public function viewProduct($id) {
+
         $product = Product::find($id);
         $attrs = CategoryAttribute::where('category', $product->category)
             ->pluck("name","id");
         $product_attrs = ProductAttribute::where('product_id', $product->id)
             ->pluck("value","attribute_id");
-            
+
         return view('front.pages.product-details', compact('product', 'attrs', 'product_attrs'));
     }
+
 
 }

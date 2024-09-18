@@ -92,41 +92,33 @@
                     <div class="col-8 fs-6">RM {{number_format($product->price, 2, '.', ',')}}</div>
                 </div>
             </div>
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
 
-
-                    <div class="col-4">
-                        <div class="mt-3">Quantity </div>
-                    </div>
-
-                    <div class="col-8 d-flex mb-3 mt-2" style="max-width: 300px">
-                        <div class="form-outline d-flex">
-
-                            <input type="number" min="1" max="50" value="1" size="50"
-                                class="form-control w-75 text-center">
-
+            <form action="{{route('front.addToCart')}}" method="POST">
+                @csrf
+                <input type="hidden" name="id" value="{{$product->id}}"/>
+                <div class="card mt-3 p-2">
+                    <div class="d-flex px-4">
+                        <div class="col-4">
+                            <div class="mt-3">Quantity </div>
+                        </div>
+                        <div class="col-8 d-flex mb-3 mt-2" style="max-width: 300px">
+                            <div class="form-outline d-flex">
+                                <input name="quantity" type="number" min="1" max="50" value="1" size="50"
+                                    class="form-control w-75 text-center">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-
-
-            <div class="card mt-3 p-2">
-                <div class="d-flex px-4">
-                    <div class="col-12 d-flex d-flex-gap justify-content-around">
-                        <button id="btnBuy" class="btn btn-primary d-flex">Buy Now</button>
-
-                        <button class="btn btn-outline-info d-flex" id="btnCart">Add to Cart</button>
-
+                <div class="card mt-3 p-2">
+                    <div class="d-flex px-4">
+                        <div class="col-12 d-flex d-flex-gap justify-content-around">
+                            <button id="btnBuy" class="btn btn-primary d-flex" name="submit" value="buy">Buy Now</button>
+                            <button class="btn btn-outline-info d-flex" id="btnCart" name="submit" value="cart">Add to Cart</button>
+                        </div>
                     </div>
-
-
-
                 </div>
-            </div>
+                
+            </form>
 
         </div>
 

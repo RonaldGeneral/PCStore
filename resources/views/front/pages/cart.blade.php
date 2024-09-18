@@ -16,13 +16,15 @@
                     <div class="col-3">Quantity</div>
                     <div class="col-2 text-end">Total</div>
                 </div>
+
+                @foreach($items as $item)
                 <!-- Single item -->
                 <div class="row">
                     <div class="col-2">
                         <!-- Image -->
                         <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                            <a class="w-100" href="{{ url('front/product/') }}">
-                                <img src="{{ URL::asset('img/featprod3.png') }}">
+                            <a class="w-100" href="{{ route('front.viewProduct', $item->product->id) }}">
+                                <img src="{{ Storage::disk('products')->url($item->product->img_src1) }}">
                             </a>
                         </div>
                     </div>
@@ -30,8 +32,8 @@
                     <div class="col-3">
                         <!-- Data -->
                         <p>
-                            <a class="link-secondary text-decoration-none" href="{{ url('front/product/') }}">
-                                <strong>Razor Keyboard</strong>
+                            <a class="link-primary fs-6 text-decoration-none" href="{{ route('front.viewProduct', $item->product->id) }}">
+                                <strong>{{$item->product->title}}</strong>
                             </a>
                         </p>
                     </div>
@@ -40,16 +42,16 @@
                         <!-- Quantity -->
                         <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
                             <div class="form-outline d-flex ">
-                                <input type="number" size="50" min="1" max="50" value="1"
-                                    class="form-control w-100 text-center">
+                                <input name="quantity" type="number" size="50" min="1" max="50" value="{{$item->quantity}}"
+                                    class="form-control w-100 text-center" disabled>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-4 d-flex">
                         <!-- Price -->
-                        <p class="text-end pe-3 w-75">
-                            <strong>RM 17.90</strong>
+                        <p class="text-end pe-3 w-75 fs-6">
+                            <strong>RM {{number_format($item->subtotal, 2, '.', ',')}}</strong>
                         </p>
                         <a class="btn h-25" title="Remove item">
                             <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
@@ -59,54 +61,9 @@
                         </a>
                     </div>
                 </div>
-
                 <hr class="my-4" />
+                @endforeach
 
-                <!-- Single item -->
-                <div class="row">
-                    <div class="col-2">
-                        <!-- Image -->
-                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                            <asp:LinkButton CssClass="w-100" runat="server"
-                                PostBackUrl="~/view/front/product_details.aspx"><img src="res/featprod2.png">
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <!-- Data -->
-                        <p>
-                            <asp:LinkButton CssClass="link-secondary text-decoration-none" runat="server"
-                                PostBackUrl="~/view/front/product_details.aspx"><strong>Lenovo Ideapad 5i</strong>
-                            </asp:LinkButton>
-                        </p>
-                        <p class="text-muted mb-0">Color: Blue</p>
-                        <p class="text-muted mb-0">Processor: Intel i7</p>
-                    </div>
-
-                    <div class="col-3">
-                        <!-- Quantity -->
-                        <div class="d-flex mb-4" style="max-width: 300px">
-                            <div class="form-outline d-flex justify-content-center">
-                                <asp:TextBox TextMode="Number" min="0" max="50" Text="2"
-                                    CssClass="form-control w-50 text-center" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4 d-flex">
-                        <!-- Price -->
-                        <p class="text-end pe-3 w-75">
-                            <strong>RM 17.99</strong>
-                        </p>
-                        <asp:LinkButton runat="server" CssClass="btn h-25" title="Remove item" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
-                  <path
-                    d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z' />
-                </svg>"></asp:LinkButton>
-                    </div>
-                </div>
-
-                <!-- Single item -->
             </div>
         </div>
     </div>
@@ -117,28 +74,24 @@
             </div>
             <div class="card-body p-4">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                         <span class="col-7"> Subtotal</span>
-                        <span class="col-1">RM</span>
-                        <span class="text-end col-2">1,249.90</span>
+                        <span class="text-end col-3">RM {{number_format($subtotal, 2, '.', ',')}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                         <span class="col-7"> Shipping</span>
                         <span class="col-1">RM</span>
                         <span class="text-end col-2">4.00</span>
-                    </li>
+                    </li> -->
                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                        <div>
+                        <div class="fs-5">
                             <strong>Total amount</strong>
-                            <strong>
-                                <p class="mb-0">(including GST)</p>
-                            </strong>
                         </div>
-                        <span><strong>RM 1,253.90</strong></span>
+                        <span class="fs-5"><strong>RM {{number_format($subtotal, 2, '.', ',')}}</strong></span>
                     </li>
                 </ul>
 
-                <input type="button" class="btn shadow w-100 btn-primary btn-block" value="Checkout" id="checkout">
+                <a class="btn shadow w-100 btn-primary btn-block" href="{{route('front.viewCheckout')}}">Checkout</a>
 
             </div>
         </div>

@@ -170,12 +170,12 @@
                                     <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>TnG Ewallet</p>
                                     <p class="mb-2"><span class="fw-bold me-2">TnG number:</span> {{$order->payment->tng_number}}</p>
                                     @break
-                                @case('tng')
+                                @case('fpx')
                                     <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>FPX Transfer</p>
                                     <p class="mb-2"><span class="fw-bold me-2">FPX Bank Name:</span> {{$order->payment->fpx_bank_name}}</p>
                                     <p class="mb-2"><span class="fw-bold me-2">Card Number:</span> {{$order->payment->card_number}}</p>
                                     @break
-                                @case('tng')
+                                @case('card')
                                     <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>Debit/Credit card</p>
                                     <p class="mb-2"><span class="fw-bold me-2">Card number:</span> {{$order->payment->card_number}}</p>
                                     @break

@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\CustomerAuth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,11 +15,20 @@ Route::get('/', function () {
     return redirect('/front');
 });
 
-//Route::view('/front', 'front/pages/cart');
-Route::view('/front/cart', 'front/pages/cart');
-Route::view('/front/checkout', 'front/pages/checkout');
+Route::middleware([CustomerAuth::class])->group(function () {
+    Route::post('/front/addcart', [OrderController::class,'addToCart'])->name('front.addToCart');
+    Route::get('/front/cart', [OrderController::class,'showCart'])->name('front.cart');
+    Route::get('/front/checkout', [OrderController::class,'viewCheckout'])->name('front.viewCheckout');
+    Route::put('/front/checkout/profile', [CustomerController::class,'updateProfileCheckout'])->name('front.checkoutProfile');
+    Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('front.checkout');
+    Route::get('/front/payment', [OrderController::class,'payment'])->name('front.payment');
+    Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
+});
+
+
 Route::view('/front/contact', 'front/pages/contact');
 Route::get('/front/shop', [ProductController::class, 'catalog'])->name('front.catalog');
+Route::get('/front/product', function (){return redirect()->route('front.catalog');});
 Route::get('/front/product/{product}', [ProductController::class, 'viewProduct'])->name('front.viewProduct');
 
 
@@ -28,7 +38,7 @@ Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.
 Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
 Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
 
-Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
+
 Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
 Route::get('/front/order-history', [CustomerController::class,'orderHistory'])->name('front.order_hist');
 
@@ -43,7 +53,7 @@ Route::post('/update-profile', [CustomerController::class,'updateProfile'])->nam
 
 
 Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
-Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name('customers.index');
+Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
 Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
 Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
 Route::get('/admin/staff-details', [AdminStaffController::class, 'view'])->name('admins.view');
