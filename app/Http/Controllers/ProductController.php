@@ -148,4 +148,79 @@ class ProductController extends Controller
             ->with('success', 'Product edited successfully');
     }
 
+    public function catalog(Request $request) {
+        
+
+        $products = Product::select(
+            'id','title', 'category', 'status', 
+            'img_src1', 'price', 'total_rating')
+            ->where('status', '=', 1);
+        
+        $search = $request->input('search');
+            
+        $categories= $request->input('category', []);
+        $price= $request->input('price');
+        $order= $request->input('order', 'pa');
+        
+        if($search) {
+            $products->whereLike('title', "%$search%");
+        }
+            
+        if($categories && count($categories) > 0)
+            $products->whereIn('category', $categories);
+
+        switch($price) {
+            case 1:
+                //Under RM1000
+                $products->where('price', '<', '1000');
+                break;
+            case 2:
+                //RM 1000 - RM 2999
+                $products->whereBetween('price', ['1000', '2999']);
+                break;
+            case 3:
+                //RM 3000 - RM 4999
+                $products->whereBetween('price', ['3000', '4999']);
+                break;
+            case 4:
+                //RM 5000 - RM 6999
+                $products->whereBetween('price', ['5000', '6999']);
+                break;
+            case 5:
+                //Above RM7000
+                $products->where('price', '>=', '7000');
+                break;
+        }
+        
+        switch($order) {
+            
+            case 'pd':
+                $products->orderByDesc('price');
+                break;
+            case 'aa':
+                $products->orderBy('title');
+                break;
+            case 'ad':
+                $products->orderByDesc('title');
+                break;
+            case 'pa':
+            default:
+                $products->orderBy('price');
+                break;
+        }
+        
+        $products = $products->get();
+        return view('front.pages.product-catalog', compact('products', 'categories', 'price', 'order'));
+    }
+
+    public function viewProduct($id) {
+        $product = Product::find($id);
+        $attrs = CategoryAttribute::where('category', $product->category)
+            ->pluck("name","id");
+        $product_attrs = ProductAttribute::where('product_id', $product->id)
+            ->pluck("value","attribute_id");
+            
+        return view('front.pages.product-details', compact('product', 'attrs', 'product_attrs'));
+    }
+
 }

@@ -31,7 +31,10 @@ class Product extends Model
 
         $ratings = array_merge($ratings, array_fill(0, (5 - count($ratings)), 'e'));
 
-        return implode(",",$ratings);
+        return [
+            'original'=> $value,
+            'formatted'=> $ratings
+        ];
     }
 
     // public function attributes()

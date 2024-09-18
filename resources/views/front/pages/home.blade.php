@@ -38,7 +38,7 @@
 
 
     <div class="col-3">
-      <a href="">
+      <a href="{{route('front.catalog', ['category' => ['prebuilt']])}}">
         <div class="card m-auto categoryimage" style="width: 18rem;">
           <img src="{{ URL::asset('img/featprod1.png') }}" height="250" class="card-img-top" alt="cat 1">
           <div class="card-body text-center">
@@ -51,7 +51,7 @@
 
 
     <div class="col-3">
-      <a href="">
+      <a href="{{route('front.catalog', ['category' => ['laptop']])}}">
         <div class="card m-auto categoryimage" style="width: 18rem;">
           <img src="{{ URL::asset('img/featprod2.png') }}" height="250" class="card-img-top" alt="cat 2">
           <div class="card-body text-center">
@@ -63,7 +63,7 @@
 
 
     <div class="col-3">
-      <a href="">
+      <a href="{{route('front.catalog', ['category' => ['accessories']])}}">
         <div class="card m-auto categoryimage" style="width: 18rem;">
           <img src="{{ URL::asset('img/featprod3.png') }}" height="250" class="card-img-top" alt="cat 3">
           <div class="card-body text-center">
@@ -75,112 +75,6 @@
 
   </div>
 
-
-  <h2 class="text-center mt-5">Featured Products</h2>
-
-
-  <!--Featured Products-->
-  <div id="featuredProducts" class="carousel carousel-dark slide mt-5" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-
-
-        <div class="row justify-content-center mx-auto">
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod1.png') }}" height="250" class="card-img-top" alt="featprod 1">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix Prebuilt Desktop A</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod2.png') }}" height="250" class="card-img-top" alt="featprod 2">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix G16</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod3.png') }}" height="250" class="card-img-top" alt="featprod 3">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix Claymore Keyboard</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        </div>
-
-
-
-      </div>
-      <div class="carousel-item">
-
-
-
-        <div class="row justify-content-center">
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod4.png') }}" height="250" class="card-img-top" alt="featprod 4">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix Chakram Mouse</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod5.png') }}" height="250" class="card-img-top" alt="featprod 5">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix PG32UQ 4k Monitor</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-
-          <div class="col-3">
-            <a href="">
-              <div class="card m-auto categoryimage" style="width: 18rem;">
-                <img src="{{ URL::asset('img/featprod6.png') }}" height="250" class="card-img-top" alt="featprod 6">
-                <div class="card-body text-center">
-                  <h4 class="card-title">Asus ROG Strix Delta Headset</h4>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#featuredProducts" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#featuredProducts" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 
 
   <!--Background Banner-->

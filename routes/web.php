@@ -15,9 +15,8 @@ Route::get('/', function () {
 Route::view('/front/cart', 'front/pages/cart');
 Route::view('/front/checkout', 'front/pages/checkout');
 Route::view('/front/contact', 'front/pages/contact');
-Route::view('/front/shop', 'front/pages/product-catalog');
-Route::view('/front/product', 'front/pages/product-details');
-Route::view('/front/product-details', 'front/pages/product-details');
+Route::get('/front/shop', [ProductController::class, 'catalog'])->name('front.catalog');
+Route::get('/front/product/{product}', [ProductController::class, 'viewProduct'])->name('front.viewProduct');
 
 
 Route::get('/front', [CustomerController::class,'index'])->name('front.home');

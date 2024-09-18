@@ -51,7 +51,7 @@
                                 <a href="{{ route('products.view', $product->id) }}">{{$product->title}}</a>
                                 <br>
                                 <span class="svg-yellow">
-                                    @foreach (explode(',',$product->total_rating,5) as $star)
+                                    @foreach ($product->total_rating['formatted'] as $star)
                                         @switch($star)
                                             @case('f')
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-sms-12">
-                <a href="{{ url('/front/') }}">
+                <a href="{{ url('/front/shop') }}">
 
                     <div id="logo">
                         <img src="{{ URL::asset('img/terrabyte.png') }}" alt="TerraByte" itemprop="logo" class="img-responsive" />
@@ -14,10 +14,12 @@
                 <!--Search Form-->
                 <div id="search-by-category" class="ms-3">
                     <div class="search-container d-flex">
-                        <input id="textSearch" class="col form-control border-0 p-2 ps-3 br-50" placeholder="Search entire store here ..." />
-                        <div id="sp-btn-search" class="col-1">
-                            <button id="btnSearch" class="btn btn-primary btn-lg br-50"></button>
-                        </div>
+                        <form class="w-100 d-flex" action="{{url('/front/shop')}}" method="GET">
+                            <input name="search" id="textSearch" class="col form-control border-0 p-2 ps-3 br-50" placeholder="Search entire store here ..." />
+                            <div id="sp-btn-search" class="col-1">
+                                <button id="btnSearch" class="btn btn-primary btn-lg br-50"></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="d-flex d-flex-gap justify-content-end">
