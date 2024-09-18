@@ -37,15 +37,15 @@ Route::post('/verify-pin', [CustLoginController::class,'verifyPIN'])->name('veri
 Route::post('/change-password', [CustLoginController::class,'changePassword'])->name('change_pw');
 Route::post('/update-profile', [CustomerController::class,'updateProfile'])->name('update_profile');
 
-Route::view('/admin/', 'admin/pages/profile');
 
-Route::view('/admin/customer-details', 'admin/pages/customer-details')->name('customers.view');
-Route::view('/admin/customer-page', 'admin/pages/customer-page');
-Route::view('/admin/log-record', 'admin/pages/log-record');
-Route::view('/admin/login', 'admin/pages/login');
-Route::view('/admin/profile', 'admin/pages/profile');
-Route::view('/admin/staff-details', 'admin/pages/staff-details');
-Route::view('/admin/staff-page', 'admin/pages/staff-page');
+
+Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
+Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name('customers.index');
+Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
+Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
+Route::get('/admin/staff-details', [AdminStaffController::class, 'view'])->name('admins.view');
+Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
+Route::get('/admin/log-record', [AdminStaffController::class, 'index'])->name('admin.log-record');
 
 Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
 Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');
