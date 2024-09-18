@@ -53,12 +53,18 @@
                         <p class="text-end pe-3 w-75 fs-6">
                             <strong>RM {{number_format($item->subtotal, 2, '.', ',')}}</strong>
                         </p>
-                        <a class="btn h-25" title="Remove item">
-                            <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
-                                <path
-                                    d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z' />
-                            </svg>
-                        </a>
+                        <form action="{{route('front.cartDelete')}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" value="{{$item->product->id}}" name="product_id"/>
+                            
+                            <button class="btn h-25" title="Remove item">
+                                <svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'>
+                                    <path
+                                        d='M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z' />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <hr class="my-4" />
@@ -74,15 +80,6 @@
             </div>
             <div class="card-body p-4">
                 <ul class="list-group list-group-flush">
-                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        <span class="col-7"> Subtotal</span>
-                        <span class="text-end col-3">RM {{number_format($subtotal, 2, '.', ',')}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <span class="col-7"> Shipping</span>
-                        <span class="col-1">RM</span>
-                        <span class="text-end col-2">4.00</span>
-                    </li> -->
                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                         <div class="fs-5">
                             <strong>Total amount</strong>
@@ -91,7 +88,9 @@
                     </li>
                 </ul>
 
+                @if(count($items) > 0)
                 <a class="btn shadow w-100 btn-primary btn-block" href="{{route('front.viewCheckout')}}">Checkout</a>
+                @endif
 
             </div>
         </div>

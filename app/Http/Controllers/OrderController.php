@@ -94,6 +94,18 @@ class OrderController extends Controller
         return view('front.pages.cart', compact('items', 'subtotal'));
     }
 
+    public function deleteCart(Request $request) {
+        $customer = Auth::guard('customer')->user();
+
+        if($request->product_id) {
+            $cart = CartItem::where('customer_id','=',$customer->id)
+                ->where('product_id','=',$request->product_id);
+            $cart->delete();
+        }
+
+        return redirect()->route('front.cart');
+    }
+
     public function viewCheckout() {
         $cust = Auth::guard('customer')->user();
         $customer = [

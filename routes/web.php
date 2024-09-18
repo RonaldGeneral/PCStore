@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::middleware([CustomerAuth::class])->group(function () {
     Route::post('/front/addcart', [OrderController::class,'addToCart'])->name('front.addToCart');
     Route::get('/front/cart', [OrderController::class,'showCart'])->name('front.cart');
+    Route::delete('/front/cart/delete', [OrderController::class,'deleteCart'])->name('front.cartDelete');
     Route::get('/front/checkout', [OrderController::class,'viewCheckout'])->name('front.viewCheckout');
     Route::put('/front/checkout/profile', [CustomerController::class,'updateProfileCheckout'])->name('front.checkoutProfile');
     Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('front.checkout');
