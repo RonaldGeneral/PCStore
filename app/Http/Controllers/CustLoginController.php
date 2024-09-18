@@ -47,11 +47,9 @@ class CustLoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required | email',
-            'password' => 'required | min:8',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
         ]);
-
-
 
         if($request->input('loginType') === 'external'){
             $context = new LoginContext(new ExternalLoginStrategy());

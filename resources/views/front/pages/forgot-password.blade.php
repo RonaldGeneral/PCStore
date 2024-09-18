@@ -16,7 +16,7 @@
 @endif
 
 @section('content')
-<form action="{{ route('verify-pin') }}" method="POST">
+<form action="{{ route('verify_pin') }}" method="POST">
   @csrf
   <div id="content">
     <div class="container py-5 w-50 h-100">

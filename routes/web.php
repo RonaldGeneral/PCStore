@@ -34,9 +34,9 @@ Route::post('/create-account', [CustLoginController::class,'createAccount'])->na
 Route::post('/front/login', [CustLoginController::class,'login'])->name('customer.login');
 Route::post('/front/logout', [CustLoginController::class, 'logout'])->name('customer.logout');
 Route::post('/reset-password', [CustLoginController::class,'resetPassword']);
-Route::post('/verify-pin', [CustLoginController::class,'verifyPIN'])->name('verify-pin');
-Route::post('/change-password', [CustLoginController::class,'changePassword'])->name('change-pw');
-
+Route::post('/verify-pin', [CustLoginController::class,'verifyPIN'])->name('verify_pin');
+Route::post('/change-password', [CustLoginController::class,'changePassword'])->name('change_pw');
+Route::post('/update-profile', [CustomerController::class,'updateProfile'])->name('update_profile');
 
 Route::view('/admin/', 'admin/pages/profile');
 

@@ -1,6 +1,17 @@
 @extends('front.layouts.default')
 
 @section('content')
+
+@if (session('success'))
+  <div class="row" style="padding: 0.5rem 1rem;">
+    <div class="SuccessBox">
+    <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+    <label>{{ session('success') }}</label>
+    <span class="DivClose" onclick="this.parentNode.parentNode.removeChild(this.parentNode); return false;">&times;</span>
+    </div>
+  </div>
+@endif
+
 <div id="content" class="">
   <div class="container py-5">
     <div class="row">
@@ -16,10 +27,10 @@
           </ul>
         </div>
       </div>
-      <form action="" method="POST">
-        @csrf
-        
-        <div class="col-md-9">
+
+      <div class="col-md-9">
+        <form action="{{ route('update_profile') }}" method="POST">
+          @csrf
           <div class="profile-border backgroundGrey p-5">
             <div class="row mb-5">
               <h3>User Profile</h3>
@@ -32,7 +43,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" value="{{ $customer->username }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="username" value="{{ $customer->username }}" disabled />
                 </div>
               </div>
             </div>
@@ -44,7 +55,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" placeholder="Name" value="{{ $customer->name }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="name" placeholder="Name" value="{{ $customer->name }}" />
                 </div>
               </div>
             </div>
@@ -56,7 +67,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="email" class="form-control form-control-lg fs-6" placeholder="Email" value="{{ $customer->email }}" />
+                  <input type="email" class="form-control form-control-lg fs-6" name="email" placeholder="Email" value="{{ $customer->email }}" />
                 </div>
               </div>
             </div>
@@ -68,7 +79,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" placeholder="Phone" value="{{ $customer->phone }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="phone" placeholder="Phone" value="{{ $customer->phone }}" />
                 </div>
               </div>
             </div>
@@ -80,12 +91,12 @@
 
               <div class="col-md-8">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="Female">
-                  <label class="form-check-label" for="inlineRadio1">Female</label>
+                  <input class="form-check-input" type="radio" name="gender" value="F" {{ $customer->gender == 'F' ? 'checked' : '' }}>
+                  <label class="form-check-label" >Female</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="gender" value="Male">
-                  <label class="form-check-label" for="inlineRadio2">Male</label>
+                  <input class="form-check-input" type="radio" name="gender" value="M" {{ $customer->gender == 'M' ? 'checked' : '' }}>
+                  <label class="form-check-label" >Male</label>
                 </div>
               </div>
             </div>
@@ -97,7 +108,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="date" class="form-control form-control-lg fs-6" value="{{ $customer->birthdate }}" />
+                  <input type="date" class="form-control form-control-lg fs-6" name="birthdate" value="{{ $formattedDob }}" />
                 </div>
               </div>
             </div>
@@ -140,7 +151,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" value="{{ $customer->address }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="address" value="{{ $customer->address }}" />
                 </div>
               </div>
             </div>
@@ -152,7 +163,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" value="{{ $customer->postcode }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="postcode" value="{{ $customer->postcode }}" />
                 </div>
               </div>
             </div>
@@ -164,7 +175,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" value="{{ $customer->city }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="city" value="{{ $customer->city }}" />
                 </div>
               </div>
             </div>
@@ -176,7 +187,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="text" class="form-control form-control-lg fs-6" value="{{ $customer->state }}" />
+                  <input type="text" class="form-control form-control-lg fs-6" name="state" value="{{ $customer->state }}" />
                 </div>
               </div>
             </div>
@@ -187,8 +198,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
