@@ -76,7 +76,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <select ID="ddlStates" name="state"  class="form-select" required>
-                                <option {{$customer['state']?'':'selected'}}>State</option>
+                                <option {{$customer['state']?'':'selected'}} value="">State</option>
                                 <option value="Kuala Lumpur" {{$customer['state']=='Kuala Lumpur'?'selected':''}}>Kuala Lumpur</option>
                                 <option value="Penang" {{$customer['state']=='Penang'?'selected':''}}>Penang</option>
                                 <option value="Johor" {{$customer['state']=='Johor'?'selected':''}}>Johor</option>

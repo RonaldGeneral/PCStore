@@ -83,49 +83,50 @@
 
             <div class="col-md-4" id="paymentBox">
                 
-                
-                <div class="m-2">
-                    <h3 class="mx-0 fs-5 mb-4">Select Payment Method</h3>
-                    <div class="form-check">
-                        <label class="fs-6 form-check-label mb-3" for="tng" class=""> 
-                            TnG EWallet
-                        </label><input type="radio" id="tng" name="payment" class="form-check-input me-3" value="tng" />       
+                <form action="{{route('order.create')}}" method="POST">
+                    @csrf
+                    <div class="m-2">
+                        <h3 class="mx-0 fs-5 mb-4">Select Payment Method</h3>
+                        <div class="form-check">
+                            <label class="fs-6 form-check-label mb-3" for="tng" class="">
+                                TnG EWallet
+                            </label><input type="radio" id="tng" name="payment" class="form-check-input me-3" value="tng" />
+                        </div>
+                        <div class="form-check">
+                            <label class="fs-6 form-check-label mb-3" for="fpx" class="">
+                                FPX Transfer
+                            </label><input type="radio" id="fpx" name="payment" class="form-check-input me-3" value="fpx" />
+                        </div>
+                        <div class="form-check">
+                            <label class="fs-6 form-check-label mb-3" for="card" class="">
+                                Debit/Credit Card
+                            </label><input type="radio" id="card" name="payment" class="form-check-input me-3" value="card" />
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <label class="fs-6 form-check-label mb-3" for="fpx" class=""> 
-                            FPX Transfer
-                        </label><input type="radio" id="fpx" name="payment" class="form-check-input me-3" value="fpx" />       
+                    <div class="m-2 mb-4">
+                        <h3 class="mb-0 fs-5 mb-4">Order Summary</h3>
+                        <div class="orderSummary fs-6">
+                            <table>
+                                <tr>
+                                    <td><b>Subtotal</b></td>
+                                    <td style="text-align: right;">RM {{number_format($subtotal, 2, '.', ',')}}</td>
+                                </tr>
+                                <tr class="black-line">
+                                    <td><b>Delivery Fee</b></td>
+                                    <td style="text-align: right;">RM {{number_format($delivery_fee, 2, '.', ',')}}</td>
+                                    <input type="hidden" name="delivery" value="{{number_format($delivery_fee, 2, '.', ',')}}" />
+                                </tr>
+                                <tr class="mt-2">
+                                    <td><b>Total</b></td>
+                                    <td style="text-align: right;">RM {{number_format($total, 2, '.', ',')}}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <label class="fs-6 form-check-label mb-3" for="card" class=""> 
-                            Debit/Credit Card
-                        </label><input type="radio" id="card" name="payment" class="form-check-input me-3" value="card" />       
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary py-2">Checkout</button>
                     </div>
-                </div>
-
-                <div class="m-2 mb-4">
-                    <h3 class="mb-0 fs-5 mb-4">Order Summary</h3>
-                    <div class="orderSummary fs-6">
-                        <table>
-                            <tr>
-                                <td><b>Subtotal</b></td>
-                                <td style="text-align: right;">RM {{number_format($subtotal, 2, '.', ',')}}</td>
-                            </tr>
-                            <tr class="black-line">
-                                <td><b>Delivery Fee</b></td>
-                                <td style="text-align: right;">RM {{number_format($delivery_fee, 2, '.', ',')}}</td>
-                            </tr>
-                            <tr class="mt-2">
-                                <td><b>Total</b></td>
-                                <td style="text-align: right;">RM {{number_format($total, 2, '.', ',')}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="d-grid gap-2">
-                    <input type="button" id="btnCheckout" value="Checkout" class="btn btn-primary py-2"/>
-                </div>
+                </form>
             </div>
         </div>
     </div>

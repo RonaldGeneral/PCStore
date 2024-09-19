@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\CartItem;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use XSLTProcessor;
 
@@ -134,6 +136,9 @@ class OrderController extends Controller
         ];
 
         $items = CartItem::where('customer_id', '=', $cust->id)->get();
+        if(count($items) <= 0)
+            return redirect()->route('front.cart');
+
         $subtotal = $items->sum('subtotal');
         $delivery_fee = 3;
         $total = $subtotal + $delivery_fee;
@@ -142,9 +147,57 @@ class OrderController extends Controller
         return view('front.pages.checkout-summary', compact('customer', 'delivery_fee', 'subtotal', 'total'));
     }
 
+    public function create(Request $request) {
+
+        $request->validate([
+            'payment' => 'required',
+        ]);
+
+        $customer = Auth::guard('customer')->user();
+        $items = CartItem::where('customer_id', '=', $customer->id)->get();
+        if(count($items) <= 0)
+            return redirect()->route('front.cart');
+
+        $payment_method = $request->input('payment');
+
+        $subtotal = $items->sum('subtotal');
+        $delivery_fee = $request->input('delivery');
+        $total = $subtotal + $delivery_fee;
+
+        $payment = new Payment();
+        $payment->payment_method = $payment_method;
+        $payment->status = 1;
+
+        $payment->save();
+        $order = new Order();
+        $order->payment_id = $payment->id;
+        $order->customer_id = $customer->id;
+        $order->status = 1;
+        $order->delivery_fee = $delivery_fee;
+        $order->subtotal = $subtotal;
+        $order->total = $total;
+        $order->save();
+
+        foreach($items as $item) {
+            $order_item = new OrderItem();
+            $order_item->order_id = $order->id;
+            $order_item->product_id = $item->product_id;
+            $order_item->quantity = $item->quantity;
+            $order_item->price = $item->price;
+            $order_item->subtotal = $item->subtotal;
+            $order_item->save();
+
+            $item->forceDelete();
+        }
+
+        return redirect()->route('front.payment');
+    }
+
     public function payment(Request $request) {
         $customer = Auth::guard('customer')->user();
         $items = CartItem::where('customer_id', '=', $customer->id)->get();
+        if(count($items) <= 0)
+            return redirect()->route('front.cart');
         
 
         return view('front.pages.payment', compact('customer', 'items'));

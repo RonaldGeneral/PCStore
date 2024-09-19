@@ -22,6 +22,7 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::get('/front/checkout', [OrderController::class,'viewCheckout'])->name('front.viewCheckout');
     Route::put('/front/checkout/profile', [CustomerController::class,'updateProfileCheckout'])->name('front.checkoutProfile');
     Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('front.checkout');
+    Route::post('/front/checkout/create', [OrderController::class,'create'])->name('order.create');
     Route::get('/front/payment', [OrderController::class,'payment'])->name('front.payment');
     Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
 });
