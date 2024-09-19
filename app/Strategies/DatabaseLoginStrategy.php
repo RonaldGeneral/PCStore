@@ -12,6 +12,6 @@ class DatabaseLoginStrategy implements LoginStrategy
         if (Auth::guard('customer')->attempt($credentials)) {
             return redirect()->route('front.home');
         }
-        return back()->withErrors(['loginError' => 'Invalid credentials'])->withInput();
+        return back()->with('loginError', 'Invalid credentials.')->withInput();
     }
 }

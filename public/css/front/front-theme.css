@@ -736,7 +736,7 @@ a:hover {
 .FailedBox {
     width: 100%;
     box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-    background-color: #FF1E1E;
+    background-color: #ea0000;
     color: white;
     border-radius: 5px;
     padding-top: 10px;

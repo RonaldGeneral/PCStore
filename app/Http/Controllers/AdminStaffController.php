@@ -22,6 +22,10 @@ class AdminStaffController extends Controller
         return view("admin.pages.profile", compact('admin'));
     }
 
+    public function reports(){
+        return view("admin.pages.report-page");
+    }
+
     public function create(Request $request)
     {
         $request->validate([

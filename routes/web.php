@@ -25,6 +25,7 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::post('/front/checkout/create', [OrderController::class,'create'])->name('order.create');
     Route::get('/front/payment', [OrderController::class,'payment'])->name('front.payment');
     Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
+    Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
 });
 
 
@@ -38,7 +39,6 @@ Route::get('/front', [CustomerController::class,'index'])->name('front.home');
 Route::get('/front/login', [CustLoginController::class,'index'])->name('front.login');
 Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
 Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
-Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
 
 
 Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
@@ -74,4 +74,4 @@ Route::post('/admin/product-page', [ProductController::class, 'create'])->name('
 Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
 Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
 Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
-
+Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
