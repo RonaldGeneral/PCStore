@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<payment>
+    <method>tng</method>
+    <number>012-3242358</number>
+    <total>6004.00</total>
+</payment>

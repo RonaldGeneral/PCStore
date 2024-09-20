@@ -10,6 +10,8 @@ use App\Models\CartItem;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use XSLTProcessor;
 
 class OrderController extends Controller
@@ -148,7 +150,7 @@ class OrderController extends Controller
         return view('front.pages.checkout-summary', compact('customer', 'delivery_fee', 'subtotal', 'total'));
     }
 
-    public function create(Request $request, $payment) {       
+    public function  create(Request $request, $payment) {       
 
         $customer = Auth::guard('customer')->user();
         $items = CartItem::where('customer_id', '=', $customer->id)->get();
@@ -161,7 +163,12 @@ class OrderController extends Controller
 
         $payment = Payment::find($payment);
         $payment->status = 1;
+        $response = Http::accept('application/json')->get('http://localhost:5200/payment/get', [
+            'id'=>$payment->token
+        ]);
 
+        $res = $response->json();
+        
         $payment->save();
         $order = new Order();
         $order->payment_id = $payment->id;
@@ -183,8 +190,23 @@ class OrderController extends Controller
 
             $item->forceDelete();
         }
+        
+/*
+        :XML Code 
+*/
+        $xml = new \DOMDocument();
+        $xml->loadXML($res['data']);
 
-        return redirect()->route('order.showPayment');
+        $xsl = new \DOMDocument();
+        $xsl->substituteEntities = TRUE;
+        $xsl->load(Storage::disk('xslt')->path('payment.xsl'));
+
+        $xsltProcessor = new XSLTProcessor();
+        $xsltProcessor->importStylesheet($xsl);
+
+        $payment_html = $xsltProcessor->transformToXML($xml);
+
+        return view('front.pages.payment', compact('order', 'payment_html'));
     }
 
     public function makePayment(Request $request) {
@@ -237,8 +259,12 @@ class OrderController extends Controller
                 $payment->card_number = $request->input('card_number');
                 break;
         }
+        $payment->token = $request->input('token');
 
         $payment->save();
+        return response()->json([
+            'data' => $payment
+        ]);
     }
 
     public function showPayment(Request $request) {
@@ -248,4 +274,5 @@ class OrderController extends Controller
 
         return view('front.pages.payment', compact('customer', 'items'));
     }
+
 }
