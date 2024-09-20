@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Carbon\Carbon;
 use App\Models\Admin;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +13,7 @@ class AdminStaffController extends Controller
 {
     public function index()
     {
-        $admins = Admin::select('id','name', 'birthdate', 'phone', 'email', 'gender', 'username', 'password', 'status', 'created_on', 'position_id')->get();
+        $admins = Admin::select('id', 'name', 'birthdate', 'phone', 'email', 'gender', 'username', 'password', 'status', 'created_on', 'position_id')->get();
         
         return view('admin.pages.staff-page', compact('admins'));
     }
@@ -23,14 +26,65 @@ class AdminStaffController extends Controller
         return view("admin.pages.profile", compact('admin'));
     }
 
-    public function reports(){
-        return view("admin.pages.report-page");
+    public function reports()
+    {
+        // Fetch sales by category
+        $salesByCategory = DB::table('order_item')
+            ->join('product', 'order_item.product_id', '=', 'product.id')
+            ->select(DB::raw('SUM(order_item.subtotal) as total_sales, product.category'))
+            ->groupBy('product.category')
+            ->get();
+
+        // Fetch sales data for the last 3 months
+        $startDate = Carbon::now()->subMonths(3);
+        $salesData = DB::table('order')
+            ->select(DB::raw('SUM(total) as total_sales, DATE(created_on) as date'))
+            ->where('created_on', '>=', $startDate)
+            ->groupBy('date')
+            ->get();
+
+
+        return view('admin.pages.report-page', [
+            'salesByCategory' => $salesByCategory,
+            'salesData' => $salesData,
+            "orders" => null
+        ]);
     }
+
+    public function filterOrdersForReport(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $orders = Order::whereBetween('created_on', [$startDate, $endDate])->get();
+
+        $totalSubtotal = $orders->sum('subtotal');
+
+        return view('admin.pages.report-page', compact('orders', 'totalSubtotal'));
+    }
+
+    public function salesByCategory()
+    {
+        $salesByCategory = DB::table('order_items')
+            ->join('categories', 'order_items.category_id', '=', 'categories.id')
+            ->select(DB::raw('SUM(order_items.subtotal) as total_sales, categories.name'))
+            ->groupBy('categories.name')
+            ->get();
+
+        return view('report', compact('salesByCategory'));
+    }
+
+
 
     public function create(Request $request)
     {
         $request->validate([
-            
+
             'name' => 'required|string|max:255',
             'birthdate' => 'required|date_format:D-M-Y|before:today',
             'phone' => 'required|digits:12',
@@ -38,7 +92,7 @@ class AdminStaffController extends Controller
             'gender' => 'required',
             'username' => 'required|string|max:255',
             'password' => 'required|min:8|confirmed',
-            'position_id' => 'required', 
+            'position_id' => 'required',
         ]);
 
         $admin = new Admin();
@@ -55,14 +109,14 @@ class AdminStaffController extends Controller
 
         $admin->save();
 
-        
-    
+
+
         return redirect()->route('admins.index');
     }
 
     public function destroy(Request $request)
     {
-        $id= $request->delete_id;
+        $id = $request->delete_id;
         $admin = Admin::find($id);
         $admin->delete();
         return redirect()->route('admins.index')
@@ -78,7 +132,7 @@ class AdminStaffController extends Controller
 
     public function viewLog($id)
     {
-        
+
 
         return view('admin.pages.log-record', compact('admin'));
     }
@@ -109,8 +163,8 @@ class AdminStaffController extends Controller
         $admin->position_id = strip_tags($request->position_id);
         $admin->save();
 
-        
-        
+
+
         return redirect()->route('admins.view', $id)
             ->with('success', 'Admin details edited successfully');
     }

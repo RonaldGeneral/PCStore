@@ -15,4 +15,8 @@ class LoginContext
     {
         return $this->strategy->login($credentials);
     }
+
+    public function executeLogout(){
+        return $this->strategy->logout();
+    }
 }

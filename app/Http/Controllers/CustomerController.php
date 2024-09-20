@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -16,7 +17,7 @@ class CustomerController extends Controller
     public function profile()
     {
         $customer = Auth::guard('customer')->user();
-        
+
         if ($customer->dob != null) {
             $formattedDob = Carbon::parse($customer->dob)->format('Y-m-d');
         } else {
@@ -31,10 +32,26 @@ class CustomerController extends Controller
         return view("front.pages.delivery-status");
     }
 
-    public function orderHistory()
+    public function orderHistory(Request $request)
     {
-        return view("front.pages.order-history");
+        $status = $request->query('status');
+
+        $customer = Auth::guard('customer')->user();
+
+        $customerOrders = Order::where('customer_id', Auth::guard('customer')->id())
+            ->where('status', '!=', -1)
+            ->get();
+
+
+        if (!is_null($status)) {
+            $customerOrders = $customerOrders->filter(function ($order) use ($status) {
+                return $order->status == $status;
+            });
+        }
+
+        return view("front.pages.order-history", compact("customer", "customerOrders", "status"));
     }
+
 
     public function updateProfile(Request $request)
     {

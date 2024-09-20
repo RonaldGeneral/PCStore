@@ -61,8 +61,15 @@ class CustLoginController extends Controller
 
     public function logout()
     {
-        Auth::guard('customer')->logout();
-        return redirect()->route('front.home');
+        $user = Auth::guard('customer')->user();
+
+        if ($user->status == 1){
+            $context = new LoginContext(new DatabaseLoginStrategy());
+        }else{
+            $context = new LoginContext(new ExternalLoginStrategy());
+        }
+
+        return $context->executeLogout();
     }
 
     public function createAccount(Request $request)
