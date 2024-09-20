@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\CartItem;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use XSLTProcessor;
 
 class OrderController extends Controller
@@ -147,25 +148,18 @@ class OrderController extends Controller
         return view('front.pages.checkout-summary', compact('customer', 'delivery_fee', 'subtotal', 'total'));
     }
 
-    public function create(Request $request) {
-
-        $request->validate([
-            'payment' => 'required',
-        ]);
+    public function create(Request $request, $payment) {       
 
         $customer = Auth::guard('customer')->user();
         $items = CartItem::where('customer_id', '=', $customer->id)->get();
         if(count($items) <= 0)
             return redirect()->route('front.cart');
 
-        $payment_method = $request->input('payment');
-
         $subtotal = $items->sum('subtotal');
-        $delivery_fee = $request->input('delivery');
+        $delivery_fee = 3;
         $total = $subtotal + $delivery_fee;
 
-        $payment = new Payment();
-        $payment->payment_method = $payment_method;
+        $payment = Payment::find($payment);
         $payment->status = 1;
 
         $payment->save();
@@ -190,14 +184,66 @@ class OrderController extends Controller
             $item->forceDelete();
         }
 
-        return redirect()->route('front.payment');
+        return redirect()->route('order.showPayment');
     }
 
-    public function payment(Request $request) {
+    public function makePayment(Request $request) {
+        
+        $request->validate([
+            'payment' => 'required',
+        ]);
+
         $customer = Auth::guard('customer')->user();
         $items = CartItem::where('customer_id', '=', $customer->id)->get();
         if(count($items) <= 0)
             return redirect()->route('front.cart');
+
+        $subtotal = $items->sum('subtotal');
+        $delivery_fee = $request->input('delivery');
+        $total = $subtotal + $delivery_fee;
+        
+        $payment_method = $request->input('payment');
+
+        $payment = new Payment();
+        $payment->payment_method = $payment_method;
+        $payment->status = 0;
+        $payment->save();
+        
+        $response = Http::post('http://localhost:5200/payment', [
+            'total' => $total,
+            'method' => $payment_method,
+            'post_link' => route('order.updatePayment', $payment->id),
+            'redirect_link' => route('order.create',$payment->id),
+        ]);
+
+        $res = $response->json();
+        return redirect($res['url']);
+
+    }
+
+    public function updatePayment(Request $request, $payment){
+        $method = $request->input('method');
+
+        $payment = Payment::find($payment);
+        switch($method) {
+            case 'tng':
+                $payment->tng_number = $request->input('tng_number');
+                break;
+            case 'fpx':
+                $payment->fpx_bank_name = $request->input('fpx_bank_name');
+                $payment->card_number = $request->input('card_number');
+                break;
+            case 'card':
+                $payment->card_number = $request->input('card_number');
+                break;
+        }
+
+        $payment->save();
+    }
+
+    public function showPayment(Request $request) {
+        $customer = Auth::guard('customer')->user();
+        
         
 
         return view('front.pages.payment', compact('customer', 'items'));

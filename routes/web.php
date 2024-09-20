@@ -20,12 +20,17 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::get('/front/cart', [OrderController::class,'showCart'])->name('front.cart');
     Route::delete('/front/cart/delete', [OrderController::class,'deleteCart'])->name('front.cartDelete');
     Route::get('/front/checkout', [OrderController::class,'viewCheckout'])->name('front.viewCheckout');
-    Route::put('/front/checkout/profile', [CustomerController::class,'updateProfileCheckout'])->name('front.checkoutProfile');
-    Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('front.checkout');
-    Route::post('/front/checkout/create', [OrderController::class,'create'])->name('order.create');
-    Route::get('/front/payment', [OrderController::class,'payment'])->name('front.payment');
+    Route::put('/front/checkout/profile', [CustomerController::class,'updateProfileCheckout'])->name('order.checkoutProfile');
+    Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('order.checkout');
+    Route::post('/front/checkout/pay', [OrderController::class,'makePayment'])->name('order.makePayment');
+    Route::get('/front/checkout/create/{payment}', [OrderController::class,'create'])->name('order.create');
+
+
+    Route::get('/front/payment', [OrderController::class,'showPayment'])->name('order.showPayment');
     Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
 });
+
+Route::post('/front/checkout/pay-success/{payment}', [OrderController::class,'updatePayment'])->name('order.updatePayment');
 
 
 Route::view('/front/contact', 'front/pages/contact');

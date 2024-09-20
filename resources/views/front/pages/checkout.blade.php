@@ -39,7 +39,7 @@
 
         <h2 class="fw-bold pb-3 mt-3">Delivery Information</h2>
         <div>
-            <form action="{{route('front.checkoutProfile')}}" class="row d-flex justify-content-center my-4" method="POST">
+            <form action="{{route('order.checkoutProfile')}}" class="row d-flex justify-content-center my-4" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="w-100 ">

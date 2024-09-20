@@ -83,7 +83,7 @@
 
             <div class="col-md-4" id="paymentBox">
                 
-                <form action="{{route('order.create')}}" method="POST">
+                <form action="{{route('order.makePayment')}}" method="POST">
                     @csrf
                     <div class="m-2">
                         <h3 class="mx-0 fs-5 mb-4">Select Payment Method</h3>

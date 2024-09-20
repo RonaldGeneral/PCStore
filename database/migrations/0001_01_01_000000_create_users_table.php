@@ -86,7 +86,7 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_id');
  
             $table->foreign('customer_id')->references('id')->on('customer');
-            $table->foreign('payment_id')->references('id')->on('payment');
+            $table->foreign('payment_id')->references('id')->on('payment')->nullable();
         });
 
         Schema::create('order_item', function (Blueprint $table) {

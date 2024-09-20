@@ -82,6 +82,6 @@ class CustomerController extends Controller
         $customer = Auth::guard('customer')->user();
         $customer->update($validatedData);
 
-        return redirect()->route('front.checkout');
+        return redirect()->route('order.checkout');
     }
 }
