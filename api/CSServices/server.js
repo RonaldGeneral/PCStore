@@ -15,9 +15,13 @@ app.set('view engine', 'ejs')
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
 
+
+/*
+    Start Payment
+*/
+
 app.post("/payment", (req, res, next) => {
     const data = req.body;
-    csrf = data.csrf;
 
     let uuid = uuidv4()
     db.insertRecord('payment', {
@@ -95,5 +99,49 @@ app.post("/success", async (req, res, next) => {
         });
 
 });
+
+/* Start Delivery service */
+app.post("/delivery/create", async (req, res, next) => {
+    const name = req.body.name;
+
+    result = await db.insertRecord('delivery', {
+        name
+    });
+    
+    res.json({id: result.insertId});
+});
+
+app.post("/delivery/update", async (req, res, next) => {
+    let id = req.body.id;
+
+    result = await db.query('SELECT * FROM delivery WHERE id = ?', [id]);
+    if(result && result[0]) {
+        delivery = result[0];
+
+        if(delivery.status < 4) {
+            await db.query('UPDATE delivery SET status = ? WHERE id = ?', [delivery.status + 1, delivery.id]);
+        }
+    }  
+    
+    res.sendStatus(200);
+});
+
+app.post("/delivery/delete", async (req, res, next) => {
+    let id = req.body.id;
+
+    try {
+        await db.query('DELETE FROM delivery WHERE id = ?', [id]);
+    } catch {
+    }  
+    
+    res.sendStatus(200);
+});
+
+app.get("/delivery", async (req, res, next) => {
+    deliveries = await db.getAllRecords('delivery');
+
+    res.render('delivery', {deliveries});
+})
+
 
 app.listen(port, ()=> console.log(`Web service app listening on http://localhost:${port}`))

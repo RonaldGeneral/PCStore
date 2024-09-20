@@ -81,7 +81,3 @@ Route::put('/admin/product-details/{product}/edit', [ProductController::class, '
 Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
 Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
-
-
-
-Route::get('/test', [OrderController::class, 'testxml']);

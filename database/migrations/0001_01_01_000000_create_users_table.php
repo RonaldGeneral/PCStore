@@ -110,7 +110,7 @@ return new class extends Migration
             $table->decimal('subtotal', total: 10, places: 2);
             $table->timestamp('created_on')->nullable()->useCurrent();
  
-            $table->foreign('customer_id')->references('id')->on('order');
+            $table->foreign('customer_id')->references('id')->on('customer');
             $table->foreign('product_id')->references('id')->on('product');
             $table->primary(['customer_id', 'product_id']);
         });

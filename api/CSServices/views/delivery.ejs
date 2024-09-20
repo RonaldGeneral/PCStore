@@ -1,0 +1,47 @@
+<style>
+table, th, td {
+    border: 1px solid;
+    padding: 8px;
+  }</style>
+<table style="">
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Created at</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        <% deliveries.forEach(d => { %>
+        <tr>
+            <td><%= d.id %></td>
+            <td><%= d.name %></td>
+            <td>
+                <% switch(d.status) {
+                    case 1 : %>
+                        Created
+                    <%  break;
+                    case 2 : %>
+                        Driver Assigned
+                    <%  break;
+                    case 3 : %>
+                        Ongoing
+                    <%  break;
+                    case 4 : %>
+                        Completed
+                    <%  break;
+                    }
+                %>
+            </td>
+            <td><%= d.created_at %></td>
+            <td>
+                <form action="/delivery/update" method="POST">
+                    <input type="hidden" name="id" value="<%= d.id %>">
+                    <button>Update status</button>
+                </form>
+            </td>
+        </tr>
+        <%    }) %>
+        
+    </tbody>
+</table>

@@ -275,24 +275,4 @@ class OrderController extends Controller
         return view('front.pages.payment', compact('customer', 'items'));
     }
 
-    public function testxml() {
-        $xml = new \DOMDocument();
-        $xml->loadXML(Storage::disk('xslt')->path('test.xml'));
-
-        // Load the XSLT stylesheet
-        $xsl = new \DOMDocument();
-        $xsl->substituteEntities = TRUE;
-        $xsl->load(Storage::disk('xslt')->path('payment.xsl'));
-
-        // Create the XSLTProcessor object
-        $xsltProcessor = new XSLTProcessor();
-
-        // Load the XSLT stylesheet into the XSLTProcessor object
-        $xsltProcessor->importStylesheet($xsl);
-
-        // Apply the XSLT transformation to the XML document
-        $html = $xsltProcessor->transformToXML($xml);
-
-        echo $html;
-    }
 }
