@@ -1,0 +1,24 @@
+<style>
+table, th, td {
+    border: 1px solid;
+    padding: 8px;
+  }</style>
+<table style="">
+    <thead>
+        <th>ID</th>
+        <th>Phone</th>
+        <th>Message</th>
+        <th>Created at</th>
+    </thead>
+    <tbody>
+        <% messages.forEach(m => { %>
+        <tr>
+            <td><%= m.id %></td>
+            <td><%= m.phone %></td>
+            <td><%= m.message %></td>
+            <td><%= m.created_at %></td>
+        </tr>
+        <%    }) %>
+        
+    </tbody>
+</table>

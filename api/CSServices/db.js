@@ -38,6 +38,7 @@ async function checkDatabaseAndCreateTable() {
   query('CREATE DATABASE IF NOT EXISTS CSWeb');
   query('CREATE TABLE IF NOT EXISTS csweb.payment (id VARCHAR(36) PRIMARY KEY NOT NULL , total DECIMAL NULL , method VARCHAR(10) , `bank` VARCHAR(255) NULL, `number` VARCHAR(255) NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, `post_link` VARCHAR(255) NULL,`redirect_link` VARCHAR(255) NULL );');
   query('CREATE TABLE IF NOT EXISTS csweb.`delivery` ( `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT, `name` VARCHAR(255) NULL,  `status` int(11) NOT NULL DEFAULT 1, created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP);');
+  query('CREATE TABLE IF NOT EXISTS csweb.`message` (`id` int(11) NOT NULL,`phone` varchar(255) DEFAULT NULL,`message` varchar(1000) DEFAULT NULL,`created_at` DATETIME NULL DEFAULT current_timestamp());');
   /* delivery status 1= created, 2=assigned, 3= ongoing, 4= reach
    */
 

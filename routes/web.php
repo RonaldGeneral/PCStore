@@ -34,6 +34,7 @@ Route::middleware([CustomerAuth::class])->group(function () {
 });
 
 Route::post('/front/checkout/pay-success/{payment}', [OrderController::class,'updatePayment'])->withoutMiddleware(VerifyCsrfToken::class)->name('order.updatePayment');
+Route::post('/front/order/update', [OrderController::class,'updateStatus'])->withoutMiddleware(VerifyCsrfToken::class)->name('order.updateStatus');
 
 Route::view('/front/contact', 'front/pages/contact');
 Route::get('/front/shop', [ProductController::class, 'catalog'])->name('front.catalog');

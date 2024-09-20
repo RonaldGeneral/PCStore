@@ -49,7 +49,6 @@ app.get("/payment/get/", async (req, res, next) => {
     const doc = xmlbuilder.create(payment_xml);
     payment_xml = doc.end({ prettyPrint: true });
 
-    console.log(payment_xml);
     res.json({data: payment_xml});
 });
 
@@ -86,7 +85,6 @@ app.post("/success", async (req, res, next) => {
         await db.query('UPDATE payment SET number = ?  WHERE id = ?', [data.number, data.payment_id]);
     if(data.bank)
         await db.query('UPDATE payment SET bank = ? WHERE id = ?', [data.bank, data.payment_id]);
-    console.log(data, payment.post_link);
 
     axios.post(payment.post_link, data)
         .then((response) => {
@@ -103,6 +101,7 @@ app.post("/success", async (req, res, next) => {
 /* Start Delivery service */
 app.post("/delivery/create", async (req, res, next) => {
     const name = req.body.name;
+    console.log(req.body,'-----')
 
     result = await db.insertRecord('delivery', {
         name
@@ -119,7 +118,20 @@ app.post("/delivery/update", async (req, res, next) => {
         delivery = result[0];
 
         if(delivery.status < 4) {
-            await db.query('UPDATE delivery SET status = ? WHERE id = ?', [delivery.status + 1, delivery.id]);
+            let new_status = delivery.status + 1;
+            await db.query('UPDATE delivery SET status = ? WHERE id = ?', [new_status, delivery.id]);
+
+            axios.post('http://127.0.0.1:8000/front/order/update', {
+                delivery_id: id,
+                status: new_status
+            })
+                .then((response) => {
+                    console.log('Response:', response.data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error.message);
+                });
+            
         }
     }  
     
@@ -142,6 +154,26 @@ app.get("/delivery", async (req, res, next) => {
 
     res.render('delivery', {deliveries});
 })
+
+/* Message services mock up */
+app.post("/message/create", async (req, res, next) => {
+    const phone = req.body.phone;
+    const message = req.body.message;
+console.log(phone, message, "????????")
+    result = await db.insertRecord('message', {
+        phone: phone,
+        message: message
+    });
+    
+    res.json({id: result.insertId});
+});
+
+app.get("/message", async (req, res, next) => {
+    messages = await db.getAllRecords('message');
+
+    res.render('message', {messages});
+})
+
 
 
 app.listen(port, ()=> console.log(`Web service app listening on http://localhost:${port}`))

@@ -45,6 +45,19 @@ class OrderController extends Controller
         return view('admin.pages.order-details', compact('order'));
     }
 
+    public function updateStatus(Request $request)
+    {
+        $delivery_id= $request->input('delivery_id');
+        $status= $request->input('status');
+
+        $order = Order::where('delivery_id','=',$delivery_id)
+            ->whereNot('status', -1)->first();
+        $order->status = $status;
+        $order->save();
+
+        return response(null, 200);
+    }
+
     public function destroy(Request $request)
     {
         $id= $request->delete_id;
@@ -168,6 +181,11 @@ class OrderController extends Controller
         ]);
 
         $res = $response->json();
+
+        $delivery_res = Http::post('http://localhost:5200/delivery/create', [
+            'name' => $customer->name
+        ]);
+        $delivery_id = $delivery_res->json()['id'];
         
         $payment->save();
         $order = new Order();
@@ -175,6 +193,7 @@ class OrderController extends Controller
         $order->customer_id = $customer->id;
         $order->status = 1;
         $order->delivery_fee = $delivery_fee;
+        $order->delivery_id = $delivery_id;
         $order->subtotal = $subtotal;
         $order->total = $total;
         $order->save();

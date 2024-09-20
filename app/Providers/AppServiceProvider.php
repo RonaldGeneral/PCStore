@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Observers\EmailObserver;
+use App\Observers\MessageObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
+use App\Models\Order;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
         Paginator::useBootstrapFive();
+        Order::observe([MessageObserver::class, EmailObserver::class]);
     }
 }
