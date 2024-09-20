@@ -11,7 +11,8 @@ class AdminStaffController extends Controller
     public function index()
     {
         $admins = Admin::select('id','name', 'birthdate', 'phone', 'email', 'gender', 'username', 'password', 'status', 'created_on', 'position_id')->get();
-        return view('admin.pages.staff-details', compact('admins'));
+        
+        return view('admin.pages.staff-page', compact('admins'));
     }
 
     public function profile()

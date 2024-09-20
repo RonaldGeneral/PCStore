@@ -11,7 +11,7 @@ class AdminCustomerController extends Controller
     public function index()
     {
         $customers = Customer::select('id','name', 'birthdate', 'phone', 'email', 'gender', 'address', 'postcode', 'city', 'state', 'username', 'password', 'status', 'created_on')->get();
-        return view('admin.pages.customer-details', compact('customers'));
+        return view('admin.pages.customer-page', compact('customers'));
     }
 
     public function create(Request $request)
@@ -19,13 +19,13 @@ class AdminCustomerController extends Controller
         $request->validate([
             
             'name' => 'required|string|max:255',
-            'birthdate' => 'required|date_format:D-M-Y|before:today',
+            'birthdate' => 'required|before:today',
             'phone' => 'required|digits:12',
             'email' => 'required|email|unique:customer,email',
             'gender' => 'required',
             'address' => 'required|max:500',
             'postcode' => 'required|max:20',
-            'city' => 'required|digits:500',
+            'city' => 'required|max:500',
             'state' => 'required|max:500',
             'username' => 'required|string|max:255',
             'password' => 'required|min:8|confirmed',
@@ -45,7 +45,7 @@ class AdminCustomerController extends Controller
         $customer->state = strip_tags($request->state);
         $customer->username = strip_tags($request->username);
         $customer->password = strip_tags($request->password);
-        $customer->status = 2;  //this actually for account freezing
+        $customer->status = 1;  //this actually for account freezing
 
         $customer->save();
 
@@ -66,7 +66,7 @@ class AdminCustomerController extends Controller
     public function view($id)
     {
         $customer = Customer::find($id);
-
+        
         return view('admin.pages.customer-details', compact('customer'));
     }
 
