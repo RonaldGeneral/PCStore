@@ -12,7 +12,7 @@
                     <div class="col-2">Quantity</div>
                     <div class="col-3 text-center">Total</div>
                 </div>
-                @foreach($items as $item)
+                @foreach($order->orderItems as $item)
                 <!-- Single item -->
                 <div class="row w-100">
                     <div class="col-3">
@@ -51,19 +51,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="card w-25">
-            <div class="card-header fs-5 p-3">
-                <b>Payment details</b>
-            </div>
-            <div class="card-body">
-                <p>Payment Method : FPX Transfer</p>
-                <p>Bank Name : PBe</p>
-                <p>TnG Number : 011-52810392</p>
-                <p>Card Number : 9802904729</p>
-                <p>Reference : 5231134</p>
-                <p>Total Amount : RM 12,302.00</p>
-            </div>
-        </div>
+         {!! $payment_html !!}
     </div>
 
     <a class="btn btn-primary" href="{{route('front.home')}}">Back to Home</a>

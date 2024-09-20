@@ -4,6 +4,8 @@ const port = 5200
 const db = require('./db');
 const { v4: uuidv4 } = require("uuid");
 const axios = require('axios');
+const xml = require('xml');
+const xmlbuilder = require('xmlbuilder2');
 
 
 db.checkDatabaseAndCreateTable();
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/payment", (req, res, next) => {
     const data = req.body;
+    csrf = data.csrf;
 
     let uuid = uuidv4()
     db.insertRecord('payment', {
@@ -28,6 +31,22 @@ app.post("/payment", (req, res, next) => {
     res.json({
         "url":`http://localhost:${port}/payment-details/${uuid}`,
     });
+});
+
+app.get("/payment/get/", async (req, res, next) => {
+    let id = req.query.id;
+
+    result = await db.query('SELECT method, bank, number, total FROM payment WHERE id = ?', [id]);
+
+    if(result && result[0]) {
+        payment_xml = {payment:result[0]};
+    }
+
+    const doc = xmlbuilder.create(payment_xml);
+    payment_xml = doc.end({ prettyPrint: true });
+
+    console.log(payment_xml);
+    res.json({data: payment_xml});
 });
 
 app.get("/payment-details/:id", async (req, res, next) => {
@@ -45,8 +64,8 @@ app.get("/payment-details/:id", async (req, res, next) => {
         case 'fpx':
             res.render('payment-fpx', {total, id});
             break;
-        case 'bank':
-            res.render('payment-bank', {total, id});
+        case 'card':
+            res.render('payment-card', {total, id});
             break;
     }
 });
@@ -54,9 +73,16 @@ app.get("/payment-details/:id", async (req, res, next) => {
 app.post("/success", async (req, res, next) => {
     const data = req.body;
     
-    console.log(data);
-    result = await db.query('SELECT post_link, redirect_link FROM payment WHERE id = ?', [data.payment_id]);
+    result = await db.query('SELECT id as token, post_link, redirect_link, method FROM payment WHERE id = ?', [data.payment_id]);
     payment = result[0];
+    data.token = payment.token;
+    data.method = payment.method;
+
+    if(data.number)
+        await db.query('UPDATE payment SET number = ?  WHERE id = ?', [data.number, data.payment_id]);
+    if(data.bank)
+        await db.query('UPDATE payment SET bank = ? WHERE id = ?', [data.bank, data.payment_id]);
+    console.log(data, payment.post_link);
 
     axios.post(payment.post_link, data)
         .then((response) => {

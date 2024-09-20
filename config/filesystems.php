@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'xslt' => [
+            'driver' => 'local',
+            'root' => public_path('/xslt'),
+            'url' => env('APP_URL').'/xslt',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'products' => [
             'driver' => 'local',
             'root' => public_path('/uploads/products'),
