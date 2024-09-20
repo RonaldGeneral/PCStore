@@ -55,4 +55,15 @@ class ExternalLoginStrategy implements LoginStrategy
             }
         }
     }
+
+    public function logout(){
+        $user = Auth::guard('customer')->user();
+        Auth::guard('customer')->logout();
+        
+        if ($user->status == 2) {
+            $user->delete();
+        }
+
+        return redirect()->route('front.home');
+    }
 }

@@ -9,7 +9,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\CustomerAuth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 
@@ -31,6 +30,7 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::get('/front/payment', [OrderController::class,'showPayment'])->name('order.showPayment');
     Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
     Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
+    Route::get('/front/order-history', [CustomerController::class,'orderHistory'])->name('front.order_hist');
 });
 
 Route::post('/front/checkout/pay-success/{payment}', [OrderController::class,'updatePayment'])->withoutMiddleware(VerifyCsrfToken::class)->name('order.updatePayment');
@@ -47,9 +47,8 @@ Route::get('/front/login', [CustLoginController::class,'index'])->name('front.lo
 Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
 Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
 
-
 Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
-Route::get('/front/order-history', [CustomerController::class,'orderHistory'])->name('front.order_hist');
+
 
 Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
 Route::post('/front/login', [CustLoginController::class,'login'])->name('customer.login');
@@ -87,3 +86,8 @@ Route::put('/admin/product-details/{product}/edit', [ProductController::class, '
 Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
 Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
+Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+
+
+
+Route::get('/test', [OrderController::class, 'testxml']);

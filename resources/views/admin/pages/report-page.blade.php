@@ -10,21 +10,18 @@
     Report & Analytics
 </div>
 
-<!-- <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:StoreConnString %>" SelectCommand="SELECT SUM(total) as sales, COUNT(id) as num, (SELECT COUNT(id) FROM [order] WHERE status = 3) as complete FROM [order] "></asp:SqlDataSource>
-<asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:StoreConnString %>" SelectCommand="SELECT TOP 3 oi.product_id,p.title, p.img_src1, SUM(subtotal) as sales, SUM(quantity) AS quan FROM product p, order_item oi WHERE p.id = oi.product_id GROUP BY oi.product_id, p.img_src1,p.title ORDER BY SUM(quantity) desc,SUM(subtotal) DESC"></asp:SqlDataSource> -->
-
 <div class="d-flex justify-content-start mb-4">
     <span class="d-inline-block align-middle">
         <p class="text-muted fs-09 fw-bold mx-2 me-3 mt-2 align-middle">Filter By Date</p>
     </span>
-    <input type="date" class="btn btn-secondary mx-2 fs-09 py-0" value="2023-01-01" id="txtStartdate"></input>
+    <input type="date" class="btn btn-secondary mx-2 fs-09 py-0" value="" id="txtStartdate"></input>
     <span class="d-inline-block align-middle">
         <p class="text-muted fs-09 fw-bold mx-3 mt-2 align-middle"> to </p>
     </span>
-    <input type="date" class="btn btn-secondary mx-2 fs-09 py-0" value="2023-08-01" id="txtEnddate"></input>
+    <input type="date" class="btn btn-secondary mx-2 fs-09 py-0" value="" id="txtEnddate"></input>
 </div>
 
-<div id="FormViewOrder" class="col-12"><!-- SqlDataSource1 -->
+<div id="FormViewOrder" class="col-12">
     <div class="d-flex d-flex-gap w-100 justify-content-evenly">
         <div class="card shadow-lg col bg-info">
             <div class="card-body text-center">
@@ -58,29 +55,37 @@
                     <h5 class="header-title mb-3">Sales Figure</h5>
 
                     <div>
-                        <canvas id="sales-figure">
-
-                        </canvas>
+                        <canvas id="sales-figure"></canvas>
                     </div>
 
                     <script>
-                        const canvasSF = document.getElementById('sales-figure');
+                        const ctxSF = document.getElementById('sales-figure').getContext('2d');
 
-                        new Chart(canvasSF, {
+                        new Chart(ctxSF, {
                             type: 'line',
                             data: {
-                                labels: [
-                                        <%# getDates("SUM") %>
-
-                                    ],
+                                labels: @json($salesData->pluck('date')),
                                 datasets: [{
                                     label: 'Sales Figure (RM)',
-                                    data: [<%# getSales("SUM") %>],
+                                    data: @json($salesData->pluck('total_sales')), 
                                     fill: false,
                                     borderColor: 'rgb(75, 192, 192)',
                                     tension: 0.1
                                 }]
                             },
+                            options: {
+                                scales: {
+                                    x: {
+                                        type: 'time',
+                                        time: {
+                                            unit: 'day'
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
                         });
                     </script>
                 </div>
@@ -90,20 +95,23 @@
         <div class="col-6">
             <div class="card p-3">
                 <div class="card-body">
-                    <h5 class="header-title mb-3">Sales Order</h5>
+                    <h5 class="header-title mb-3">Sales by Category</h5>
                     <div>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="sales-category-chart"></canvas>
                     </div>
 
                     <script>
-                        const ctx = document.getElementById('myChart');
+                        const ctx = document.getElementById('sales-category-chart').getContext('2d');
+
                         new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: [<%# getDates("COUNT") %>],
+                                labels: @json($salesByCategory->pluck('name')), // Category names
                                 datasets: [{
-                                    label: 'Number of Sales',
-                                    data: [<%# getSales("COUNT") %>],
+                                    label: 'Sales by Category (RM)',
+                                    data: @json($salesByCategory->pluck('total_sales')), // Sales totals
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
                                     borderWidth: 1
                                 }]
                             },
@@ -122,7 +130,7 @@
         </div>
     </div>
 
-    <div class="d-flex d-flex-gap mt-4">
+    <!-- <div class="d-flex d-flex-gap mt-4">
         <div class="col-6">
             <div class="card p-3">
                 <div class="card-body">
@@ -131,7 +139,7 @@
                     <div id="bestSelling" class="carousel carousel-dark slide" data-bs-touch="false" data-bs-interval="false">
                         <div class="carousel-inner">
 
-                            <div id="repeaterAdmin"> <!-- SqlDataSource2 -->
+                            <div id="repeaterAdmin">
                                 <div class="carousel-item ">
                                     <div class="card m-auto" style="width: 18rem;">
                                         <a class="text-center" href="#productDetails">
@@ -200,6 +208,19 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
+
+<script>
+    const startDateInput = document.getElementById('txtStartdate');
+    const endDateInput = document.getElementById('txtEnddate');
+
+    startDateInput.addEventListener('change', () => {
+        const startDate = new Date(startDateInput.value);
+        const minEndDate = new Date(startDate);
+        minEndDate.setDate(minEndDate.getDate() + 1); // Set min end date to the next day
+
+        endDateInput.min = minEndDate.toISOString().split('T')[0]; // Set the min attribute
+    });
+</script>
 @stop
