@@ -48,17 +48,17 @@ class EmailObserver
     /**
      * Handle the Order "updated" event.
      */
-    // public function updated(Order $order): void
-    // {
-    //     try {
-    //         $res = $this->sendEmailFromApi(
-    //         $order->customer->email, 
-    //         "Order status update", 
-    //         str_replace('|OID|', $order->id, EmailObserver::$presetMessages[$order->status])
-    //         );
-    //     } catch(Error $e) {
+    public function updated(Order $order): void
+    {
+        try {
+            $res = $this->sendEmailFromApi(
+            $order->customer->email, 
+            "Order status update", 
+            str_replace('|OID|', $order->id, EmailObserver::$presetMessages[$order->status])
+            );
+        } catch(Error $e) {
 
-    //     }
-    // }
+        }
+    }
 
 }

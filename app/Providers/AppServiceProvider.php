@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventSilentlyDiscardingAttributes(! $this->app->isProduction());
         Paginator::useBootstrapFive();
-        Order::observe([MessageObserver::class, EmailObserver::class]);
+        // Order::observe([EmailObserver::class, MessageObserver::class, ]);
     }
 }
