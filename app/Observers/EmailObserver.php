@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Order;
-use Error;
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 
@@ -39,7 +39,7 @@ class EmailObserver
             "Order created", 
             str_replace('|OID|', $order->id, EmailObserver::$presetMessages[$order->status])
             );
-        } catch(Error $e) {
+        } catch(Exception $e) {
 
         }
         
@@ -56,7 +56,7 @@ class EmailObserver
             "Order status update", 
             str_replace('|OID|', $order->id, EmailObserver::$presetMessages[$order->status])
             );
-        } catch(Error $e) {
+        } catch(Exception $e) {
 
         }
     }

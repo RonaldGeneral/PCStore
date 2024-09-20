@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Order;
-use Error;
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class MessageObserver
@@ -36,7 +36,7 @@ class MessageObserver
                 $order->customer->phone, 
                 str_replace('|OID|', $order->id, MessageObserver::$presetMessages[$order->status])
             );
-        } catch(Error $e) {
+        } catch(Exception $e) {
 
         }
     }
@@ -51,7 +51,7 @@ class MessageObserver
                 $order->customer->phone, 
                 str_replace('|OID|', $order->id, MessageObserver::$presetMessages[$order->status])
             );
-        } catch(Error $e) {
+        } catch(Exception $e) {
 
         }
     }
