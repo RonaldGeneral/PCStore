@@ -61,11 +61,16 @@ Route::post('/update-profile', [CustomerController::class,'updateProfile'])->nam
 
 Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
 Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
+Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
+Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
+
+
 Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
+
 Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
-Route::get('/admin/staff-details', [AdminStaffController::class, 'view'])->name('admins.view');
+Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
 Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
-Route::get('/admin/log-record', [AdminStaffController::class, 'index'])->name('admin.log-record');
+Route::get('/admin/log-record', [AdminStaffController::class, 'viewLog'])->name('admin.log-record');
 
 Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
 Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');
