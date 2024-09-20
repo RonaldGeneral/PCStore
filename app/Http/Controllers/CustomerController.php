@@ -16,7 +16,12 @@ class CustomerController extends Controller
     public function profile()
     {
         $customer = Auth::guard('customer')->user();
-        $formattedDob = Carbon::parse($customer->dob)->format('Y-m-d');
+        
+        if ($customer->dob != null) {
+            $formattedDob = Carbon::parse($customer->dob)->format('Y-m-d');
+        } else {
+            $formattedDob = '';
+        }
 
         return view("front.pages.profile", compact('customer', 'formattedDob'));
     }
@@ -66,7 +71,8 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
-    public function updateProfileCheckout(Request $request) {
+    public function updateProfileCheckout(Request $request)
+    {
         $cust = Auth::guard('customer')->user();
 
         $validatedData = $request->validate([

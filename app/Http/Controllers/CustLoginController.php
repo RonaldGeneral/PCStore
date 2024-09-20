@@ -12,7 +12,6 @@ use App\Strategies\DatabaseLoginStrategy;
 use App\Strategies\ExternalLoginStrategy;
 use App\Strategies\LoginContext;
 
-
 class CustLoginController extends Controller
 {
 
@@ -58,12 +57,6 @@ class CustLoginController extends Controller
         }
 
         return $context->executeLogin($credentials);
-
-        // if (Auth::guard('customer')->attempt($credentials)) {
-        //     return redirect()->route("front.home");
-        // }
-
-        // return back()->withErrors(['loginError' => 'Invalid username or password!'])->withInput();
     }
 
     public function logout()
@@ -92,7 +85,7 @@ class CustLoginController extends Controller
         $customer->username = $username;
         $customer->password = Hash::make($password);
         $customer->phone = "";
-        $customer->status = 1; //assuming 1 is active
+        $customer->status = 1; //assuming 1 is TerraByte local account
         $customer->save();
 
         return redirect()->route('front.login')->with('success', 'Account created successfully!');

@@ -2,14 +2,26 @@
 
 @section('content')
 
-@if ($errors->has('loginError'))
+@if (session('loginError'))
   <div class="row" style="padding: 0.5rem 1rem;">
     <div class="FailedBox">
     <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
-    <label>{{ $errors->first('loginError') }}</label>
-    <span class="DivClose" onclick="this.parentNode.parentNode.removeChild(this.parentNode); return false;">&times;</span>
+    <label>{{ session('loginError') }}</label>
+    <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
     </div>
   </div>
+@endif
+
+@if ($errors->any())
+  @foreach ($errors->all() as $error)
+    <div class="row" style="padding: 0.5rem 1rem;">
+      <div class="FailedBox">
+        <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+        <label>{{ $error }}</label>
+        <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+      </div>
+    </div>
+  @endforeach
 @endif
 
 @if (session('success'))
@@ -17,7 +29,7 @@
     <div class="SuccessBox">
     <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
     <label>{{ session('success') }}</label>
-    <span class="DivClose" onclick="this.parentNode.parentNode.removeChild(this.parentNode); return false;">&times;</span>
+    <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
     </div>
   </div>
 @endif
