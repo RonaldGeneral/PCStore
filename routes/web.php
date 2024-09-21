@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\CheckOrderAccess;
 use App\Http\Middleware\CheckProductAccess;
 use App\Http\Middleware\CheckStaffAccess;
 use App\Http\Middleware\CustomerAuth;
