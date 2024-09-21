@@ -36,11 +36,6 @@ class Product extends Model
             'formatted'=> $ratings
         ];
     }
-
-    // public function attributes()
-    // {
-    //     return $this->hasMany('App\Models\ProductAttribute');
-    // }
 }
 
 

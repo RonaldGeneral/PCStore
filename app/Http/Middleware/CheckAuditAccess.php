@@ -18,7 +18,7 @@ class CheckAuditAccess
     {
         $admin = Auth::guard('admin')->user();
         if (!$admin)
-            return redirect()->route('admin.login'); 
+            return redirect()->route(route: 'admin.login'); 
 
         if(in_array('audit', $admin->position->role))
             return $next($request);
