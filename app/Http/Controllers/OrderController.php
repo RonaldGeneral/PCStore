@@ -68,6 +68,10 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->status = -1;
         $order->save();
+
+        LogActivityController::logActivity(
+            'Delete order', 'Order #'.$order->id." deleted", 'order_page');
+
         return redirect()->route('orders.index')
             ->with('success', 'Order deleted successfully');
     }

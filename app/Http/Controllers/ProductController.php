@@ -74,8 +74,6 @@ class ProductController extends Controller
             'Delete product', 'Product '.$product->title." #". $product->id ." deleted", 'product_page');
         $product->delete();
 
-        
-
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
     }
