@@ -32,7 +32,6 @@
                     <tr>
                         <th class="ps-3 py-3">ID</th>
                         <th class="py-3">Name</th>
-                        <th class="py-3">IC Number</th>
                         <th class="py-3">Phone</th>
                         <th class="py-3">Email</th>
                         <th class="py-3">Status</th>
@@ -40,123 +39,54 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0 text-primary">
+                @foreach($admins as $admin)
                     <tr>
                         <td class="ps-3">
-                            1
+                        {{$admin->id}}
                         </td>
                         <td>
-                            Mary Janes
+                        <p class="m-0 d-inline-block align-middle font-16 col-10">
+                                <a href="{{ route('admins.view', $admin->id) }}">{{$admin->name}}</a>
                         </td>
                         <td>
-                            010324-09-0211
+                        {{$admin->phone}}
                         </td>
                         <td>
-                            014-235564323
+                        {{$admin->email}}
                         </td>
                         <td>
-                            johnwick@gmail.com
-                        </td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
-                        </td>
-                        <td>
-                 
-                            <a id="lbView" href="{{ URL::asset('~/view/admin/staff-details.blade.php') }}" class="btn btn-primary me-2" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
+                        @switch($admin->status)
+                                @case(1)
+                                    <span class="badge bg-success">Active</span>
+                                    @break
 
-                            </a>
-                            <a class="btn p-0" data-bs-toggle="modal"  data-bs-target="#deleteModal">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
-                                    width="24">
-                                    <path
-                                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
-                                </svg>
-                            </a>
+                                @case(2)
+                                <span class="badge bg-warning">Blocked</span>
+                                    @break
+                            @endswitch
                         </td>
+                        <td>
+                                <a id="lbView" href="{{ route('admins.view', $admin->id) }}" class="me-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"/></svg>
+                                </a>
+                                <button type="button" class="btn p-0 delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{$admin->id}}" 
+                                onclick="( ()=>{
+                                        let id = this.getAttribute('data-id');
+                                        document.getElementById('delete_id').value = id;
+                                    })()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                                        width="24">
+                                        <path
+                                            d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
+                                    </svg>
+                                </button>
+                            </td>
                     </tr>
 
-                    <tr>
-                        <td class="ps-3">
-                            2
-                        </td>
-                        <td>
-                            John Wick
-                        </td>
-                        <td>
-                            010324-09-0211
-                        </td>
-                        <td>
-                            014-235564323
-                        </td>
-                        <td>
-                            johnwick@gmail.com
-                        </td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
-                        </td>
-                        <td>
-                            <a id="LinkButton1" href="{{ URL::asset('~/view/admin/staff-details.blade.php') }}" class="btn btn-primary me-2" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-
-                            </a>
-                            <a href="{{ URL::asset('javascript:void(0);') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z"/></svg>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ps-3">
-                            3
-                        </td>
-                        <td>
-                            John Wick
-                        </td>
-                        <td>
-                            010324-09-0211
-                        </td>
-                        <td>
-                            014-235564323
-                        </td>
-                        <td>
-                            johnwick@gmail.com
-                        </td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
-                        </td>
-                        <td>
-                            <a id="LinkButton2" href="{{ URL::asset('~/view/admin/staff-details.blade.php') }}" class="btn btn-primary me-2" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>">
-
-                            </a>
-                            <a href="{{ URL::asset('javascript:void(0);') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z"/></svg>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ps-3">
-                            4
-                        </td>
-                        <td>
-                            John Wick
-                        </td>
-                        <td>
-                            010324-09-0211
-                        </td>
-                        <td>
-                            014-235564323
-                        </td>
-                        <td>
-                            johnwick@gmail.com
-                        </td>
-                        <td>
-                            <span class="badge bg-danger">Blocked</span>
-                        </td>
-                        <td>
-                            <a id="LinkButton3" href="{{ URL::asset('~/view/admin/staff-details.blade.php') }}" class="btn btn-primary me-2" Text="<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'><path d='M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z'/></svg>"></a>
-                            <a href="{{ URL::asset('javascript:void(0);') }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm80-160h80v-360h-80v360Zm160 0h80v-360h-80v360Z"/></svg>
-                            </a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
+                
             </table>
         </div>
     </div>
@@ -171,41 +101,44 @@
                     <h5 class="modal-title" id="exampleModalLabel">Add Staff</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <form action="{{ route('admins.create') }}" method="post">
+                @csrf
                 <div class="modal-body">
                     <div class="mb-3 form-floating">
-                        <input type="text" class="form-control fs-09" id="txtName" placeholder="John">
+                        <input type="text" class="form-control fs-09" id="txtName" name="name" placeholder="John">
                         <label for="txtName" class="col-form-label">Name:</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="text" class="form-control fs-09" id="txtUsername" placeholder="John">
+                        <input type="text" class="form-control fs-09" id="txtUsername" name="username" placeholder="John">
                         <label for="txtUsername" class="col-form-label">Username:</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="password" class="form-control fs-09" TextMode="Password" id="txtPass" placeholder="John">
+                        <input type="password" class="form-control fs-09" TextMode="Password" id="txtPass" name="password" placeholder="John">
                         <label for="txtPass" class="col-form-label">Password:</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="password" class="form-control fs-09" TextMode="Password" id="txtPassConfirm" placeholder="John">
+                        <input type="password" class="form-control fs-09" TextMode="Password" id="txtPassConfirm" name="password_confirmation" placeholder="John">
                         <label for="txtPassConfirm" class="col-form-label">Confirm Password:</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="email" class="form-control fs-09" TextMode="Email" id="txtEmail" placeholder="John">
+                        <input type="email" class="form-control fs-09" TextMode="Email" id="txtEmail" name="email" placeholder="John">
                         <label for="txtEmail" class="col-form-label">Email:</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="tel" class="form-control fs-09" TextMode="Phone" id="txtMobile" placeholder="John">
+                        <input type="tel" class="form-control fs-09" TextMode="Phone" id="txtMobile" name="phone" placeholder="John">
                         <label for="txtMobile" class="col-form-label">Mobile:</label>
                     </div>
                     <div class="mb-3 row">
                         <div class="col">
                             <div class="form-floating">
-                                <input type="date" class="form-control fs-09" TextMode="Date" id="txtBirthdate" placeholder="John">
+                                <input type="date" class="form-control fs-09" TextMode="Date" id="txtBirthdate" name="birthdate" placeholder="John">
                                 <label for="txtBirthdate" class="col-form-label">Birthdate:</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <select id="ddlStatus" class="form-select fs-09">
+                                <select id="ddlStatus" name="status" class="form-select fs-09">
                                     <option Selected="True" Value="1">Active</option>
                                     <option Value="2">Blocked</option>
                                 </select>
@@ -217,32 +150,30 @@
                     <div class="mb-3 row">
                         <div class="col">
                             <div class=" form-floating">
-                                <select id="ddlGender" class="form-select fs-09">
+                                <select id="ddlGender" name="gender" class="form-select fs-09">
                                     <option Selected="True" Value="m">Male</option>
-                                    <option Value="f">Female</option>
+                                    <option value="f">Female</option>
                                 </select>
                                 <label for="ddlGender">Gender</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <select id="ddlPosition" class="form-select fs-09">
-                                    <option Selected="True" Value="1">CEO</option>
-                                    <option Value="2">Clerk</option>
-                                    <option Value="3">Warehouse admin</option>
-                                    <option Value="4">Sales admin</option>
-                                    <option Value="5">Sales executive</option>
-                                    <option Value="6">Logistics Manager</option>
+                                <select id="ddlPosition" name="position_id" class="form-select fs-09">
+                                    @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="ddlPosition">Position</label>
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
+                    <button type="submit" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
                         changes</button>
-                    <button type="button" Text="Save" class="btn btn-primary fs-09"></button>
+                    <button type="submit" Text="Save" class="btn btn-primary fs-09">Save</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -260,10 +191,18 @@
                     <h2 class="h-3 mb-2">Are you sure?</h2>
                     <p>Do you really want to delete the record? The process cannot be undone.</p>
                 </div>
+
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-light mx-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" Text="Delete" class="btn btn-danger mx-4"></button>
+
+                    <form action="{{ route('admins.destroy') }}" method="post">
+                    <input type="hidden" id="delete_id" name="delete_id">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" Text="Delete" class="btn btn-danger mx-4">Delete</button>
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>

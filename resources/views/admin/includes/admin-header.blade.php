@@ -12,7 +12,7 @@
                     <div class="account-pos">Manager</div>
                 </div>
                 
-                <a class="icon logout" href="{{ URL::asset('~/view/admin/login.blade.php') }}">
+                <a class="icon logout" href="{{ route('admin.login') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                             <path
                                 d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
@@ -22,6 +22,13 @@
                 
             </div>
             <div id="mySidenav" class="sidenav">
+                @php
+                    $admin = Auth::guard('admin')->user();
+                    $role = is_array($admin->position->role)?$admin->position->role:[];
+                @endphp
+
+                @if(in_array('cust',$role))
+
                 <a href="{{ route('customers.index') }}" title="Customer page">
                     <svg xmlns='http://www.w3.org/2000/svg' height='35' viewBox='0 -960 960 960' width='35'>
                         <path
@@ -30,6 +37,9 @@
                     <span class='menu-label'>Customer</span>
                 </a>
                 
+                @endif
+                @if(in_array('staff',$role))
+
                 <a href="{{ route('admins.index') }}" title="Staff page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -37,6 +47,10 @@
                     </svg>
                     <span class="menu-label">Staff</span>
                 </a>
+
+                @endif
+                @if(in_array('prod',$role))
+
                 <a href="{{ url('admin/product-page') }}" title="Product page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -44,6 +58,10 @@
                     </svg>
                     <span class="menu-label">Product</span>
                 </a>
+
+                @endif
+                @if(in_array('report',$role))
+
                 <a href="{{ route('admin.reports') }}" title="Reports">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -51,6 +69,10 @@
                     </svg>
                     <span class="menu-label">Reports</span>
                 </a>
+
+                @endif
+                @if(in_array('order',$role))
+
                 <a href="{{ route('orders.index') }}" title="Order page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -58,6 +80,9 @@
                     </svg>
                     <span class="menu-label">Sales order</span>
                 </a>
+
+                @endif
+
                 <a href="{{ route('admin.profile') }}" title="Profile page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -65,13 +90,18 @@
                     </svg>
                     <span class="menu-label">Profile</span>
                 </a>
-                <a href="{{ url('log-record.blade.php') }}" title="Audit Log">
+
+                @if(in_array('audit',$role))
+
+                <a href="{{ route('admin.log-record') }}" title="Audit Log">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
                             d="M279.966-411.077q12.085 0 20.521-8.402t8.436-20.487q0-12.085-8.402-20.521t-20.487-8.436q-12.085 0-20.521 8.402t-8.436 20.487q0 12.085 8.402 20.521t20.487 8.436Zm0-160.001q12.085 0 20.521-8.401 8.436-8.402 8.436-20.487 0-12.085-8.402-20.521-8.402-8.435-20.487-8.435-12.085 0-20.521 8.401-8.436 8.402-8.436 20.487 0 12.085 8.402 20.521 8.402 8.435 20.487 8.435Zm82.342 156.205h347.691v-50.254H362.308v50.254Zm0-160h347.691v-50.254H362.308v50.254Zm-17.435 434.872v-80H162.565q-25.788 0-44.176-18.388t-18.388-44.176v-474.87q0-25.788 18.388-44.176t44.176-18.388h634.87q25.788 0 44.176 18.388t18.388 44.176v474.87q0 25.788-18.388 44.176t-44.176 18.388H615.127v80H344.873ZM162.565-270.256h634.87q4.616 0 8.462-3.847 3.847-3.846 3.847-8.462v-474.87q0-4.616-3.847-8.462-3.846-3.847-8.462-3.847h-634.87q-4.616 0-8.462 3.847-3.847 3.846-3.847 8.462v474.87q0 4.616 3.847 8.462 3.846 3.847 8.462 3.847Zm-12.309 0v-499.488 499.488Z" />
                     </svg>
                     <span class="menu-label">Audit Log</span>
                 </a>
+
+                @endif
 
             </div>
         </header>

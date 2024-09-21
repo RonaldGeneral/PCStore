@@ -10,8 +10,7 @@
     <link href="{{ URL::asset('style/login.css') }}" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1">
-        <div class="container py-5 w-75 h-100">
+    <div class="container py-5 w-75 h-100">
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
       <div class="card text-black " style="border-radius: 1rem;">
@@ -27,20 +26,32 @@
 
             <h2 class="fw-bold mb-2 fs-3">Admin Login</h2>
             
-  
+            
+            <form action="{{ route('admin.login.button') }}" method="POST">
+              @csrf
+              
             <div class="form-outline form-white mb-4 mt-5 shadow-sm">
-              <input type="email" id="typeEmailX" class="form-control form-control-lg fs-6" placeholder="Username/Email" />
-              
+              <input type="text" id="typeUsernameX" name="username" class="form-control form-control-lg fs-6" placeholder="Username" />
             </div>
-  
+            @if ($errors->has('username'))
+                      <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
+                        {{ $errors->first('username') }}
+                      </div>
+                      <br />
+                    @endif
             <div class="form-outline form-white mb-4 shadow-sm">
-              <input type="password" id="typePasswordX" class="form-control form-control-lg fs-6" placeholder="Password" />
-              
+              <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg fs-6" placeholder="Password" />
             </div>
-  
-              <a id="ButtonLogin" class="btn btn-primary btn-lg px-5 shadow-sm" href="{{ URL::asset('~/view/admin/customer-page.blade.php') }}">Login</a> 
-  
+            @if ($errors->has('password'))
+                      <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
+                        {{ $errors->first('password') }}
+                      </div>
+                      <br />
+                    @endif
+              <button class="btn btn-primary btn-lg px-5 mb-3 shadow-sm" type="submit">Login</button>
+            </form>
           </div> 
+
         </div>
       </div>
     </div>

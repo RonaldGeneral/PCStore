@@ -6,31 +6,91 @@ use DB;
 use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Position;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminStaffController extends Controller
 {
     public function index()
     {
         $admins = Admin::select('id', 'name', 'birthdate', 'phone', 'email', 'gender', 'username', 'password', 'status', 'created_on', 'position_id')->get();
-
-        return view('admin.pages.staff-page', compact('admins'));
+        $positions = Position::all();
+        
+        return view('admin.pages.staff-page', compact('admins', 'positions'));
     }
 
     public function profile()
     {
         $admin = Auth::guard('admin')->user();
+        //$formattedDob = Carbon::parse($admin->dob)->format('Y-m-d');
 
         return view("admin.pages.profile", compact('admin'));
     }
+
+    public function reports()
+    {
+        // Fetch sales by category
+        $salesByCategory = DB::table('order_item')
+            ->join('product', 'order_item.product_id', '=', 'product.id')
+            ->select(DB::raw('SUM(order_item.subtotal) as total_sales, product.category'))
+            ->groupBy('product.category')
+            ->get();
+
+        // Fetch sales data for the last 3 months
+        $startDate = Carbon::now()->subMonths(3);
+        $salesData = DB::table('order')
+            ->select(DB::raw('SUM(total) as total_sales, DATE(created_on) as date'))
+            ->where('created_on', '>=', $startDate)
+            ->groupBy('date')
+            ->get();
+
+
+        return view('admin.pages.report-page', [
+            'salesByCategory' => $salesByCategory,
+            'salesData' => $salesData,
+            "orders" => null
+        ]);
+    }
+
+    public function filterOrdersForReport(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $orders = Order::whereBetween('created_on', [$startDate, $endDate])->get();
+
+        $totalSubtotal = $orders->sum('subtotal');
+
+        return view('admin.pages.report-page', compact('orders', 'totalSubtotal'));
+    }
+
+    public function salesByCategory()
+    {
+        $salesByCategory = DB::table('order_items')
+            ->join('categories', 'order_items.category_id', '=', 'categories.id')
+            ->select(DB::raw('SUM(order_items.subtotal) as total_sales, categories.name'))
+            ->groupBy('categories.name')
+            ->get();
+
+        return view('report', compact('salesByCategory'));
+    }
+
+
 
     public function create(Request $request)
     {
         $request->validate([
 
             'name' => 'required|string|max:255',
-            'birthdate' => 'required|date_format:D-M-Y|before:today',
+            'birthdate' => 'required|before:today',
             'phone' => 'required|digits:12',
             'email' => 'required|email|unique:admin,email',
             'gender' => 'required',
@@ -38,7 +98,7 @@ class AdminStaffController extends Controller
             'password' => 'required|min:8|confirmed',
             'position_id' => 'required',
         ]);
-
+        
         $admin = new Admin();
         $admin->name = strip_tags($request->name);
         $admin->birthdate = strip_tags($request->birthdate);
@@ -46,8 +106,8 @@ class AdminStaffController extends Controller
         $admin->email = strip_tags($request->email);
         $admin->gender = strip_tags($request->gender);
         $admin->username = strip_tags($request->username);
-        $admin->password = strip_tags($request->password);
-        $admin->status = 2;
+        $admin->password = Hash::make($request->password);
+        $admin->status = strip_tags($request->status);
         $admin->position_id = strip_tags($request->position_id);
 
 
@@ -71,6 +131,10 @@ class AdminStaffController extends Controller
     {
         $admin = Admin::find($id);
 
+        $logactivity = LogActivity::where('admin_id', '=', $id)
+                        ->orderByDesc('created_on')
+                        ->get();
+
         return view('admin.pages.staff-details', compact('admin'));
     }
 
@@ -86,7 +150,7 @@ class AdminStaffController extends Controller
         $admin = Admin::find($id);
         $request->validate([
             'name' => 'required|string|max:255',
-            'birthdate' => 'required|date_format:D-M-Y|before:today',
+            'birthdate' => 'required|before:today',
             'phone' => 'required|digits:12',
             'email' => 'required|email|unique:admin,email',
             'gender' => 'required',
@@ -111,5 +175,30 @@ class AdminStaffController extends Controller
 
         return redirect()->route('admins.view', $id)
             ->with('success', 'Admin details edited successfully');
+    }
+
+    public function promotionVoucher(){
+        $request->validate([
+            'email' => 'required|email|exists:customer,email',
+        ]);
+
+        $email = $request->input('email');
+
+        if($email == null){
+            return response()->json(['success' => false, 'message' => 'This email address does not exist in our database.']);
+        }
+
+        $discount=random_int(10,80);
+    }
+
+    public function sendPromotionFromApi($email)
+    {
+        $data = [
+            'receiver' => $email,
+            'subject' => 'Voucher Winner',
+            'message' => 'CONGRATULATIONS! <br/>You have won a voucher worth' .$discount .'% off your next purchase of selected products!<br/>'.'Terms and Conditions Apply <br/><br/>TerraByte Malaysia',
+        ];
+
+        return Http::post('http://localhost:5002/api/emailservice/send', $data);
     }
 }

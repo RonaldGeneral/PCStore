@@ -1,6 +1,7 @@
 @extends('admin.layouts.default')
 
 @section('content')
+<!-- Author: Teh Chong Shin -->
 <div class="page-path">Orders</div>
 <div class="card ">
 

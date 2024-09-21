@@ -1,5 +1,9 @@
 <?php
 
+ /**
+  * @author Teh Chong Shin
+  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,11 +40,6 @@ class Product extends Model
             'formatted'=> $ratings
         ];
     }
-
-    // public function attributes()
-    // {
-    //     return $this->hasMany('App\Models\ProductAttribute');
-    // }
 }
 
 
