@@ -1,3 +1,5 @@
+//Author: Teh Chong Shin
+
 const express = require('express')
 const app = express()
 const port = 5200
