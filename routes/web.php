@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminCustomerController;
 use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\CheckProductAccess;
@@ -66,13 +67,18 @@ Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->n
 Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
 Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
 Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
+Route::get('/admin/staff-details/{admin}', [AdminCustomerController::class, 'view'])->name('admins.view');
+Route::get('/admin/staff-page', [AdminCustomerController::class, 'index'])->name(name: 'admins.index');
+Route::post('/admin/staff-page', [AdminCustomerController::class, 'create'])->name('admins.create');
+Route::delete('/admin/staff-page', [AdminCustomerController::class, 'destroy'])->name('admins.destroy');
+Route::put('/admin/staff-details{admin}', [AdminCustomerController::class, 'edit_details'])->name('admins.edit_details');
 
 
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
 Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
 Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
 Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->middleware(CheckStaffAccess::class)->name('admins.index');
-Route::get('/admin/log-record', [AdminStaffController::class, 'viewLog'])->name('admin.log-record');
+Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
 
 Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
 Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');

@@ -10,6 +10,8 @@ class LogActivityController extends Controller
     
     public function index(){
         $logactivitys = LogActivity::all();
+        return view('admin.pages.log-record', compact('logactivitys'));
+
     }
 
 
