@@ -20,7 +20,7 @@ class CheckCustomerAccess
         if (!$admin)
             return redirect()->route('admin.login'); 
 
-        if(in_array($admin->position->role,'cust'))
+        if(is_array($admin->position->role) && in_array('cust', $admin->position->role))
             return $next($request);
 
         return redirect()->route('admin.profile'); 
