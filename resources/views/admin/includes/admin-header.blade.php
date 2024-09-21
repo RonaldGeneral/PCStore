@@ -23,6 +23,7 @@
             </div>
             <div id="mySidenav" class="sidenav">
                 @php
+                    $admin = Auth::guard('admin')->user();
                     $role = is_array($admin->position->role)?$admin->position->role:[];
                 @endphp
 

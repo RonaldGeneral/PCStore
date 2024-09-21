@@ -69,21 +69,22 @@ Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.
 Route::post('/admin/login/profile', [AdminLoginController::class, 'login'])->name('admin.login.button');
 
 
+Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
 
 Route::middleware([CheckStaffAccess::class])->group(function () {
     Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
     Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
-    Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
     Route::post('/admin/staff-page', [AdminStaffController::class, 'create'])->name('admins.create');
     Route::delete('/admin/staff-page', [AdminStaffController::class, 'destroy'])->name('admins.destroy');
     Route::put('/admin/staff-details{admin}', [AdminStaffController::class, 'edit_details'])->name('admins.edit_details');
 
-    Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
-    Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
-    Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
-    Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
-    Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
 });
+
+Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
+Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
+Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
+Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
+Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
 
 Route::middleware([CheckOrderAccess::class])->group(function () {
     Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
