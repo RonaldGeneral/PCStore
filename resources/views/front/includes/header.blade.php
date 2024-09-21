@@ -1,4 +1,5 @@
 <header>
+    <!-- Author: Teh Chong Shin -->
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-sms-12">

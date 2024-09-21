@@ -74,10 +74,12 @@ Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])
 Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->middleware(CheckStaffAccess::class)->name('admins.index');
 Route::get('/admin/log-record', [AdminStaffController::class, 'viewLog'])->name('admin.log-record');
 
-Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
-Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');
-Route::get('/admin/order-page/search', [OrderController::class, 'search'])->name('orders.search');
-Route::delete('/admin/order-page', [OrderController::class, 'destroy'])->name('orders.destroy');
+Route::middleware([CheckOrderAccess::class])->group(function () {
+    Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
+    Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: 'orders.index');
+    Route::get('/admin/order-page/search', [OrderController::class, 'search'])->name('orders.search');
+    Route::delete('/admin/order-page', [OrderController::class, 'destroy'])->name('orders.destroy');
+});
 
 Route::middleware([CheckProductAccess::class])->group(function () {
     Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');

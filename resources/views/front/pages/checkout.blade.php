@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+<!-- Author: Teh Chong Shin -->
 <script>
     var inputField = document.getElementById('floatingMobile'); inputField.addEventListener('focus', function () {
         if (inputField.value.trim() === '') {

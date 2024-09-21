@@ -1,6 +1,7 @@
 @extends('front.layouts.default')
 
 @section('content')
+<!-- Author: Teh Chong Shin -->
 <div>
     <h4 class="fs-4 h4 fw-bold">Payment Summary</h4>
 

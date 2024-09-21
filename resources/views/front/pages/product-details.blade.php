@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+<!-- Author: Teh Chong Shin -->
 @if($product->status == 1)
 <div class="d-flex">
     <div class="col-2"></div>
