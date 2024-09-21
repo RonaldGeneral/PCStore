@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\CheckProductAccess;
+use App\Http\Middleware\CheckStaffAccess;
 use App\Http\Middleware\CustomerAuth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -69,7 +71,7 @@ Route::put('/admin/customer-details{customer}', [AdminCustomerController::class,
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
 Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
 Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
-Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
+Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->middleware(CheckStaffAccess::class)->name('admins.index');
 Route::get('/admin/log-record', [AdminStaffController::class, 'viewLog'])->name('admin.log-record');
 
 Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
@@ -77,16 +79,16 @@ Route::get('/admin/order-page', [OrderController::class, 'index'])->name(name: '
 Route::get('/admin/order-page/search', [OrderController::class, 'search'])->name('orders.search');
 Route::delete('/admin/order-page', [OrderController::class, 'destroy'])->name('orders.destroy');
 
-Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
-Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');
-Route::get('/admin/product-details/{product}', [ProductController::class, 'view'])->name('products.view');
-Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
-Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
-Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
-Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::middleware([CheckProductAccess::class])->group(function () {
+    Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');
+    Route::get('/admin/product-details/{product}', [ProductController::class, 'view'])->name('products.view');
+    Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
+    Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
+    Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
+    Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
+});
+
+
 Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
 Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
-
-
-
-Route::get('/test', [OrderController::class, 'testxml']);

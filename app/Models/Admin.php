@@ -26,4 +26,9 @@ class Admin extends Authenticatable
 
     public $timestamps = false;
     protected $hidden = ['password'];
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
+    }
 }
