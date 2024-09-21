@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WLServices")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7871ac9015aa2735960d59d91b148518cd430196")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5984e5d27096b1dd93d577839505a8e17ee8488d")]
 [assembly: System.Reflection.AssemblyProductAttribute("WLServices")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WLServices")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
