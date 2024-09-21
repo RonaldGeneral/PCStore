@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Middleware\CheckAuditAccess;
 use App\Http\Middleware\CheckCustomerAccess;
 use App\Http\Middleware\CheckOrderAccess;
@@ -75,6 +76,13 @@ Route::middleware([CheckAuditAccess::class])->group(function () {
     Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
 });
 
+Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');
+Route::get('/admin/product-page/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/admin/product-details/{product}', [ProductController::class, 'view'])->name('products.view');
+Route::post('/admin/product-page', [ProductController::class, 'create'])->name('products.create');
+Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
+Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
+Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::middleware([CheckStaffAccess::class])->group(function () {
     Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
     Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
@@ -83,6 +91,11 @@ Route::middleware([CheckStaffAccess::class])->group(function () {
     Route::put('/admin/staff-details{admin}', [AdminStaffController::class, 'edit_details'])->name('admins.edit_details');
 
 });
+
+Route::get('/admin/report-page', [ReportsController::class,'reports'])->name('admin.reports');
+Route::post('/admin/filter-orders', [ReportsController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+Route::post('/admin/download-report', [ReportsController::class, 'downloadReport'])->name('admin.download-report');
+Route::post('/admin/upload-report', [ReportsController::class, 'uploadXmlReport'])->name('admin.upload-xml');
 
 Route::middleware([CheckCustomerAccess::class])->group(function () {
     Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
