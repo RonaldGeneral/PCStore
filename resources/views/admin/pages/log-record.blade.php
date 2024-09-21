@@ -19,81 +19,33 @@
                             <th class="py-3">Description</th>
                             <th class="py-3">Page</th>
                             <th class="py-3">Created at</th>
-                            <th class="py-3">Error page</th>
+                            
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0 text-primary">
+                    @foreach($logactivitys as $logactivity)    
                         <tr>
                             <td class="ps-3">
-                                S001
+                            {{$logactivity->id}}
                             </td>
                             <td>
-                                John_Wick
+                            {{$logactivity->admin->username}}
                             </td>
                             <td>
-                                CEO
+                            {{$logactivity->title}}
                             </td>
                             <td>
-                                Edit product page
+                            {{$logactivity->description}}
                             </td>
                             <td>
-                                product_page
+                            {{$logactivity->page}}
                             </td>
                             <td>
-                                2023/05/23 15:40:07
-                            </td>
-                            <td>
-                                28: Row(s) accepted in target table
+                            {{$logactivity->created_on}}
                             </td>
                         </tr>
     
-                        <tr>
-                            <td class="ps-3">
-                                S002
-                            </td>
-                            <td>
-                                John_Wick2
-                            </td>
-                            <td>
-                                Admin
-                            </td>
-                            <td>
-                                Issuing CREATE and DROP TABLE for Product
-                            </td>
-                            <td>
-                                product_page
-                            </td>
-                            <td>
-                                2023/05/29 15:08:02
-                            </td>
-                            <td>
-                                0: Row(s) accepted in target table
-                            </td>
-                        </tr>
-    
-                        <tr>
-                            <td class="ps-3">
-                                S003
-                            </td>
-                            <td>
-                                John_Wick3
-                            </td>
-                            <td>
-                                Staff
-                            </td>
-                            <td>
-                                Edit customer info
-                            </td>
-                            <td>
-                                customer_detail
-                            </td>
-                            <td>
-                                2023/06/06 11:08:33
-                            </td>
-                            <td>
-                                2: Row(s) accepted in target table
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

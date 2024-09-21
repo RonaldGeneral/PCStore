@@ -30,8 +30,8 @@
              <div class="d-flex">
                  <img alt="profile-image" src="{{ URL::asset('res/man1.jpg') }}" class="m-2 person-icon shadow-xl">
                  <div class="py-3 mx-3">
-                     <p class="h4 text-dark">Alex Thompson</p>
-                     <p class="my-1 h6 text-secondary">CEO / Founder</p>
+                     <p class="h4 text-dark">{{$admin->name}}</p>
+                     <p class="my-1 h6 text-secondary">{{$admin->position}}</p>
                  </div>
 
 
@@ -41,35 +41,35 @@
              <ul class="list-group">
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Name</strong></span>
-                     <span class="col-10">: Alex Thompson</span>
+                     <span class="col-10">: {{$admin->name}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Userame</strong></span>
-                     <span class="col-10">: alexthompson</span>
+                     <span class="col-10">: {{$admin->username}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Mobile</strong></span>
-                     <span class="col-10">: 012-34567953</span>
+                     <span class="col-10">: {{$admin->phone}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Email</strong></span>
-                     <span class="col-10">: alexthompson@gmail.com</span>
+                     <span class="col-10">: {{$admin->email}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Gender</strong></span>
-                     <span class="col-10">: Male</span>
+                     <span class="col-10">: {{$admin->gender}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Birthdate</strong></span>
-                     <span class="col-10">: 23 March 1998</span>
+                     <span class="col-10">: {{$admin->birthdate}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Role</strong></span>
-                     <span class="col-10">: Admin</span>
+                     <span class="col-10">: {{$admin->position}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Joined on</strong></span>
-                     <span class="col-10">: 1 April 2024</span>
+                     <span class="col-10">: {{$admin->created_on}}</span>
                  </li>
 
              </ul>
@@ -87,41 +87,49 @@
                     <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <form action="{{ route('admins.edit_details', $admin->id )}}" method="post">
+                @csrf
+                @method('PUT')
                 <div class="modal-body">
-                    <div class="mb-3 form-floating">
-                        <input type="text" class="form-control fs-09" id="txtName" placeholder="John">
-                        <label for="txtName" class="col-form-label">Name:</label>
-                    </div>
-                    <div class="mb-3 form-floating">
-                        <input type="text" class="form-control fs-09" id="txtUsername" placeholder="John">
-                        <label for="txtUsername" class="col-form-label">Username:</label>
-                    </div>
-                    <div class="mb-3 form-floating">
-                        <input type="email" class="form-control fs-09" TextMode="Email" id="txtEmail" placeholder="John">
-                        <label for="txtEmail" class="col-form-label">Email:</label>
-                    </div>
-                    <div class="mb-3 form-floating">
-                        <input type="tel" class="form-control fs-09" TextMode="Phone" id="txtMobile" placeholder="John">
-                        <label for="txtMobile" class="col-form-label">Mobile:</label>
-                    </div>
-                    <div class="mb-3 form-floating">
-                        <input type="date" class="form-control fs-09" TextMode="Date" id="txtBirthdate" placeholder="John">
-                        <label for="txtBirthdate" class="col-form-label">Birthdate:</label>
+                <div class="mb-3 form-floating">
+                   <input type="text" class="form-control fs-09" id="txtName" name="name" placeholder="John">
+                    <label for="txtName" class="col-form-label">Name:</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control fs-09" id="txtUsername" name="username" placeholder="John">
+                    <label for="txtUsername" class="col-form-label">Username:</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    <input type="email" class="form-control fs-09" TextMode="Email" id="txtEmail" name="email" placeholder="John">
+                    <label for="txtEmail" class="col-form-label">Email:</label>
+                </div>
+                <div class="mb-3 form-floating">
+                     <input type="tel" class="form-control fs-09" TextMode="Phone" id="txtMobile" name="mobile" placeholder="John">
+                    <label for="txtMobile" class="col-form-label">Mobile:</label>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="date" class="form-control fs-09" id="txtBirthdate" name="birthdate" placeholder="John">
+                            <label for="txtBirthdate" class="col-form-label">Birthdate:</label>
+                        </div>
                     </div>
 
-                    <div class="mb-3 form-floating">
-                        <select id="ddlGender" CssClass="form-select fs-09">
-                            <option Selected="True" Value="m">Male</option>
-                            <option Value="f">Female</option>
-                        </select>
-                        <label for="ddlGender">Gender</label>
+                    <div class=" form-floating">
+                                <select id="ddlGender" name="gender" class="form-select fs-09">
+                                    <option Selected="True" Value="m">Male</option>
+                                    <option Value="f">Female</option>
+                                </select>
+                                <label for="ddlGender">Gender</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
+                    <button type="submit" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
                         changes</button>
-                    <button type="button" Text="Save" class="btn btn-primary fs-09"></button>
+                    <button type="submit" Text="Save" class="btn btn-primary fs-09"></button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
