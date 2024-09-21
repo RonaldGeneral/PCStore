@@ -150,7 +150,7 @@
                         <label for="txtDesc">Description</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="number" class="form-control fs-09" id="txtPrice" name="price" placeholder="John" required>
+                        <input class="form-control fs-09" id="txtPrice" name="price" placeholder="John" required>
                         <label for="txtPrice" class="col-form-label">Price</label>
                     </div>
                     <div class="mb-3 form-floating">

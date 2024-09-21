@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LogActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogActivityController extends Controller
 {
@@ -15,13 +16,18 @@ class LogActivityController extends Controller
     }
 
 
-    public function logActivity($title, $description, $page, $admin_id){
+    public static function logActivity($title, $description, $page){
+
+        $admin_id = Auth::guard('admin')->user()->id;
 
         $logactivity = new LogActivity();
-        $logactivity->title=$title;
-        $logactivity->description=$description;
-        $logactivity->page=$page;
+
+        $logactivity->title = $title;
+        $logactivity->description = $description;
+        $logactivity->page = $page;
         $logactivity->admin_id=$admin_id;
+
+        $logactivity->save();
 
     }
 

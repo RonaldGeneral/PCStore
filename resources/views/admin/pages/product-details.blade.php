@@ -187,7 +187,7 @@
                         <label for="txtDesc">Description</label>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input type="number" class="form-control fs-09" id="txtPrice" placeholder="John" name="price" value="{{$product->price}}" required>
+                        <input class="form-control fs-09" id="txtPrice" placeholder="John" name="price" value="{{$product->price}}" required>
                         <label for="txtPrice" class="col-form-label">Price</label>
                     </div>
                     <div class="mb-3 form-floating">

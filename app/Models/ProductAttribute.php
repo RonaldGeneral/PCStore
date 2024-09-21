@@ -31,4 +31,8 @@ class ProductAttribute extends Model
         return $query;
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

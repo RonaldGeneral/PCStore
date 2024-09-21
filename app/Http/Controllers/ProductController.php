@@ -58,6 +58,9 @@ class ProductController extends Controller
         
         $product->img_src1 = $img1;
         $product->save();
+
+        LogActivityController::logActivity(
+            'Add product', 'Product '.$product->title." #". $product->id ." added", 'product_page');
     
         return redirect()->route('products.index');
     }
@@ -66,7 +69,13 @@ class ProductController extends Controller
     {
         $id= $request->delete_id;
         $product = Product::find($id);
+        
+        LogActivityController::logActivity(
+            'Delete product', 'Product '.$product->title." #". $product->id ." deleted", 'product_page');
         $product->delete();
+
+        
+
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
     }
@@ -124,6 +133,9 @@ class ProductController extends Controller
             $product->save();
         } 
         
+        LogActivityController::logActivity(
+            'Edit product', 'Product '.$product->title." #". $product->id ." edited", 'product_details');
+
         return redirect()->route('products.view', $id)
             ->with('success', 'Product edited successfully');
     }
@@ -148,6 +160,9 @@ class ProductController extends Controller
         } 
 
         $attr->save();
+
+        LogActivityController::logActivity(
+            'Edit product attribute', 'Product '.$attr->product->title." #". $attr->product->id ." added", 'product_details');
         
         return redirect()->route('products.view', $product_id)
             ->with('success', 'Product edited successfully');
