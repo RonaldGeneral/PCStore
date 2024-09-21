@@ -27,4 +27,11 @@ class AdminLoginController extends Controller
             'loginError' => 'Invalid username or password!'
         ])->withInput();
     }
+
+    public function logout()
+    {
+        $user = Auth::guard('admin')->user();
+
+        return $context->executeLogout();
+    }
 }
