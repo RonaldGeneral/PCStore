@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+<!-- Author: Teh Chong Shin -->
 <h2 class="fw-bold pb-3">Shopping Cart</h2>
 <div class="row d-flex justify-content-center my-4">
     <div class="col-md-8">

@@ -1,6 +1,7 @@
 @extends('admin.layouts.default')
 
 @section('content')
+<!-- Author: Teh Chong Shin -->
 <div class="page-path">
     <a class="me-2" href="{{route('products.index')}}">
         <svg class="mb-2 me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">

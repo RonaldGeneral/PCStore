@@ -1,5 +1,9 @@
 <?php
 
+ /**
+  * @author Teh Chong Shin
+  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +21,6 @@ class Order extends Model
             4 = Completed
     
     */
-
     use HasFactory;
 
     protected $table = 'order';

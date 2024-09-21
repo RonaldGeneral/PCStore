@@ -5,7 +5,7 @@
 @stop
 
 @section('content')    
-
+<!-- Author: Teh Chong Shin -->
 
 <div class="d-flex">
     <div class="col-1"></div>
