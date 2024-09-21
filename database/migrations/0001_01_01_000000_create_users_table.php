@@ -44,7 +44,7 @@ return new class extends Migration
         Schema::create('position', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('role');
+            $table->json('role');
         });
 
         Schema::create('customer', function (Blueprint $table) {
