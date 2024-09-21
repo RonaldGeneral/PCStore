@@ -22,6 +22,13 @@
                 
             </div>
             <div id="mySidenav" class="sidenav">
+                @php
+                    $admin = Auth::guard('admin')->user();
+                    $role = is_array($admin->position->role)?$admin->position->role:[];
+                @endphp
+
+                @if(in_array('cust',$role))
+
                 <a href="{{ route('customers.index') }}" title="Customer page">
                     <svg xmlns='http://www.w3.org/2000/svg' height='35' viewBox='0 -960 960 960' width='35'>
                         <path
@@ -30,6 +37,9 @@
                     <span class='menu-label'>Customer</span>
                 </a>
                 
+                @endif
+                @if(in_array('staff',$role))
+
                 <a href="{{ route('admins.index') }}" title="Staff page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -37,6 +47,10 @@
                     </svg>
                     <span class="menu-label">Staff</span>
                 </a>
+
+                @endif
+                @if(in_array('prod',$role))
+
                 <a href="{{ url('admin/product-page') }}" title="Product page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -44,6 +58,10 @@
                     </svg>
                     <span class="menu-label">Product</span>
                 </a>
+
+                @endif
+                @if(in_array('report',$role))
+
                 <a href="{{ route('admin.reports') }}" title="Reports">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -51,6 +69,10 @@
                     </svg>
                     <span class="menu-label">Reports</span>
                 </a>
+
+                @endif
+                @if(in_array('order',$role))
+
                 <a href="{{ route('orders.index') }}" title="Order page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -58,6 +80,9 @@
                     </svg>
                     <span class="menu-label">Sales order</span>
                 </a>
+
+                @endif
+
                 <a href="{{ route('admin.profile') }}" title="Profile page">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -65,6 +90,9 @@
                     </svg>
                     <span class="menu-label">Profile</span>
                 </a>
+
+                @if(in_array('audit',$role))
+
                 <a href="{{ route('admin.log-record') }}" title="Audit Log">
                     <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
                         <path
@@ -72,6 +100,8 @@
                     </svg>
                     <span class="menu-label">Audit Log</span>
                 </a>
+
+                @endif
 
             </div>
         </header>

@@ -20,7 +20,7 @@ class CheckReportAccess
         if (!$admin)
             return redirect()->route('admin.login'); 
 
-        if(in_array($admin->position->role,'report'))
+        if(is_array($admin->position->role) && in_array('staff', $admin->position->role))
             return $next($request);
 
         return redirect()->route('admin.profile'); 

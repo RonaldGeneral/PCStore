@@ -12,4 +12,7 @@ class Position extends Model
     protected $table = 'position';
 
     public $timestamps = false;
+    protected $casts = [
+        'role' => 'array'
+    ];
 }
