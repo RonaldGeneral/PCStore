@@ -40,24 +40,31 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0 text-primary">
+                @foreach($admins as $customer)
                     <tr>
                         <td class="ps-3">
-                            1
+                        {{$admin->id}}
                         </td>
                         <td>
-                            Mary Janes
+                        <p class="m-0 d-inline-block align-middle font-16 col-10">
+                                <a href="{{ route('admins.view', $admin->id) }}">{{$admin->name}}</a>
                         </td>
                         <td>
-                            010324-09-0211
+                        {{$admin->phone}}
                         </td>
                         <td>
-                            014-235564323
+                        {{$admin->email}}
                         </td>
                         <td>
-                            johnwick@gmail.com
-                        </td>
-                        <td>
-                            <span class="badge bg-success">Active</span>
+                        @switch($admin->status)
+                                @case(1)
+                                    <span class="badge bg-success">Active</span>
+                                    @break
+
+                                @case(2)
+                                <span class="badge bg-warning">Blocked</span>
+                                    @break
+                            @endswitch
                         </td>
                         <td>
                  
@@ -157,6 +164,7 @@
                         </td>
                     </tr>
                 </tbody>
+                @endforeach
             </table>
         </div>
     </div>

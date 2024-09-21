@@ -60,16 +60,15 @@ Route::post('/verify-pin', [CustLoginController::class,'verifyPIN'])->name('veri
 Route::post('/change-password', [CustLoginController::class,'changePassword'])->name('change_pw');
 Route::post('/update-profile', [CustomerController::class,'updateProfile'])->name('update_profile');
 
-Route::get('/admin',  function(){return redirect()->route('admin.login');});
 
 Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
 Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
 Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
 Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
+Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
 
 
-Route::get('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
-
+Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
 Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('admin.profile');
 Route::get('/admin/staff-details{admin}', [AdminStaffController::class, 'view'])->name('admins.view');
 Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->middleware(CheckStaffAccess::class)->name('admins.index');

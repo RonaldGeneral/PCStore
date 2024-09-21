@@ -27,20 +27,31 @@
 
             <h2 class="fw-bold mb-2 fs-3">Admin Login</h2>
             
-  
+            
+            <form action="{{ route('admin.login') }}" method="POST">
+              @csrf
             <div class="form-outline form-white mb-4 mt-5 shadow-sm">
-              <input type="email" id="typeEmailX" class="form-control form-control-lg fs-6" placeholder="Username/Email" />
-              
+              <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg fs-6" placeholder="Username/Email" />
             </div>
-  
+            @if ($errors->has('email'))
+                      <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
+                        {{ $errors->first('email') }}
+                      </div>
+                      <br />
+                    @endif
             <div class="form-outline form-white mb-4 shadow-sm">
-              <input type="password" id="typePasswordX" class="form-control form-control-lg fs-6" placeholder="Password" />
-              
+              <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg fs-6" placeholder="Password" />
             </div>
-  
-              <a id="ButtonLogin" class="btn btn-primary btn-lg px-5 shadow-sm" href="{{ URL::asset('~/view/admin/customer-page.blade.php') }}">Login</a> 
-  
+            @if ($errors->has('email'))
+                      <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
+                        {{ $errors->first('email') }}
+                      </div>
+                      <br />
+                    @endif
+              <button class="btn btn-primary btn-lg px-5 mb-3 shadow-sm" type="submit">Login</button>
+            </form>
           </div> 
+
         </div>
       </div>
     </div>

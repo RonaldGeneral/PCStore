@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Facades\Hash;
 
 class AdminStaffController extends Controller
 {
@@ -86,7 +87,7 @@ class AdminStaffController extends Controller
         $request->validate([
 
             'name' => 'required|string|max:255',
-            'birthdate' => 'required|date_format:D-M-Y|before:today',
+            'birthdate' => 'required|before:today',
             'phone' => 'required|digits:12',
             'email' => 'required|email|unique:admin,email',
             'gender' => 'required',
@@ -102,8 +103,8 @@ class AdminStaffController extends Controller
         $admin->email = strip_tags($request->email);
         $admin->gender = strip_tags($request->gender);
         $admin->username = strip_tags($request->username);
-        $admin->password = strip_tags($request->password);
-        $admin->status = 2;
+        $admin->password = Hash::make($password);
+        $admin->status = strip_tags($request->status);
         $admin->position_id = strip_tags($request->position_id);
 
 
@@ -142,7 +143,7 @@ class AdminStaffController extends Controller
         $admin = Admin::find($id);
         $request->validate([
             'name' => 'required|string|max:255',
-            'birthdate' => 'required|date_format:D-M-Y|before:today',
+            'birthdate' => 'required|before:today',
             'phone' => 'required|digits:12',
             'email' => 'required|email|unique:admin,email',
             'gender' => 'required',
