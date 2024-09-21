@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminStaffController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Middleware\CustomerAuth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -85,9 +86,12 @@ Route::post('/admin/product-page', [ProductController::class, 'create'])->name('
 Route::put('/admin/product-details/{product}/edit', [ProductController::class, 'edit_details'])->name('products.edit_details');
 Route::put('/admin/product-details/{product}/attr', [ProductController::class, 'edit_attrs'])->name('products.edit_attrs');
 Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
-Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
-Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
 
+
+Route::get('/admin/report-page', [ReportsController::class,'reports'])->name('admin.reports');
+Route::post('/admin/filter-orders', [ReportsController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+Route::post('/admin/download-report', [ReportsController::class, 'downloadReport'])->name('admin.download-report');
+Route::post('/admin/upload-report', [ReportsController::class, 'uploadXmlReport'])->name('admin.upload-xml');
 
 
 Route::get('/test', [OrderController::class, 'testxml']);
