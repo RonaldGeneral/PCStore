@@ -6,6 +6,7 @@ use DB;
 use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Facades\Hash;
@@ -128,6 +129,10 @@ class AdminStaffController extends Controller
     {
         $admin = Admin::find($id);
 
+        $logactivity = LogActivity::where('admin_id', '=', $id)
+                        ->orderByDesc('created_on')
+                        ->get();
+
         return view('admin.pages.staff-details', compact('admin'));
     }
 
@@ -168,5 +173,30 @@ class AdminStaffController extends Controller
 
         return redirect()->route('admins.view', $id)
             ->with('success', 'Admin details edited successfully');
+    }
+
+    public function promotionVoucher(){
+        $request->validate([
+            'email' => 'required|email|exists:customer,email',
+        ]);
+
+        $email = $request->input('email');
+
+        if($email == null){
+            return response()->json(['success' => false, 'message' => 'This email address does not exist in our database.']);
+        }
+
+        $discount=random_int(10,80);
+    }
+
+    public function sendPromotionFromApi($email)
+    {
+        $data = [
+            'receiver' => $email,
+            'subject' => 'Voucher Winner',
+            'message' => 'CONGRATULATIONS! <br/>You have won a voucher worth' .$discount .'% off your next purchase of selected products!<br/>'.'Terms and Conditions Apply <br/><br/>TerraByte Malaysia',
+        ];
+
+        return Http::post('http://localhost:5002/api/emailservice/send', $data);
     }
 }
