@@ -31,7 +31,7 @@
                  <img alt="profile-image" src="{{ URL::asset('res/man1.jpg') }}" class="m-2 person-icon shadow-xl">
                  <div class="py-3 mx-3">
                      <p class="h4 text-dark">{{$admin->name}}</p>
-                     <p class="my-1 h6 text-secondary">{{$admin->position}}</p>
+                     <p class="my-1 h6 text-secondary">{{$admin->position->name}}</p>
                  </div>
 
 
@@ -65,7 +65,7 @@
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Role</strong></span>
-                     <span class="col-10">: {{$admin->position}}</span>
+                     <span class="col-10">: {{$admin->position->name}}</span>
                  </li>
                  <li class="list-group-item border-0 ps-0 pt-0 text-sm d-flex">
                      <span class="col-2"><strong class="text-dark">Joined on</strong></span>
