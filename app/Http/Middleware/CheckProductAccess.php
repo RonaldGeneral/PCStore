@@ -20,7 +20,7 @@ class CheckProductAccess
         if (!$admin)
             return redirect()->route('admin.login'); 
 
-        if(in_array('product', $admin->position->role))
+        if(in_array('prod', $admin->position->role))
             return $next($request);
 
         return redirect()->route('admin.profile'); 
