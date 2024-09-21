@@ -6,18 +6,20 @@ use DB;
 use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Position;
 use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 
 class AdminStaffController extends Controller
 {
     public function index()
     {
         $admins = Admin::select('id', 'name', 'birthdate', 'phone', 'email', 'gender', 'username', 'password', 'status', 'created_on', 'position_id')->get();
+        $positions = Position::all();
         
-        return view('admin.pages.staff-page', compact('admins'));
+        return view('admin.pages.staff-page', compact('admins', 'positions'));
     }
 
     public function profile()
@@ -96,7 +98,7 @@ class AdminStaffController extends Controller
             'password' => 'required|min:8|confirmed',
             'position_id' => 'required',
         ]);
-
+        
         $admin = new Admin();
         $admin->name = strip_tags($request->name);
         $admin->birthdate = strip_tags($request->birthdate);
@@ -104,7 +106,7 @@ class AdminStaffController extends Controller
         $admin->email = strip_tags($request->email);
         $admin->gender = strip_tags($request->gender);
         $admin->username = strip_tags($request->username);
-        $admin->password = Hash::make($password);
+        $admin->password = Hash::make($request->password);
         $admin->status = strip_tags($request->status);
         $admin->position_id = strip_tags($request->position_id);
 

@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0 text-primary">
-                @foreach($admins as $customer)
+                @foreach($admins as $admin)
                     <tr>
                         <td class="ps-3">
                         {{$admin->id}}
@@ -152,20 +152,17 @@
                             <div class=" form-floating">
                                 <select id="ddlGender" name="gender" class="form-select fs-09">
                                     <option Selected="True" Value="m">Male</option>
-                                    <option Value="f">Female</option>
+                                    <option value="f">Female</option>
                                 </select>
                                 <label for="ddlGender">Gender</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <select id="ddlPosition" name="position" class="form-select fs-09">
-                                    <option Selected="True" Value="1">CEO</option>
-                                    <option Value="2">Clerk</option>
-                                    <option Value="3">Warehouse admin</option>
-                                    <option Value="4">Sales admin</option>
-                                    <option Value="5">Sales executive</option>
-                                    <option Value="6">Logistics Manager</option>
+                                <select id="ddlPosition" name="position_id" class="form-select fs-09">
+                                    @foreach($positions as $position)
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="ddlPosition">Position</label>
                             </div>

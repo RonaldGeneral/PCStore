@@ -46,7 +46,7 @@ class AdminCustomerController extends Controller
         $customer->city = strip_tags($request->city);
         $customer->state = strip_tags($request->state);
         $customer->username = strip_tags($request->username);
-        $customer->password = Hash::make($password);
+        $customer->password = Hash::make($request->password);
         $customer->status = strip_tags($request->status);  
 
         $customer->save();

@@ -105,7 +105,7 @@ class CustLoginController extends Controller
         ]);
 
         $email = $request->input('email');
-
+        
         if($email == null){
             return response()->json(['success' => false, 'message' => 'This email address does not exist in our database.']);
         }

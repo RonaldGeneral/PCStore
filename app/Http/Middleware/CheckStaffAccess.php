@@ -20,7 +20,7 @@ class CheckStaffAccess
         if (!$admin)
             return redirect()->route('admin.login'); 
 
-        if(in_array('staff', $admin->position->role))
+        if(in_array($admin->position->role, 'staff'))
             return $next($request);
 
         return redirect()->route('admin.profile'); 

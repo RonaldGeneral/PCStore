@@ -20,7 +20,7 @@ class CheckAuditAccess
         if (!$admin)
             return redirect()->route(route: 'admin.login'); 
 
-        if(in_array('audit', $admin->position->role))
+        if(in_array($admin->position->role,'audit'))
             return $next($request);
 
         return redirect()->route('admin.profile'); 

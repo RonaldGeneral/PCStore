@@ -20,7 +20,7 @@ class CheckOrderAccess
         if (!$admin)
             return redirect()->route('admin.login'); 
 
-        if(in_array('order', $admin->position->role))
+        if(in_array($admin->position->role,'order'))
             return $next($request);
 
         return redirect()->route('admin.profile'); 

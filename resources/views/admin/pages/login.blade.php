@@ -10,8 +10,7 @@
     <link href="{{ URL::asset('style/login.css') }}" rel="stylesheet" />
 </head>
 <body>
-    <form id="form1">
-        <div class="container py-5 w-75 h-100">
+    <div class="container py-5 w-75 h-100">
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
       <div class="card text-black " style="border-radius: 1rem;">
@@ -28,23 +27,24 @@
             <h2 class="fw-bold mb-2 fs-3">Admin Login</h2>
             
             
-            <form action="{{ route('admin.login') }}" method="POST">
+            <form action="{{ route('admin.login.button') }}" method="POST">
               @csrf
+              
             <div class="form-outline form-white mb-4 mt-5 shadow-sm">
-              <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg fs-6" placeholder="Username/Email" />
+              <input type="text" id="typeUsernameX" name="username" class="form-control form-control-lg fs-6" placeholder="Username" />
             </div>
-            @if ($errors->has('email'))
+            @if ($errors->has('username'))
                       <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
-                        {{ $errors->first('email') }}
+                        {{ $errors->first('username') }}
                       </div>
                       <br />
                     @endif
             <div class="form-outline form-white mb-4 shadow-sm">
               <input type="password" id="typePasswordX" name="password" class="form-control form-control-lg fs-6" placeholder="Password" />
             </div>
-            @if ($errors->has('email'))
+            @if ($errors->has('password'))
                       <div style="color: red; margin: 10px 5px 10px 5px; text-align: left;">
-                        {{ $errors->first('email') }}
+                        {{ $errors->first('password') }}
                       </div>
                       <br />
                     @endif
