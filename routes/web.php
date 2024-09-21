@@ -8,8 +8,11 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\CheckAuditAccess;
+use App\Http\Middleware\CheckCustomerAccess;
 use App\Http\Middleware\CheckOrderAccess;
 use App\Http\Middleware\CheckProductAccess;
+use App\Http\Middleware\CheckReportAccess;
 use App\Http\Middleware\CheckStaffAccess;
 use App\Http\Middleware\CustomerAuth;
 use Illuminate\Support\Facades\Route;
@@ -68,8 +71,9 @@ Route::get('/admin/profile', [AdminStaffController::class, 'profile'])->name('ad
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin.login');
 Route::post('/admin/login/profile', [AdminLoginController::class, 'login'])->name('admin.login.button');
 
-
-Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
+Route::middleware([CheckAuditAccess::class])->group(function () {
+    Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
+});
 
 Route::middleware([CheckStaffAccess::class])->group(function () {
     Route::get('/admin/staff-page', [AdminStaffController::class, 'index'])->name('admins.index');
@@ -80,11 +84,13 @@ Route::middleware([CheckStaffAccess::class])->group(function () {
 
 });
 
-Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
-Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
-Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
-Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
-Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
+Route::middleware([CheckCustomerAccess::class])->group(function () {
+    Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
+    Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
+    Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
+    Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
+});
 
 Route::middleware([CheckOrderAccess::class])->group(function () {
     Route::get('/admin/order-details/{order}', [OrderController::class, 'view'])->name('orders.view');
@@ -103,6 +109,7 @@ Route::middleware([CheckProductAccess::class])->group(function () {
     Route::delete('/admin/product-page', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-
-Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
-Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+Route::middleware([CheckReportAccess::class])->group(function () {
+    Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
+    Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+});
