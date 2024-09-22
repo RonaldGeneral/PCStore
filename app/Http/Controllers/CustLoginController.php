@@ -151,7 +151,6 @@ class CustLoginController extends Controller
         $storedPin = session('reset_pin');
         $pinGeneratedAt = session('pin_generated_at');
 
-        //dd($pinGeneratedAt->diffInMinutes(Carbon::now()), Carbon::now()->diffInMinutes($pinGeneratedAt), $storedPin === $validatedData['pin']);
         if ((string) $storedPin === (string) $validatedData['pin'] && $pinGeneratedAt->diffInMinutes(Carbon::now()) <= 10) {
             session(['access_reset_password' => true]);
 

@@ -30,61 +30,6 @@ class AdminStaffController extends Controller
         return view("admin.pages.profile", compact('admin'));
     }
 
-    public function reports()
-    {
-        // Fetch sales by category
-        $salesByCategory = DB::table('order_item')
-            ->join('product', 'order_item.product_id', '=', 'product.id')
-            ->select(DB::raw('SUM(order_item.subtotal) as total_sales, product.category'))
-            ->groupBy('product.category')
-            ->get();
-
-        // Fetch sales data for the last 3 months
-        $startDate = Carbon::now()->subMonths(3);
-        $salesData = DB::table('order')
-            ->select(DB::raw('SUM(total) as total_sales, DATE(created_on) as date'))
-            ->where('created_on', '>=', $startDate)
-            ->groupBy('date')
-            ->get();
-
-
-        return view('admin.pages.report-page', [
-            'salesByCategory' => $salesByCategory,
-            'salesData' => $salesData,
-            "orders" => null
-        ]);
-    }
-
-    public function filterOrdersForReport(Request $request)
-    {
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-        ]);
-
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-
-        $orders = Order::whereBetween('created_on', [$startDate, $endDate])->get();
-
-        $totalSubtotal = $orders->sum('subtotal');
-
-        return view('admin.pages.report-page', compact('orders', 'totalSubtotal'));
-    }
-
-    public function salesByCategory()
-    {
-        $salesByCategory = DB::table('order_items')
-            ->join('categories', 'order_items.category_id', '=', 'categories.id')
-            ->select(DB::raw('SUM(order_items.subtotal) as total_sales, categories.name'))
-            ->groupBy('categories.name')
-            ->get();
-
-        return view('report', compact('salesByCategory'));
-    }
-
-
-
     public function create(Request $request)
     {
         $request->validate([

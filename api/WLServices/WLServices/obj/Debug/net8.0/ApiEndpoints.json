@@ -27,16 +27,16 @@
   },
   {
     "ContainingType": "WLServices.Controllers.XMLToXSLTController",
-    "Method": "ImportXml",
+    "Method": "ConvertXmlToXlsx",
     "RelativePath": "api/XMLToXSLT/xml2xlsx",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "filePath",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "WLServices.Models.XmlRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

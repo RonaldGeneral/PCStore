@@ -7,21 +7,22 @@ use Carbon\Carbon;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
 use XSLTProcessor;
 
 class ReportsController extends Controller
 {
-    public function fetchDefaultSalesData($start = null, $end = null)
+    public function fetchDefaultSalesData($start = '', $end = '')
     {
-        $startDate = ($start === null && $end === null)
+        $startDate = ($start == '' && $end == '')
             ? Carbon::now()->subMonths(3)->startOfDay()
             : ($start ?: Carbon::parse($start));
 
-        $endDate = ($start === null && $end === null)
+        $endDate = ($start == '' && $end == '')
             ? Carbon::now()->endOfDay()
             : ($end ?: Carbon::parse($end));
+
 
         $orders = Order::whereBetween('created_on', [$startDate, $endDate])->get();
 
@@ -104,40 +105,40 @@ class ReportsController extends Controller
 
     public function downloadReport(Request $request)
     {
+        $reportName = $request->input('reportName');
+        $startDate = $request->input('reportStartDate');
+        $endDate = $request->input('reportEndDate');
+        $jsonData = json_decode($request->input('exportReport'), true);
+
+        $xmlData = new SimpleXMLElement('<report></report>');
+        $xmlData->addChild('report_name', $reportName);
+        $xmlData->addChild('start_date', $startDate);
+        $xmlData->addChild('end_date', $endDate);
+
+        // Handle different report types
+        switch ($reportName) {
+            case 'sales_by_category':
+                $salesByCategory = $xmlData->addChild('sales_by_category');
+                foreach ($jsonData as $data) {
+                    $category = $salesByCategory->addChild('category');
+                    $category->addChild('name', $data['category']);
+                    $category->addChild('total_sales', $data['total_sales']);
+                }
+                break;
+
+            case 'sales_figure':
+                $salesFigure = $xmlData->addChild('sales_figure');
+                foreach ($jsonData as $data) {
+                    $sale = $salesFigure->addChild('sale');
+                    $sale->addChild('month', $data['month']);
+                    $sale->addChild('total_sales', $data['total_sales']);
+                }
+                break;
+        }
+
+        $xmlContent = $xmlData->asXML();
+
         if ($request->input('action') == 'download_xml') {
-            $reportName = $request->input('reportName');
-            $startDate = $request->input('reportStartDate');
-            $endDate = $request->input('reportEndDate');
-            $jsonData = json_decode($request->input('exportReport'), true);
-
-            $xmlData = new SimpleXMLElement('<report></report>');
-            $xmlData->addChild('report_name', $reportName);
-            $xmlData->addChild('start_date', $startDate);
-            $xmlData->addChild('end_date', $endDate);
-
-            // Handle different report types
-            switch ($reportName) {
-                case 'sales_by_category':
-                    $salesByCategory = $xmlData->addChild('sales_by_category');
-                    foreach ($jsonData as $data) {
-                        $category = $salesByCategory->addChild('category');
-                        $category->addChild('name', $data['category']);
-                        $category->addChild('total_sales', $data['total_sales']);
-                    }
-                    break;
-
-                case 'sales_figure':
-                    $salesFigure = $xmlData->addChild('sales_figure');
-                    foreach ($jsonData as $data) {
-                        $sale = $salesFigure->addChild('sale');
-                        $sale->addChild('month', $data['month']);
-                        $sale->addChild('total_sales', $data['total_sales']);
-                    }
-                    break;
-
-            }
-
-            $xmlContent = $xmlData->asXML();
 
             return Response::make($xmlContent, 200, [
                 'Content-Type' => 'application/xml',
@@ -145,7 +146,35 @@ class ReportsController extends Controller
             ]);
 
         } else if ($request->input('action') == 'download_xlsx') {
+            $xmlContent = $xmlData->asXML(); // Get XML string from SimpleXMLElement
+            $response = Http::post('http://localhost:5000/api/XMLToXSLT/xml2xlsx', [
+                'xmlContent' => $xmlContent
+            ]);
 
+            if ($response->successful()) {
+                $data = $response->json();
+                $message = $data['Message'] ?? 'File successfully downloaded!';
+
+                // Pass the message to your view
+                $data = $this->fetchDefaultSalesData();
+                return view('admin.pages.report-page', [
+                    'salesByCategory' => $data['salesByCategory'],
+                    'salesData' => $data['salesData'],
+                    "orders" => $data['orders'],
+                    'totalSubtotal' => $data['orders']->sum('subtotal'),
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
+                ])->with('successMessage', $message);
+            } else {
+                return view('admin.pages.report-page', [
+                    'salesByCategory' => $data['salesByCategory'],
+                    'salesData' => $data['salesData'],
+                    "orders" => $data['orders'],
+                    'totalSubtotal' => $data['orders']->sum('subtotal'),
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
+                ])->with('errorMessage', 'Failed to convert XML to XLSX.');
+            }
         }
     }
 

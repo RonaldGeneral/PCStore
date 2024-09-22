@@ -120,7 +120,7 @@
 
               <div class="col-md-8">
                 <div class="form-outline form-white">
-                  <input type="date" class="form-control form-control-lg fs-6" name="birthdate" value="{{ $formattedDob }}" />
+                  <input type="date" class="form-control form-control-lg fs-6" name="birthdate" id="dateInput" value="{{ $formattedDob }}" />
                 </div>
               </div>
             </div>
@@ -215,5 +215,11 @@
     </div>
   </div>
 </div>
+
+<script>
+  const today = new Date().toISOString().split('T')[0];
+
+  document.getElementById('dateInput').setAttribute('max', today);
+</script>
 <!-- End Content -->
 @stop
