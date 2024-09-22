@@ -3,7 +3,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
-
+<!-- Author: Leong Wai Loc -->
+ 
 @if ($errors->has('error'))
   <div class="row" style="padding: 0.5rem 1rem;">
     <div class="FailedBox">

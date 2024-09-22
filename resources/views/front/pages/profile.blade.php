@@ -2,6 +2,7 @@
 
 @section('content')
 
+<!-- Author: Leong Wai Loc -->
 @if ($errors->any())
   @foreach ($errors->all() as $error)
     <div class="row" style="padding: 0.5rem 1rem;">

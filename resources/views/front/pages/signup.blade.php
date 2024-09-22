@@ -1,7 +1,7 @@
 @extends('front.layouts.default')
 
+<!-- Author: Leong Wai Loc -->
 @section('content')
-
 <form action="{{ route('create-account') }}" method="POST">
   @csrf
 

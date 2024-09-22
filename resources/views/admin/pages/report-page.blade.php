@@ -4,6 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @stop
 
+<!-- Author: Leong Wai Loc -->
 @section('content')
 <div class="page-path">
     Report & Analytics

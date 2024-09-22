@@ -4,6 +4,7 @@
 <link href="{{ URL::asset('css/front/deliveryStatus.css') }}" rel="stylesheet" />
 @stop
 
+<!-- Author: Leong Wai Loc -->
 @section('content')
 <div id="content" class="p-3 ">
     <div class="container py-5">

@@ -1,6 +1,8 @@
 @extends('front.layouts.default')
 
 @section('content')
+
+<!-- Author: Leong Wai Loc -->
 <form action="{{ route('change_pw') }}" method="POST">
   @csrf
   <div id="content">
