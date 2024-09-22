@@ -10,7 +10,7 @@
 <div class="d-flex">
     <div class="col-1"></div>
     <div class="col-8 mt-5 ms-5">
-<form action="" method="GET">
+    <form action="" method="GET">
         <select id="ddlCategory" name="order" class="btn btn-lg btn-outline-light dropdown-toggle border text-dark">
             <option {{($order=='pa' || !$order)?'selected':''}} value="pa">Price, Ascending</option>
             <option {{($order=='pd')?'selected':''}} value="pd">Price, Descending</option>

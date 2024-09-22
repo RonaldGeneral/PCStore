@@ -27,9 +27,18 @@ class CustomerController extends Controller
         return view("front.pages.profile", compact('customer', 'formattedDob'));
     }
 
-    public function deliveryStatus()
-    {
-        return view("front.pages.delivery-status");
+    public function deliveryStatus($id)
+    {            
+
+        $customer = Auth::guard('customer')->user();
+        $order = Order::where('customer_id', '=', $customer->id)
+            ->whereNot('status', -1)
+            ->find($id);
+
+        if(!$order) 
+            return redirect()->route('front.home');
+
+        return view("front.pages.delivery-status", compact('order'));
     }
 
     public function orderHistory(Request $request)
@@ -39,7 +48,7 @@ class CustomerController extends Controller
         $customer = Auth::guard('customer')->user();
 
         $customerOrders = Order::where('customer_id', Auth::guard('customer')->id())
-            ->where('status', '!=', -1)
+            ->where('status', '!=', -1)->orderBy('created_on', 'desc')
             ->get();
 
 

@@ -33,6 +33,7 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('order.checkout');
     Route::post('/front/checkout/pay', [OrderController::class,'makePayment'])->name('order.makePayment');
     Route::get('/front/checkout/create/{payment}', [OrderController::class,'create'])->name('order.create');
+    Route::get('/front/delivery-status/{order}', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
 
 
     Route::get('/front/payment', [OrderController::class,'showPayment'])->name('order.showPayment');
@@ -55,7 +56,6 @@ Route::get('/front/login', [CustLoginController::class,'index'])->name('front.lo
 Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
 Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
 
-Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
 
 
 Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
