@@ -103,6 +103,7 @@
                             <span class="col">{{$admin->description}}</span>
                         </li>
                     </ul>
+                    @endforeach
                 </div> <!-- end card-body-->
             </div>
         </div>
