@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\controllers\\xmltoxsltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\controllers\\xmltoxsltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\models\\xmlrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\models\\xmlrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\wlservices.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\wlservices.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\controllers\\xmltoxsltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\controllers\\xmltoxsltcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\controllers\\emailservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|c:\\xampp\\htdocs\\pcstore\\api\\wlservices\\wlservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE3437A8-8C46-4922-8103-D4013608A251}|WLServices\\WLServices.csproj|solutionrelative:wlservices\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,6 +58,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WLServices",
+              "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\WLServices.csproj",
+              "RelativeDocumentMoniker": "WLServices\\WLServices.csproj",
+              "ToolTip": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\WLServices.csproj",
+              "RelativeToolTip": "WLServices\\WLServices.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-09-22T08:45:03.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "XmlRequest.cs",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Models\\XmlRequest.cs",
@@ -62,12 +79,12 @@
               "RelativeToolTip": "WLServices\\Models\\XmlRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T05:57:27.149Z",
+              "WhenOpened": "2024-09-22T08:35:40.187Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "WLServices\\Properties\\launchSettings.json",
@@ -75,12 +92,11 @@
               "RelativeToolTip": "WLServices\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-22T05:05:02.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T05:05:02.029Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\appsettings.json",
               "RelativeDocumentMoniker": "WLServices\\appsettings.json",
@@ -88,12 +104,11 @@
               "RelativeToolTip": "WLServices\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-20T14:07:02.402Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-20T14:07:02.402Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "SendMessageRequest.cs",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Models\\SendMessageRequest.cs",
               "RelativeDocumentMoniker": "WLServices\\Models\\SendMessageRequest.cs",
@@ -101,25 +116,24 @@
               "RelativeToolTip": "WLServices\\Models\\SendMessageRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T17:46:14.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T17:46:14.998Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "XMLToXSLTController.cs",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Controllers\\XMLToXSLTController.cs",
               "RelativeDocumentMoniker": "WLServices\\Controllers\\XMLToXSLTController.cs",
               "ToolTip": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Controllers\\XMLToXSLTController.cs",
               "RelativeToolTip": "WLServices\\Controllers\\XMLToXSLTController.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAiwA4AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-15T15:17:38.741Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "EmailServiceController.cs",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Controllers\\EmailServiceController.cs",
               "RelativeDocumentMoniker": "WLServices\\Controllers\\EmailServiceController.cs",
@@ -127,12 +141,11 @@
               "RelativeToolTip": "WLServices\\Controllers\\EmailServiceController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T15:17:37.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T15:17:37.107Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\xampp\\htdocs\\PCStore\\api\\WLServices\\WLServices\\Program.cs",
               "RelativeDocumentMoniker": "WLServices\\Program.cs",
@@ -140,7 +153,8 @@
               "RelativeToolTip": "WLServices\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T15:17:09.626Z"
+              "WhenOpened": "2024-09-15T15:17:09.626Z",
+              "EditorCaption": ""
             }
           ]
         }
