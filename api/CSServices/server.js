@@ -152,7 +152,7 @@ app.post("/delivery/delete", async (req, res, next) => {
 });
 
 app.get("/delivery", async (req, res, next) => {
-    deliveries = await db.getAllRecords('delivery');
+    deliveries = await db.query('SELECT * FROM delivery ORDER BY created_at DESC');
 
     res.render('delivery', {deliveries});
 })
