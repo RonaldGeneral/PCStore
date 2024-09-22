@@ -74,6 +74,7 @@
 
              </ul>
          </div>
+         {!! $logactivity_html !!}
      </div>
  </div>
 @stop

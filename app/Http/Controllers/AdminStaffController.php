@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use XSLTProcessor;
 
 class AdminStaffController extends Controller
 {
@@ -26,9 +28,24 @@ class AdminStaffController extends Controller
     public function profile()
     {
         $admin = Auth::guard('admin')->user();
-        //$formattedDob = Carbon::parse($admin->dob)->format('Y-m-d');
+        
 
-        return view("admin.pages.profile", compact('admin'));
+        
+        $xml = new \DOMDocument();
+        $xml->load(Storage::disk('xslt')->path('logactivity.xml'));
+
+        $xsl = new \DOMDocument();
+        $xsl->substituteEntities = TRUE;
+        $xsl->load(Storage::disk('xslt')->path('logactivity.xsl'));
+
+        $xsltProcessor = new XSLTProcessor();
+        $xsltProcessor->importStylesheet($xsl);
+
+        
+        $logactivity_html = $xsltProcessor->transformToXML($xml);
+        
+
+        return view("admin.pages.profile", compact('admin', 'logactivity_html'));
     }
 
     public function create(Request $request)
@@ -80,11 +97,12 @@ class AdminStaffController extends Controller
     {
         $admin = Admin::find($id);
 
-        $logactivity = LogActivity::where('admin_id', '=', $id)
+        
+        $logactivitys = LogActivity::where('admin_id', '=', $id)
                         ->orderByDesc('created_on')
                         ->get();
 
-        return view('admin.pages.staff-details', compact('admin'));
+        return view('admin.pages.staff-details', compact('admin', 'logactivitys'));
     }
 
     public function viewLog($id)

@@ -75,6 +75,7 @@ Route::post('/admin/login/profile', [AdminLoginController::class, 'login'])->nam
 
 Route::middleware([CheckAuditAccess::class])->group(function () {
     Route::get('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.log-record');
+    Route::post('/admin/log-record', [LogActivityController::class, 'index'])->name('admin.download-log');
 });
 
 Route::get('/admin/product-page', [ProductController::class, 'index'])->name('products.index');

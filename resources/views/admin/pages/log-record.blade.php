@@ -48,6 +48,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <form action="{{ route('admin.download-log') }}" method="POST">
+                    @csrf
+                <button type="submit" name="action" class="btn btn-secondary mx-2" value="download_xml">Download Log as XML</button>
+                </form>
             </div>
         </div>
 @stop
