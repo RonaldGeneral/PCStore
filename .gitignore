@@ -18,11 +18,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/api/WLServices/WLServices/obj/Debug/net8.0/WLServices.csproj.AssemblyReference.cache
-/api/WLServices/WLServices/obj/WLServices.csproj.nuget.dgspec.json
-/api/WLServices/WLServices/obj/WLServices.csproj.nuget.g.props
-/api/WLServices/WLServices/obj/project.assets.json
-/api/WLServices/WLServices/obj/project.nuget.cache
-/api/WLServices/WLServices/obj/Debug/net8.0/WLServices.AssemblyInfoInputs.cache
-/api/WLServices/WLServices/obj/Debug/net8.0/WLServices.assets.cache
-/api/WLServices/WLServices/obj/Debug/net8.0/WLServices.AssemblyInfo.cs
+/api/WLServices/WLServices/bin
+/api/WLServices/WLServices/obj
+/api/WLServices/WLServices/obj/Debug
+/api/WLServices/.vs
