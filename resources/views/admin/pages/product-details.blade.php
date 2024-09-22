@@ -192,9 +192,9 @@
                     </div>
                     <div class="mb-3 form-floating">
                         <select id="ddlCategory" class="form-select fs-09" name="category" value="{{$product->category}}" required>
-                            <option value="laptop">Laptop</option>
-                            <option value="prebuilt">Prebuilt</option>
-                            <option value="accessories">Accessories</option>
+                            <option value="laptop" {{$product->category == 'laptop'? 'selected':''}}>Laptop</option>
+                            <option value="prebuilt" {{$product->category == 'prebuilt'? 'selected':''}}>Prebuilt</option>
+                            <option value="accessories" {{$product->category == 'accessories'? 'selected':''}}>Accessories</option>
                         </select>
                         <label for="ddlCategory">Category</label>
                     </div>

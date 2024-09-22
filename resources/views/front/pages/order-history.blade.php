@@ -1,6 +1,17 @@
 @extends('front.layouts.default')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
+@if (session('success'))
+  <div class="row" style="padding: 0.5rem 1rem;">
+    <div class="SuccessBox">
+    <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+    <label>{{ session('success') }}</label>
+    <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+    </div>
+  </div>
+@endif
+
 <div id="content" class="">
   <div class="container py-5">
     <div class="row">
@@ -59,63 +70,67 @@
         @forelse($customerOrders as $order)
           <div class="card text-center my-3">
             <div class="card-body backgroundGrey">
-                @foreach ($order->orderItems as $item)
-                  <div class="row my-4">
-                    <div class="col-md-2">
-                      <img src="{{ $item->product->img_src1 }}" class="img-test" alt="Phone">
-                    </div>
-                    <div class="col-md-2">
-                      <p class="text-center">{{ $item->product->title }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="text-center">{{ $item->product->category }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="text-center">{{ $item->product->description }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="text-center">{{ $item->quantity }}</p>
-                    </div>
-                    <div class="col-md-2">
-                      <p class="text-center">{{ $item->price }}</p>
-                    </div>
-                  </div>
-                @endforeach
-              
-              <div class="row">
-                <div class="col-md-6 offset-md-8 mt-4">
-                  <button type="button" class="btn btn-primary">Review</button>
+            @foreach ($order->orderItems as $item)
+              <div class="row my-4">
+                <div class="col-md-2">
+                  <img src="{{ Storage::disk('products')->url($item->product->img_src1) }}" class="img-test" alt="Phone">
+                </div>
+                <div class="col-md-2">
+                  <p class="text-center">{{ $item->product->title }}</p>
+                </div>
+                <div class="col-md-2">
+                  <p class="text-center">{{ $item->product->category }}</p>
+                </div>
+                <div class="col-md-2">
+                  <p class="text-center">{{ $item->product->description }}</p>
+                </div>
+                <div class="col-md-2">
+                  <p class="text-center">{{ $item->quantity }}</p>
+                </div>
+                <div class="col-md-2">
+                  <p class="text-center">{{ number_format($item->price, 2, '.', ',')}}</p>
                 </div>
               </div>
+              @endforeach
+              @foreach ($order->orderItems as $item)
+                @if ($item->quantity == null)
+                  <div class="row">
+                    <div class="col-md-6 offset-md-8 mt-4">
+                      <button type="button" class="btn btn-primary review-button" data-bs-toggle="modal" data-bs-target="#review-modal" data-order-id="{{ $order->id }}" data-items="{{ json_encode($order->orderItems) }}">Review</button>
+                    </div>
+                  </div>
+                @endif
+                @break
+              @endforeach
 
-              <br>
-              <hr class="h4">
+            <br>
+            <hr class="h4">
 
             <div class="card-body backgroundBlue">
               <div class="row my-1">
                 <div class="col-md-4 offset-md-8">
                   <label>Subtotal: </label>
-                  <label class="h5">{{ $order->subtotal }}</label>
+                  <label class="h5">{{ number_format($order->subtotal, 2, '.', ',')}}</label>
                 </div>
               </div>
 
               @if(in_array($order->status, [1, 2, 3]))
                 <div class="row">
                   <div class="col-md-6 offset-md-7 mt-4">
-                    <button type="request" class="btn btn-primary">Cancel Order</button>
-                    <button type="trackOrder" class="btn btn-primary">Check Order</button>
+                    <a href="{{route('front.delivery_stat', $order->id)}}" class="btn btn-primary">Check Order</a>
                   </div>
                 </div>
               @endif
             </div>
           </div>
+        </div>
         @empty
-          <div class="card text-center my-3">
-            <div class="card-body backgroundGrey">
-              <label>You have no orders!</label>
-            </div>
+        <div class="card text-center my-3">
+          <div class="card-body backgroundGrey">
+          <label>You have no orders!</label>
           </div>
-        @endforelse
+        </div>
+      @endforelse
       </div>
     </div>
 
@@ -123,36 +138,53 @@
 
     <!-- modal -->
     <div class="modal modal-lg fade" id="review-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3 form-floating">
-              <input type="text" class="form-control fs-09" id="txtName" placeholder="John"></>
-              <label for="txtName" class="col-form-label">Title</label>
+      <form action="{{ route('front.review_items') }}" method="POST">
+        @csrf
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-3 form-floating">
-              <input type="text" class="form-control fs-09" id="txtDesc" placeholder="John"></input>
-              <label for="txtDesc">Description</label>
+            <div class="modal-body">
+              <div id="review-items-container"></div>
             </div>
-            <div class="mb-3 form-floating">
-              <input type="number" min=1 max=5 step=1 class="form-control fs-09" ID="rating" placeholder="John"></asp:TextBox>
-              <label for="rating" class="col-form-label">Ratings</label>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary fs-09">Submit</button>
             </div>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger fs-09" data-bs-dismiss="modal">Discard
-              changes</button>
-            <button type="button" class="btn btn-primary fs-09">Save</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
+
+    <script>
+      $(document).ready(function () {
+        $('.review-button').on('click', function () {
+          // Clear previous fields
+          $('#review-items-container').empty();
+
+          // Get items data
+          var items = $(this).data('items');
+          var orderId = $(this).data('order-id');
+
+          // Generate input fields for each item
+          items.forEach(function (item) {
+            var itemHtml = `
+                <div class="mb-3">
+                    <label>Your review for ${item.product.title} (ID: ${item.product.id})</label>
+                    <input type="number" min="1" max="5" step="1" class="form-control mt-2" placeholder="Rating (1-5)" name="reviews[${item.product.id}][rating]">
+                </div>
+            `;
+            $('#review-items-container').append(itemHtml);
+          });
+
+          $('#review-items-container').append(`<input type="hidden" name="order_id" value="${orderId}">`);
+        });
+      });
+    </script>
+
   </div>
 </div>
+
 <!-- End Content -->
 @stop

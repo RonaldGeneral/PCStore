@@ -1,5 +1,7 @@
-﻿using Aspose.Cells;
+using Aspose.Cells;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
+using WLServices.Models;
 
 namespace WLServices.Controllers
 {
@@ -8,43 +10,52 @@ namespace WLServices.Controllers
     public class XMLToXSLTController : ControllerBase
     {
         [HttpPost("xml2xlsx")]
-        public IActionResult ImportXml([FromForm] string filePath)
+        public IActionResult ConvertXmlToXlsx([FromBody] XmlRequest request)
         {
+            if (string.IsNullOrEmpty(request.XmlContent))
+            {
+                return BadRequest("XML content cannot be empty.");
+            }
+
+            // Extract the report name from the XML
+            string reportName;
             try
             {
-                // folder path of source and dest
-                var dataDir = @"C:\Files\";
+                var xmlDoc = XDocument.Parse(request.XmlContent);
+                reportName = xmlDoc.Root.Element("report_name")?.Value ?? "DefaultReportName";
+            }
+            catch
+            {
+                reportName = "DefaultReportName"; // Fallback in case of parsing error
+            }
 
-                // ensure the directory exists
-                if (!Directory.Exists(dataDir))
-                {
-                    Directory.CreateDirectory(dataDir);
-                }
+            // Define a temporary file path for the XML
+            string tempXmlFilePath = Path.GetTempFileName() + ".xml";
 
-                // Validate if the file exists
-                var xmlFilePath = Path.Combine(dataDir, filePath);
-                if (!System.IO.File.Exists(xmlFilePath))
-                {
-                    return NotFound("The specified XML file does not exist.");
-                }
+            // Save the XML content to the temporary file
+            System.IO.File.WriteAllText(tempXmlFilePath, request.XmlContent);
 
-                Workbook workbook = new Workbook();
+            try
+            {
+                // Load the XML content into the workbook
+                var workbook = new Workbook(tempXmlFilePath);
 
-                workbook.ImportXml(xmlFilePath, "Sheet1", 0, 0);
+                // Sanitize the report name for use in the file name
+                string sanitizedReportName = string.Concat(reportName.Split(Path.GetInvalidFileNameChars()));
+                string outputFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", $"{sanitizedReportName}.xlsx");
 
-                // save the workbook as XLSX in desktop
-                var outputFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "UserReport_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-                workbook.Save(outputFilePath, SaveFormat.Auto);
+                // Save the workbook to the specified output file path
+                workbook.Save(outputFilePath, SaveFormat.Xlsx);
 
-                // return path of the saved file
-                return Ok(new { FilePath = outputFilePath });
+                // Optionally, delete the temporary XML file
+                System.IO.File.Delete(tempXmlFilePath);
+
+                return Ok(new { Message = "File has been successfully downloaded." });
             }
             catch (Exception ex)
             {
-                // error response
-                return StatusCode(500, "Unable to convert XML file to XSLX file due to an error occurred: " + ex.Message);
+                return StatusCode(500, $"Error processing the XML: {ex.Message}");
             }
         }
     }
 }
-

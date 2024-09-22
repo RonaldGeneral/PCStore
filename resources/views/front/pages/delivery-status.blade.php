@@ -12,15 +12,24 @@
             <table>
                 <tr>
                     <td>
-                        Your order is on the way.
-                        <br />
-                        Delivery attempt should be made by
-                        <br>
-                        <a href="">02-04-2024</label>
+                        @switch($order->status)
+                            @case(1)
+                                Your order is created.
+                                @break
+                            @case(2)
+                                A driver is assigned.
+                                @break
+                            @case(3)
+                                Your order is on its way.
+                                @break
+                            @case(4)
+                                The order has arrived.
+                                @break
+                        @endswitch
                     </td>
                     <td style="width:600px;">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{($order->status-1)*33.33}}%"></div>
                         </div>
                     </td>
                     <td>
@@ -43,7 +52,7 @@
                         SPX Express (West Malaysia)
                     </td>
                     <td class="rightText">
-                        View
+                        
                     </td>
                 </tr>
                 <tr>
@@ -52,40 +61,44 @@
                     </td>
                     <td>
                         <h3>Delivery Address:</h3>
-                        Wong
+                        {{$order->customer->name}}
                         <br />
-                        123, Jalan ABC, Kuala Lumpur.
+                        {{$order->customer->address}}<br>
+                        {{$order->customer->postcode}} {{$order->customer->city}}<br>
+                        {{$order->customer->state}}.
                     </td>
                     <td class="rightText">
-                        Copy
+                        
                     </td>
                 </tr>
             </table>
         </div>
 
         <div class="itemList">
-            <h4 class="mb-0">Shop XYZ</h4>
+            <h4 class="mb-0">TerraByte</h4>
             <br />
 
             <table>
+                @foreach($order->orderItems as $item)
                 <tr class="black-line">
                     <td class="orderItem">
-                        <img id="ImageProduct" src="{{ URL::asset('img/iphone.jpg') }}" alt="iPhone" />
+                        <img id="ImageProduct" src="{{ Storage::disk('products')->url($item->product->img_src1) }}" alt="iPhone" />
                     </td>
                     <td>
-                        iPhone 15 Pro Max
+                        {{$item->title}}
                     </td>
                     <td>
-                        X1
+                        Quantity : {{$item->quantity}}
                     </td>
                 </tr>
+                @endforeach
                 <tr>
                     <td>
                         Order Total
                     </td>
                     <td></td>
                     <td>
-                        RM 7,000.00
+                        RM {{number_format($order->total, 2, '.', ',')}}
                     </td>
                 </tr>
             </table>
@@ -93,7 +106,7 @@
         </div>
 
         <div class="itemList">
-            <h4 class="mb-0">Shop XYZ</h4>
+            <h4 class="mb-0">TerraByte</h4>
             <br />
 
             <table>
@@ -102,7 +115,7 @@
                         Order ID
                     </td>
                     <td class="rightText">
-                        25621GGD723819 <a href="copy">Copy</a>
+                        #{{$order->id}} 
                     </td>
                 </tr>
                 <tr>
@@ -110,31 +123,7 @@
                         Order Time
                     </td>
                     <td class="rightText">
-                        29-03-2023 22:42
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Payment Time
-                    </td>
-                    <td class="rightText">
-                        29-03-2023 22:45
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Ship Time
-                    </td>
-                    <td class="rightText">
-                        30-03-2023 15:44
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Complete Time
-                    </td>
-                    <td class="rightText">
-                        31-03-2023 18:45
+                        {{$order->created_on}}
                     </td>
                 </tr>
             </table>
@@ -142,9 +131,10 @@
             <br />
 
             <div class="d-grid gap-2 d-md-block col-2 mx-auto">
-                <button id="ButtonMainPage" class="btn btn-primary" type="button" onclick="ButtonMainPage_Click">Back to Main Page</button>
+                <a class="btn btn-primary" href="{{route('front.order_hist')}}">Back</a>
             </div>
 
         </div>
     </div>
 </div>
+@stop

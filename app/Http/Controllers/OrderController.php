@@ -46,7 +46,25 @@ class OrderController extends Controller
         if($order->status == -1) 
             return redirect()->route('orders.index');
 
-        return view('admin.pages.order-details', compact('order'));
+        $response = Http::accept('application/json')->get('http://localhost:5200/payment/get', [
+            'id'=>$order->payment->token
+        ]);
+
+        $res = $response->json();
+
+        $xml = new \DOMDocument();
+        $xml->loadXML($res['data']);
+
+        $xsl = new \DOMDocument();
+        $xsl->substituteEntities = TRUE;
+        $xsl->load(Storage::disk('xslt')->path('payment.xsl'));
+
+        $xsltProcessor = new XSLTProcessor();
+        $xsltProcessor->importStylesheet($xsl);
+
+        $payment_html = $xsltProcessor->transformToXML($xml);
+
+        return view('admin.pages.order-details', compact('order', 'payment_html'));
     }
 
     public function updateStatus(Request $request)

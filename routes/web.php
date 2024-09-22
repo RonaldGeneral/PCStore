@@ -33,12 +33,14 @@ Route::middleware([CustomerAuth::class])->group(function () {
     Route::get('/front/checkout/summary', [OrderController::class,'checkout'])->name('order.checkout');
     Route::post('/front/checkout/pay', [OrderController::class,'makePayment'])->name('order.makePayment');
     Route::get('/front/checkout/create/{payment}', [OrderController::class,'create'])->name('order.create');
+    Route::get('/front/delivery-status/{order}', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
 
 
     Route::get('/front/payment', [OrderController::class,'showPayment'])->name('order.showPayment');
     Route::get('/front/profile', [CustomerController::class,'profile'])->name('front.profile');
     Route::get('/front/new-password', [CustLoginController::class,'newPassword'])->name('front.new_pw');
     Route::get('/front/order-history', [CustomerController::class,'orderHistory'])->name('front.order_hist');
+    Route::post('/front/review-items', [CustomerController::class,'reviewOrderItems'])->name('front.review_items');
 });
 
 Route::post('/front/checkout/pay-success/{payment}', [OrderController::class,'updatePayment'])->withoutMiddleware(VerifyCsrfToken::class)->name('order.updatePayment');
@@ -55,7 +57,6 @@ Route::get('/front/login', [CustLoginController::class,'index'])->name('front.lo
 Route::get('/front/signup', [CustLoginController::class,'signUp'])->name('front.signup');
 Route::get('/front/forgot-password', [CustLoginController::class,'forgotPassword'])->name('front.forgot_pw');
 
-Route::get('/front/delivery-status', [CustomerController::class,'deliveryStatus'])->name('front.delivery_stat');
 
 
 Route::post('/create-account', [CustLoginController::class,'createAccount'])->name('create-account');
@@ -92,10 +93,6 @@ Route::middleware([CheckStaffAccess::class])->group(function () {
 
 });
 
-Route::get('/admin/report-page', [ReportsController::class,'reports'])->name('admin.reports');
-Route::post('/admin/filter-orders', [ReportsController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
-Route::post('/admin/download-report', [ReportsController::class, 'downloadReport'])->name('admin.download-report');
-Route::post('/admin/upload-report', [ReportsController::class, 'uploadXmlReport'])->name('admin.upload-xml');
 
 Route::middleware([CheckCustomerAccess::class])->group(function () {
     Route::get('/admin/customer-details/{customer}', [AdminCustomerController::class, 'view'])->name('customers.view');
@@ -125,6 +122,8 @@ Route::middleware([CheckProductAccess::class])->group(function () {
 });
 
 Route::middleware([CheckReportAccess::class])->group(function () {
-    Route::get('/admin/report-page', [AdminStaffController::class,'reports'])->name('admin.reports');
-    Route::post('/admin/filter-orders', [AdminStaffController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+    Route::get('/admin/report-page', [ReportsController::class,'reports'])->name('admin.reports');
+    Route::post('/admin/filter-orders', [ReportsController::class, 'filterOrdersForReport'])->name('admin.filter-orders');
+    Route::post('/admin/download-report', [ReportsController::class, 'downloadReport'])->name('admin.download-report');
+    Route::post('/admin/upload-report', [ReportsController::class, 'uploadXmlReport'])->name('admin.upload-xml');
 });

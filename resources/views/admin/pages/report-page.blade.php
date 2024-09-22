@@ -9,6 +9,17 @@
     Report & Analytics
 </div>
 
+@if ($errors->has('error'))
+    <div class="row" style="padding: 0.5rem 1rem;">
+        <div class="FailedBox">
+            <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+            <label>{{ $errors->first('error') }}</label>
+            <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+        </div>
+    </div>
+@endif
+
+
 @if(isset($htmlContent))
     <div class="row">
         <div class="col-1">
@@ -102,7 +113,7 @@
             <div class="col-6">
                 <div class="card p-3">
                     <div class="card-body">
-                        <form action="{{ route('admin.download-report') }}" method="POST">
+                        <form action="{{ route('admin.download-report') }}" method="POST" class="download-report-form">
                             @csrf
                             <h5>Sales Figure</h5>
                             <div>
@@ -151,7 +162,7 @@
 
                             <br /><br />
                             <button type="submit" name="action" class="btn btn-secondary mx-2" value="download_xml">Download as XML</button>
-                            <button type="submit" name="action" class="btn btn-success mx-2" value="download_xlsx">Download as XSLX (Excel)</button>
+                            <button type="submit" name="action" class="btn btn-success mx-2 download_XLSX" value="download_xlsx">Download as XSLX (Excel)</button>
                         </form>
                     </div>
                 </div>
@@ -160,7 +171,7 @@
             <div class="col-6">
                 <div class="card p-3">
                     <div class="card-body">
-                        <form action="{{ route('admin.download-report') }}" method="POST">
+                        <form action="{{ route('admin.download-report') }}" method="POST" class="download-report-form">
                             @csrf
                             <h5 class="header-title mb-3">Sales by Category</h5>
                             <div>
@@ -198,7 +209,7 @@
 
                             <br /><br />
                             <button type="submit" name="action" class="btn btn-secondary mx-2" value="download_xml">Download as XML</button>
-                            <button type="submit" name="action" class="btn btn-success mx-2" value="download_xlsx">Download as XSLX (Excel)</button>
+                            <button type="submit" name="action" class="btn btn-success download_XLSX mx-2" value="download_xlsx">Download as XSLX (Excel)</button>
                         </form>
                     </div>
                 </div>

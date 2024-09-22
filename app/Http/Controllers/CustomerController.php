@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -27,9 +28,18 @@ class CustomerController extends Controller
         return view("front.pages.profile", compact('customer', 'formattedDob'));
     }
 
-    public function deliveryStatus()
+    public function deliveryStatus($id)
     {
-        return view("front.pages.delivery-status");
+
+        $customer = Auth::guard('customer')->user();
+        $order = Order::where('customer_id', '=', $customer->id)
+            ->whereNot('status', -1)
+            ->find($id);
+
+        if (!$order)
+            return redirect()->route('front.home');
+
+        return view("front.pages.delivery-status", compact('order'));
     }
 
     public function orderHistory(Request $request)
@@ -39,7 +49,7 @@ class CustomerController extends Controller
         $customer = Auth::guard('customer')->user();
 
         $customerOrders = Order::where('customer_id', Auth::guard('customer')->id())
-            ->where('status', '!=', -1)
+            ->where('status', '!=', -1)->orderBy('created_on', 'desc')
             ->get();
 
 
@@ -106,5 +116,22 @@ class CustomerController extends Controller
         $customer->update($validatedData);
 
         return redirect()->route('order.checkout');
+    }
+
+    public function reviewOrderItems(Request $request)
+    {
+        $validatedData = $request->validate([
+            'order_id' => 'required|integer|exists:order,id',
+            'reviews.*.rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        foreach ($validatedData['reviews'] as $productId => $reviewData) {
+            OrderItem::where('product_id', $productId)
+                ->where('order_id', $validatedData['order_id'])
+                ->update(['rating' => $reviewData['rating'],]);
+        }
+
+        // Redirect or return response
+        return redirect()->back()->with('success', 'Reviews saved successfully!');
     }
 }
