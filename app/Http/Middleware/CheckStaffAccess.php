@@ -1,5 +1,9 @@
 <?php
 
+/**
+  * @author Christopher Wong Jia He
+  */
+
 namespace App\Http\Middleware;
 
 use Closure;
