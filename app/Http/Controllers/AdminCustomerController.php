@@ -23,7 +23,7 @@ class AdminCustomerController extends Controller
             
             'name' => 'required|string|max:255',
             'birthdate' => 'required|before:today',
-            'phone' => 'required|digits:12',
+            'phone' => 'required|min:10|max:14',
             'email' => 'required|email|unique:customer,email',
             'gender' => 'required',
             'address' => 'required|max:500',

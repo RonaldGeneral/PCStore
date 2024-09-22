@@ -6,7 +6,7 @@
                 </svg>
             </span>
             <div class="header-account">
-                <img alt="profile-image" src="{{ URL::asset('res/man1.jpg') }}" class="m-2 person-icon shadow-xl">
+                <img alt="profile-image" src="{{ URL::asset('img/pic.jfif') }}" class="m-2 person-icon shadow-xl">
                 <div class="account-text">
                     <div class="account-name">John Smith</div>
                     <div class="account-pos">Manager</div>
