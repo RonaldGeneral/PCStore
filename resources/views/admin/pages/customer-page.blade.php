@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="text-sm-end">
-                        <input type="text" placeholder="Search..." class="form-control dropdown-toggle fs-09">
+                        <!-- <input type="text" placeholder="Search..." class="form-control dropdown-toggle fs-09"> -->
                     </div>
                 </div>
             </div>

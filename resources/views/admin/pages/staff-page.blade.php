@@ -20,8 +20,8 @@
             </div>
             <div class="col-sm-3">
                 <div class="text-sm-end">
-                    <input type="search" class="form-control dropdown-toggle fs-09" placeholder="Search..."
-                        id="top-search">
+                    <!-- <input type="search" class="form-control dropdown-toggle fs-09" placeholder="Search..."
+                        id="top-search"> -->
                 </div>
             </div>
         </div>
