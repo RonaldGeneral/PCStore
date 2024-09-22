@@ -114,6 +114,13 @@
                         </ul>
                     </div>
                 </div>
+                <div class="p-3">
+                <a href="{{ route('admin.promo-mail',$customer->id) }}" class="btn btn-primary mb-2 text-white fs-09">
+                        Send Promotional E-Mail
+                    </a>
+                </div>
+
+
             </div>
             <div class="col-3 mx-4">
                 <div class="card">

@@ -10,6 +10,18 @@
     <link href="{{ URL::asset('style/login.css') }}" rel="stylesheet" />
 </head>
 <body>
+
+
+@if (session('success'))
+  <div class="row" style="padding: 0.5rem 1rem;">
+    <div class="SuccessBox">
+    <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+    <label>{{ session('success') }}</label>
+    <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+    </div>
+  </div>
+@endif
+
     <div class="container py-5 w-75 h-100">
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -48,6 +60,28 @@
                       </div>
                       <br />
                     @endif
+
+@if (session('loginError'))
+  <div class="row" style="padding: 0.5rem 1rem;">
+    <div class="FailedBox">
+    <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+    <label class="text-danger">{{ session('loginError') }}</label>
+    <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+    </div>
+  </div>
+@endif
+
+@if ($errors->any())
+  @foreach ($errors->all() as $error)
+    <div class="row" style="padding: 0.5rem 1rem;">
+      <div class="FailedBox">
+        <i class="fa fa-check-circle-o" style="padding-right: 10px; font-size: 20px;"></i>
+        <label class="text-danger">{{ $error }}</label>
+        <span class="DivClose" onclick="this.closest('.row').remove(); return false;">&times;</span>
+      </div>
+    </div>
+  @endforeach
+@endif
               <button class="btn btn-primary btn-lg px-5 mb-3 shadow-sm" type="submit">Login</button>
             </form>
           </div> 

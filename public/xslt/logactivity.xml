@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<activity>
+
+    <log>
+    <title>Add customer</title>
+    <description>Customer James #7 added</description>
+    <page>Customer Page</page>
+    <adminusername>admin123</adminusername>
+    <createdon>2024-09-20 23:13:09</createdon>
+    </log>
+
+    <log>
+    <title>Add staff</title>
+    <description>Staff Sales admin Joe #3 added</description>
+    <page>Staff Page</page>
+    <adminusername>admin123</adminusername>
+    <createdon>2024-09-23 22:05:02</createdon>
+    </log>
+
+    <log>
+    <title>Add product</title>
+    <description>Product Lenovo Ideapad #2 added</description>
+    <page>Product Page</page>
+    <adminusername>admin123</adminusername>
+    <createdon>2024-09-24 21:34:16</createdon>
+    </log>
+
+</activity>

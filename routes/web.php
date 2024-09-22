@@ -102,7 +102,9 @@ Route::middleware([CheckCustomerAccess::class])->group(function () {
     Route::get('/admin/customer-page', [AdminCustomerController::class, 'index'])->name(name: 'customers.index');
     Route::post('/admin/customer-page', [AdminCustomerController::class, 'create'])->name('customers.create');
     Route::delete('/admin/customer-page', [AdminCustomerController::class, 'destroy'])->name('customers.destroy');
-    Route::put('/admin/customer-details{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
+    Route::put('/admin/customer-details/{customer}', [AdminCustomerController::class, 'edit_details'])->name('customers.edit_details');
+    Route::get('/admin/promo-mail/{id}', [AdminCustomerController::class, 'enterEmail'])->name('admin.promo-mail');
+    Route::post('/admin/promo-mail', [AdminCustomerController::class, 'promotionVoucher'])->name('promo_mail');
 });
 
 Route::middleware([CheckOrderAccess::class])->group(function () {

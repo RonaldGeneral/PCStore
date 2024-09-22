@@ -11,6 +11,7 @@ use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class AdminStaffController extends Controller
 {
@@ -113,7 +114,8 @@ class AdminStaffController extends Controller
 
         $admin->save();
 
-
+        LogActivityController::logActivity(
+            'Add staff', 'Staff '.$admin->name." #". $admin->id ." added", 'staff_page');
 
         return redirect()->route('admins.index');
     }
@@ -122,6 +124,8 @@ class AdminStaffController extends Controller
     {
         $id = $request->delete_id;
         $admin = Admin::find($id);
+        LogActivityController::logActivity(
+            'Delete staff', 'Staff '.$admin->name." #". $admin->id ." deleted", 'staff_page');
         $admin->delete();
         return redirect()->route('admins.index')
             ->with('success', 'Admin deleted successfully');
@@ -171,34 +175,12 @@ class AdminStaffController extends Controller
         $admin->position_id = strip_tags($request->position_id);
         $admin->save();
 
-
+        LogActivityController::logActivity(
+            'Edit staff', 'Staff '.$admin->name." #". $admin->id ." edited", 'staff_page');
 
         return redirect()->route('admins.view', $id)
             ->with('success', 'Admin details edited successfully');
     }
 
-    public function promotionVoucher(){
-        $request->validate([
-            'email' => 'required|email|exists:customer,email',
-        ]);
-
-        $email = $request->input('email');
-
-        if($email == null){
-            return response()->json(['success' => false, 'message' => 'This email address does not exist in our database.']);
-        }
-
-        $discount=random_int(10,80);
-    }
-
-    public function sendPromotionFromApi($email)
-    {
-        $data = [
-            'receiver' => $email,
-            'subject' => 'Voucher Winner',
-            'message' => 'CONGRATULATIONS! <br/>You have won a voucher worth' .$discount .'% off your next purchase of selected products!<br/>'.'Terms and Conditions Apply <br/><br/>TerraByte Malaysia',
-        ];
-
-        return Http::post('http://localhost:5002/api/emailservice/send', $data);
-    }
+    
 }
