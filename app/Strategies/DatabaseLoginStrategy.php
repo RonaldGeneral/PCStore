@@ -1,5 +1,9 @@
 <?php
 
+/**
+  * @author Leong Wai Loc
+  */
+
 namespace App\Strategies;
 
 use App\Strategies\LoginStrategy;

@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+<!-- Author: Christopher Wong Jia He -->
     <div class="page-path">Staffs</div>
     <div class="card ">
         <div class="row m-4">

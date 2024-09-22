@@ -6,6 +6,7 @@
 @stop
 
 @section('content')
+<!-- Author: Christopher Wong Jia He -->
      <div class="page-path"> Profile</div>
  <div class="col-12 col-xl-6">
      <div class="card card-plain h-100 shadow-sm">

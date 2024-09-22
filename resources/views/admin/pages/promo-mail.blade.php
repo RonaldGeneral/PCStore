@@ -19,6 +19,7 @@
 @endif
 
 @section('content')
+<!-- Author: Christopher Wong Jia He -->
 <form action="{{ route('promo_mail') }}" method="POST">
   @csrf
   <input type="hidden" name="id" value="{{$id}}}">
