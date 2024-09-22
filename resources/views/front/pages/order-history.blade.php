@@ -2,6 +2,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
+
+<!-- Author: Leong Wai Loc -->
 @if (session('success'))
   <div class="row" style="padding: 0.5rem 1rem;">
     <div class="SuccessBox">

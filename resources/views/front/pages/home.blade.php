@@ -1,6 +1,8 @@
 @extends('front.layouts.default')
 
 @section('content')
+
+<!-- Author: Leong Wai Loc -->
 <div id="content" class="p-3">
   <div class="row py-4 px-4">
     <div id="homeSlide" class="carousel slide" data-bs-ride="carousel">

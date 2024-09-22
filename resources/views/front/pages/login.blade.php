@@ -2,6 +2,7 @@
 
 @section('content')
 
+<!-- Author: Leong Wai Loc -->
 @if (session('loginError'))
   <div class="row" style="padding: 0.5rem 1rem;">
     <div class="FailedBox">
