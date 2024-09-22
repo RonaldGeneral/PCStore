@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -97,6 +98,7 @@ class CustomerController extends Controller
         }
 
         $customer = Auth::guard('customer')->user();
+        $validatedData['password'] = Hash::make($validatedData['password']);
         $customer->update($validatedData);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
