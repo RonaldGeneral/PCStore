@@ -157,36 +157,8 @@
     </div> <!-- end col -->
 
     @if($order->payment)
-
-        <div class="col-3">
-            <div class="card p-3">
-                <div class="card-body">
-                    <h5 class="header-title mb-3">Billing Information</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            
-                            @switch($order->payment->payment_method)
-                                @case('tng')
-                                    <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>TnG Ewallet</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">TnG number:</span> {{$order->payment->tng_number}}</p>
-                                    @break
-                                @case('fpx')
-                                    <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>FPX Transfer</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">FPX Bank Name:</span> {{$order->payment->fpx_bank_name}}</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Card Number:</span> {{$order->payment->card_number}}</p>
-                                    @break
-                                @case('card')
-                                    <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span>Debit/Credit card</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Card number:</span> {{$order->payment->card_number}}</p>
-                                    @break
-                            @endswitch
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </div> 
+    
+        {!! $payment_html !!}
 
     @endif
 </div>
