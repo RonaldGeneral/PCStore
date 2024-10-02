@@ -163,7 +163,7 @@
 
                             <br /><br />
                             <button type="submit" name="action" class="btn btn-secondary mx-2" value="download_xml">Download as XML</button>
-                            <button type="submit" name="action" class="btn btn-success mx-2 download_XLSX" value="download_xlsx">Download as XSLX (Excel)</button>
+                            <button type="submit" name="action" class="btn btn-success mx-2 download_XLSX" value="download_xlsx">Download as XLSX (Excel)</button>
                         </form>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
 
                             <br /><br />
                             <button type="submit" name="action" class="btn btn-secondary mx-2" value="download_xml">Download as XML</button>
-                            <button type="submit" name="action" class="btn btn-success download_XLSX mx-2" value="download_xlsx">Download as XSLX (Excel)</button>
+                            <button type="submit" name="action" class="btn btn-success download_XLSX mx-2" value="download_xlsx">Download as XLSX (Excel)</button>
                         </form>
                     </div>
                 </div>
