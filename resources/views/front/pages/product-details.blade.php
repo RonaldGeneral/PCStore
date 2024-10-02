@@ -11,7 +11,7 @@
     <div class="col-2"></div>
     <div class="col-4 my-5 ms-3">
         <div>
-            <h2>Lenovo Ideapad 3</h2>
+            <h2>{{$product->title}}</h2>
             <span class="svg-yellow">
                 @foreach ($product->total_rating['formatted'] as $star)
                     @switch($star)
