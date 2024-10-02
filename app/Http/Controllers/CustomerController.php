@@ -24,8 +24,8 @@ class CustomerController extends Controller
     {
         $customer = Auth::guard('customer')->user();
 
-        if ($customer->dob != null) {
-            $formattedDob = Carbon::parse($customer->dob)->format('Y-m-d');
+        if ($customer->birthdate != null) {
+            $formattedDob = Carbon::parse($customer->birthdate)->format('Y-m-d');
         } else {
             $formattedDob = '';
         }
@@ -95,10 +95,10 @@ class CustomerController extends Controller
                 'city' => 'required|string',
                 'password' => 'required|min:8|confirmed'
             ]);
+            $validatedData['password'] = Hash::make($validatedData['password']);
         }
 
         $customer = Auth::guard('customer')->user();
-        $validatedData['password'] = Hash::make($validatedData['password']);
         $customer->update($validatedData);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
